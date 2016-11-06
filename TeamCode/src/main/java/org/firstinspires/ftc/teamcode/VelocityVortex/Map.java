@@ -24,26 +24,27 @@ public class Map extends  VelocityVortexHardware{
     // Warning
     Warning warning = new Warning();
     //------------Mapping Method------------
-    void map(DcMotor motor, double initPower) {
+    DcMotor map(DcMotor motor, double initPower) {
         try {
-            motor = hardwareMap.dcMotor.get(motor.getDeviceName());
+            motor = hardwareMap.dcMotor.get(motor.toString());
             motor.setPower(initPower);
         } catch (Exception opModeException) {
-            warning.setDriveWarningMessage(motor.getDeviceName());
+            warning.setDriveWarningMessage(motor.toString());
             DbgLog.msg(opModeException.getLocalizedMessage());
         }
+        return motor;
     }
-    void map(DcMotor motor, double initPower, boolean reverse) {
+    DcMotor map(DcMotor motor, double initPower, boolean reverse) {
         try {
-            motor = hardwareMap.dcMotor.get(motor.getDeviceName());
+            motor = hardwareMap.dcMotor.get(motor.toString());
             if (reverse)
                 motor.setDirection(DcMotorSimple.Direction.REVERSE);
             motor.setPower(initPower);
         } catch (Exception opModeException) {
-            warning.setDriveWarningMessage(motor.getDeviceName());
+            warning.setDriveWarningMessage(motor.toString());
             DbgLog.msg(opModeException.getLocalizedMessage());
-            //motor = null;
         }
+        return motor;
     }
     void map(Servo servo, double initPosition) {
         try {

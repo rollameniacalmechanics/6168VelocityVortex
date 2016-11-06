@@ -41,7 +41,7 @@ public class VelocityVortexHardware extends OpMode {
     private double initSweeperPower = 0;
     // Servos - Initial Positions
 
-    //------------initial positions------------
+    //------------loop positions------------
     // ADD LOOP POWER AND POSITION VARIABLES HERE:
     // DcMotors - Loop Power
     protected double leftDrivePower = 0;
@@ -67,18 +67,8 @@ public class VelocityVortexHardware extends OpMode {
         // Initialize Warnings Generated and Warning Messages
         Warning message = new Warning();
         message.initWarnings(); //Provide telemetry data to a class user
-        // Hardware Map
-        Map hardware = new Map();
-        // ADD HARDWARE MAP HERE;
-        // DcMotors - Map
-        hardware.map(mFL,initLeftDrivePower);
-        hardware.map(mFR,initRightDrivePower,true); // "true" reverses motor direction
-        hardware.map(mBL,initBackLeftPower);
-        hardware.map(mBR,initBackRightPower,true); // "true" reverses motor direction
-        // Servos - Map
-
-        // Sensors - Map
-
+        VelocityVortexMap hardware = new VelocityVortexMap();
+        hardware.map();
     }
     //------------------------Loop------------------------
     /**
