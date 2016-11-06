@@ -26,6 +26,7 @@ public class VelocityVortexHardware extends OpMode {
     protected DcMotor mFR; // Front Right Drive Motor
     protected DcMotor mBL; // Back Left Drive Motor
     protected DcMotor mBR; // Back Right Drive Motor
+    protected DcMotor mSwpr; // Sweeper motor
     // Servos
 
     // Sensors
@@ -37,6 +38,7 @@ public class VelocityVortexHardware extends OpMode {
     private double initRightDrivePower = 0;
     private double initBackLeftPower = 0;
     private double initBackRightPower = 0;
+    private double initSweeperPower = 0;
     // Servos - Initial Positions
 
     //------------initial positions------------
@@ -46,6 +48,7 @@ public class VelocityVortexHardware extends OpMode {
     protected double rightDrivePower = 0;
     protected double backLeftPower = 0;
     protected double backRightPower = 0;
+    protected double SweeperPower = 0;
     // Servos - Loop Positions
 
     //------------Telemetry Warnings------------
