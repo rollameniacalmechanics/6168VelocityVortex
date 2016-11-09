@@ -80,10 +80,14 @@ public class VelocityVortexHardware extends OpMode {
 
         // Sensors - Map
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         VelocityVortexMap hardware = new VelocityVortexMap();
         hardware.map();
 >>>>>>> origin/Logan-code
+=======
+
+>>>>>>> parent of cb48e07... sweeper
 =======
 
 >>>>>>> parent of cb48e07... sweeper
