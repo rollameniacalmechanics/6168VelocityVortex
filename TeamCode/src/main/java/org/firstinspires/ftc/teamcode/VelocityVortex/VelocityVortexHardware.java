@@ -26,7 +26,7 @@ public class VelocityVortexHardware extends OpMode {
     protected DcMotor mFR; // Front Right Drive Motor
     protected DcMotor mBL; // Back Left Drive Motor
     protected DcMotor mBR; // Back Right Drive Motor
-    protected DcMotor mSweeper; // Sweeper motor
+    protected DcMotor mSwpr; // Sweeper motor
     // Servos
 
     // Sensors
@@ -75,15 +75,18 @@ public class VelocityVortexHardware extends OpMode {
         hardware.map(mFL,initLeftDrivePower);
         hardware.map(mFR,initRightDrivePower,true); // "true" reverses motor direction
         hardware.map(mBL,initBackLeftPower);
-        hardware.map(mBR,initBackRightPower,true);// "true" reverses motor direction
-        hardware.map(mSweeper,initSweeperPower);
+        hardware.map(mBR,initBackRightPower,true); // "true" reverses motor direction
         // Servos - Map
 
         // Sensors - Map
+<<<<<<< HEAD
 =======
         VelocityVortexMap hardware = new VelocityVortexMap();
         hardware.map();
 >>>>>>> origin/Logan-code
+=======
+
+>>>>>>> parent of cb48e07... sweeper
     }
     //------------------------Loop------------------------
     /**

@@ -24,9 +24,6 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         OmniWheelDrive omniWheels = new OmniWheelDrive();
         double[] wheels;
         wheels = omniWheels.drive(gamepad1);
-        double sweeperPower;
-        Sweeper sweep = new Sweeper();
-        sweeperPower = sweep.sweep(gamepad1.left_trigger,gamepad1.right_trigger);
         // Set Drive Train Power
         leftDrivePower  = wheels[0];
         rightDrivePower = wheels[1];
@@ -36,7 +33,6 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         mFR.setPower(rightDrivePower);
         mBR.setPower(backRightPower);
         mBL.setPower(backLeftPower);
-        mSweeper.setPower(SweeperPower);
         tele.loopTele();
     }
 }
