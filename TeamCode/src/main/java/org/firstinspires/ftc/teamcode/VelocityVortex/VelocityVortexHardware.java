@@ -67,8 +67,30 @@ public class VelocityVortexHardware extends OpMode {
         // Initialize Warnings Generated and Warning Messages
         Warning message = new Warning();
         message.initWarnings(); //Provide telemetry data to a class user
+<<<<<<< HEAD
+        // Hardware Map
+        Map hardware = new Map();
+        // ADD HARDWARE MAP HERE;
+        // DcMotors - Map
+        hardware.map(mFL,initLeftDrivePower);
+        hardware.map(mFR,initRightDrivePower,true); // "true" reverses motor direction
+        hardware.map(mBL,initBackLeftPower);
+        hardware.map(mBR,initBackRightPower,true); // "true" reverses motor direction
+        // Servos - Map
+
+        // Sensors - Map
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
         VelocityVortexMap hardware = new VelocityVortexMap();
         hardware.map();
+>>>>>>> origin/Logan-code
+=======
+
+>>>>>>> parent of cb48e07... sweeper
+=======
+
+>>>>>>> parent of cb48e07... sweeper
     }
     //------------------------Loop------------------------
     /**
