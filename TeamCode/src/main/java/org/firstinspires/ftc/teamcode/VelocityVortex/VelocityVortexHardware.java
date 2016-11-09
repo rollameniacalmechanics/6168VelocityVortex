@@ -26,7 +26,7 @@ public class VelocityVortexHardware extends OpMode {
     protected DcMotor mFR; // Front Right Drive Motor
     protected DcMotor mBL; // Back Left Drive Motor
     protected DcMotor mBR; // Back Right Drive Motor
-    protected DcMotor mSwpr; // Sweeper motor
+    protected DcMotor mSweeper; // Sweeper motor
     // Servos
 
     // Sensors
@@ -74,11 +74,11 @@ public class VelocityVortexHardware extends OpMode {
         hardware.map(mFL,initLeftDrivePower);
         hardware.map(mFR,initRightDrivePower,true); // "true" reverses motor direction
         hardware.map(mBL,initBackLeftPower);
-        hardware.map(mBR,initBackRightPower,true); // "true" reverses motor direction
+        hardware.map(mBR,initBackRightPower,true);// "true" reverses motor direction
+        hardware.map(mSweeper,initSweeperPower);
         // Servos - Map
 
         // Sensors - Map
-
     }
     //------------------------Loop------------------------
     /**
