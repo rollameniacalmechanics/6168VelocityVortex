@@ -10,14 +10,22 @@ public class VelocityVortexMap extends VelocityVortexHardware{
         // Hardware Map
         // ADD HARDWARE MAP HERE;
         // DcMotors - Map
-        mFL = hardwareMap.dcMotor.get("mFL");
-        mFR = hardwareMap.dcMotor.get("mFR");
+        mFL = hardwareMap.dcMotor.get("fl");
+        mFR = hardwareMap.dcMotor.get("fr");
         mFR.setDirection(DcMotorSimple.Direction.REVERSE);
-        mBL = hardwareMap.dcMotor.get("mBL");
-        mBR = hardwareMap.dcMotor.get("mBR");
+        mBL = hardwareMap.dcMotor.get("bl");
+        mBR = hardwareMap.dcMotor.get("br");
+        mBR.setDirection(DcMotorSimple.Direction.REVERSE);
+        mSweeper = hardwareMap.dcMotor.get("swpr");
         // Servos - Map
-
+        //sLeftBeacon = hardwareMap.servo.get("sLeftButt");
+        //sRightBeacon = hardwareMap.servo.get("sRightButt");
         // Sensors - Map
-
+        //touch = hardwareMap.touchSensor.get("touch");
+        //color1 = hardwareMap.colorSensor.get("color1");
+        //light1 = hardwareMap.lightSensor.get("light1");
+        //light2 = hardwareMap.lightSensor.get("light2");
+        //gyro = hardwareMap.gyroSensor.get("gyro");
+        //range = hardwareMap.
     }
 }

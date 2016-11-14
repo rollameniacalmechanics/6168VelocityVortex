@@ -16,7 +16,7 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
     }
     public void init_loop() {
         //super.init_loop();
-        tele.initLoopTele();
+        //tele.initLoopTele();
     }
     //@Override
     public void loop() {
@@ -33,6 +33,11 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         mFR.setPower(rightDrivePower);
         mBR.setPower(backRightPower);
         mBL.setPower(backLeftPower);
+        MySweeper sweeper = new MySweeper();
+        double left = gamepad1.left_trigger;
+        double right = gamepad1.right_trigger;
+        sweeperPower = sweeper.sweep(left,right);
+        mSweeper.setPower(sweeperPower);
         tele.loopTele();
     }
 }

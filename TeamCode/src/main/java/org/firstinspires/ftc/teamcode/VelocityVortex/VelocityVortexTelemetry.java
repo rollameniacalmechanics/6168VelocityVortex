@@ -35,6 +35,7 @@ public class VelocityVortexTelemetry extends VelocityVortexHardware{
         telemetry.addData("Front Right",rightDrivePower);
         telemetry.addData("Back Right", backRightPower);
         telemetry.addData("Back Left", backLeftPower);
+        telemetry.addData("Sweeper", sweeperPower);
         // Servos - Telemetry
 
         // Sensors - Telemetry

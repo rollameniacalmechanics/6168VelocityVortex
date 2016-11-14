@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.VelocityVortex;
  * Created by logan on 11/6/2016.
  */
 
-public class Sweeper {
+public class MySweeper {
     double num;
     double r;
     double l;
