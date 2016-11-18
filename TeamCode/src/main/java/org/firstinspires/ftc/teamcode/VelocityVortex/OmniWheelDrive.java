@@ -74,11 +74,11 @@ public class OmniWheelDrive extends DriveTrain{
      * @param power
      * @param ifPositive
      */
-    public void drive(double angle, double power, boolean ifPositive) {
+    public double[] drive(double angle, double power, boolean ifPositive) {
         this.ifPositive = ifPositive;
         this.angle = angle;
         this.power = power;
-        runDrive();
+        return runDrive();
     }
 
     /**
@@ -87,12 +87,12 @@ public class OmniWheelDrive extends DriveTrain{
      * @param ifPositive
      * @param x
      */
-    public void drive(double angle, double power, boolean ifPositive, double x) {
+    public double[] drive(double angle, double power, boolean ifPositive, double x) {
         this.ifPositive = ifPositive;
         this.angle = angle;
         this.power = power;
-        runDrive();
         this.x = x;
+        return runDrive();
     }
 
     /**

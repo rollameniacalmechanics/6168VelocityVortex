@@ -12,12 +12,12 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
     //@Override
     public void init() {
         super.init();
-        tele.initTele();
+        //tele.initTele();
     }
-    public void init_loop() {
+    /*public void init_loop() {
         //super.init_loop();
         //tele.initLoopTele();
-    }
+    }*/
     //@Override
     public void loop() {
         super.loop();
@@ -33,11 +33,23 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         mFR.setPower(rightDrivePower);
         mBR.setPower(backRightPower);
         mBL.setPower(backLeftPower);
-        MySweeper sweeper = new MySweeper();
-        double left = gamepad1.left_trigger;
-        double right = gamepad1.right_trigger;
-        sweeperPower = sweeper.sweep(left,right);
+        //MySweeper sweeper = new MySweeper();
+        //double left = gamepad1.left_trigger;
+        //double right = gamepad1.right_trigger;
+        //sweeperPower = sweeper.sweep(left,right);
+        sweeperPower = -gamepad1.left_trigger + gamepad1.right_trigger;
         mSweeper.setPower(sweeperPower);
-        tele.loopTele();
+        if (gamepad1.a)
+            sLeftBeacon.setPosition(.97);
+        else
+            sLeftBeacon.setPosition(initLeftBeacon);
+        if (gamepad1.b)
+            sRightBeacon.setPosition(0);
+        else
+            sRightBeacon.setPosition(initRightBeacon);
+        //tele.loopTele();
+        //telemetry.addData("Touch",touch.isPressed());
+        telemetry.addData("Color 1 blue",color1.blue());
+        telemetry.addData("Color 1 red",color1.red());
     }
 }

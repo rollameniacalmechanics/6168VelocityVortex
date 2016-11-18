@@ -17,6 +17,10 @@ public class VelocityVortexMap extends VelocityVortexHardware{
         mBR = hardwareMap.dcMotor.get("br");
         mBR.setDirection(DcMotorSimple.Direction.REVERSE);
         mSweeper = hardwareMap.dcMotor.get("swpr");
+        sLeftBeacon = hardwareMap.servo.get("sLeftButt");
+        sRightBeacon = hardwareMap.servo.get("sRightButt");
+        sLeftBeacon.setPosition(initLeftBeacon);
+        sRightBeacon.setPosition(initRightBeacon);
         // Servos - Map
         //sLeftBeacon = hardwareMap.servo.get("sLeftButt");
         //sRightBeacon = hardwareMap.servo.get("sRightButt");

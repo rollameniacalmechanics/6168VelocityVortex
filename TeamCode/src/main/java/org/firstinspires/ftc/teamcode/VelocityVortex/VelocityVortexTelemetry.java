@@ -8,7 +8,7 @@ public class VelocityVortexTelemetry extends VelocityVortexHardware{
      * Init
      */
     public void initTele() {
-        telemetry.addData("","Initializing");
+        telemetry.addData("1","Initializing");
     }
     /**
      * Init Loop

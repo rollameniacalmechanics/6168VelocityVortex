@@ -20,6 +20,7 @@ public class VelocityVortex extends OpMode {
 
     //ColorSensor color;
     DcMotor fl,fr,bl,br;
+    DcMotor sweeper;
     @Override
     public void init() {
         //color = hardwareMap.colorSensor.get("color");
@@ -34,6 +35,7 @@ public class VelocityVortex extends OpMode {
 
         br = hardwareMap.dcMotor.get("br");
         br.setDirection(DcMotorSimple.Direction.REVERSE);
+        sweeper = hardwareMap.dcMotor.get("swpr");
     }
 
 
@@ -52,6 +54,8 @@ public class VelocityVortex extends OpMode {
         fr.setPower(D[1]);
         br.setPower(D[2]);
         bl.setPower(D[3]);
+        double sweeperPower = -gamepad1.left_trigger + gamepad1.right_trigger;
+        sweeper.setPower(sweeperPower);
         //telemetry.addData("",color.blue());
         //color.blue();
 
