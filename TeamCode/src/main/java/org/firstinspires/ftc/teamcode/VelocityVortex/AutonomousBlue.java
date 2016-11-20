@@ -85,7 +85,22 @@ public class AutonomousBlue extends VelocityVortexHardware {
         mBR.setPower(backRightPower);
         mBL.setPower(backLeftPower);
     }
-
+    void allTele() {
+        motorTele();;
+        servoTele();
+        sensorTele();
+    }
+    void motorTele() {
+        telemetry.addData("fl", leftDrivePower);
+        telemetry.addData("fr",rightDrivePower);
+        telemetry.addData("bl", backLeftPower);
+        telemetry.addData("br", backRightPower);
+        telemetry.addData("sweeper",sweeperPower);
+    }
+    void servoTele() {
+        telemetry.addData("rightBeacon", rightBeaconPosition);
+        telemetry.addData("leftBeacon", leftBeaconPosition);
+    }
     void sensorTele() {
         telemetry.addData("touch",touch.isPressed());
         telemetry.addData("touch double",touch.getValue());
