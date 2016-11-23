@@ -54,19 +54,19 @@ public class VelocityVortexHardware extends OpMode {
     private double initBackRightPower = 0;
     private double initSweeperPower = 0;
     // Servos - Initial Positions
-    protected double initLeftBeacon = 0.72;
-    protected double initRightBeacon = 0.15;
+    protected double initLeftBeacon = 0.84;
+    protected double initRightBeacon = 0.12;
     //------------loop positions------------
     // ADD LOOP POWER AND POSITION VARIABLES HERE:
     // DcMotors - Loop Power
-    protected double leftDrivePower = 0;
-    protected double rightDrivePower = 0;
-    protected double backLeftPower = 0;
-    protected double backRightPower = 0;
-    protected double sweeperPower = 0;
+    protected double leftDrivePower;
+    protected double rightDrivePower;
+    protected double backLeftPower;
+    protected double backRightPower;
+    protected double sweeperPower;
     // Servos - Loop Positions
-    protected double leftBeaconPosition = 0.72;
-    protected double rightBeaconPosition = 0.12;
+    protected double leftBeaconPosition;
+    protected double rightBeaconPosition;
     //------------Telemetry Warnings------------
     // Create message of warning if created
     protected String warningMessage = "";

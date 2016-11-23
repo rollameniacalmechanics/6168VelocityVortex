@@ -18,6 +18,8 @@ public class changeI2cAddress extends VelocityVortexHardware {
         color2.getI2cAddress().toString();
         color1.toString();
         color2.toString();
+
+
         color1.getConnectionInfo();
         color2.getConnectionInfo();
     }

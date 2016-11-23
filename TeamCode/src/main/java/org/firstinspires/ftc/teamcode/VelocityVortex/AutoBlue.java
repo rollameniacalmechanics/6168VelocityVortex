@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
+
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -8,24 +10,25 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * Created by spmce on 11/18/2016.
  */
 @Autonomous(name = "Autonomous Blue" , group = "Autonomous")
-public class AutoBlue extends VelocityVortexHardware {
+public class AutoBlue extends shanesTelemetry {
     //blue
+
     /**
      * Construct the class.
      * The system calls this member when the class is instantiated.
      */
-    public AutoBlue ()
-    {
+    public AutoBlue() {
         // Initialize base classes and class members.
         // All via self-construction.
     } // PushBotAuto
+
     /**
      * Perform any actions that are necessary when the OpMode is enabled.
      * The system calls this member once when the OpMode is enabled.
      */
-    @Override public void start ()
-    {
-        super.start ();
+    @Override
+    public void start() {
+        super.start();
         resetDriveEncoders();//motorLeftDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         //motorRightDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
@@ -43,10 +46,11 @@ public class AutoBlue extends VelocityVortexHardware {
      * Implement a state machine that controls the robot during auto-operation.
      * The state machine uses a class member and encoder input to transition
      * between states.
-     *
+     * <p/>
      * The system calls this member repeatedly while the OpMode is running.
      */
-    @Override public void loop () {
+    @Override
+    public void loop() {
         OmniWheelDrive drive = new OmniWheelDrive();
         double[] power;
         switch (state) {
@@ -127,44 +131,13 @@ public class AutoBlue extends VelocityVortexHardware {
                 // transitioned into its final state.
                 break;
         }
-            allTele(); // Update common telemetry
-            telemetry.addData("25", "State: " + state);
+        shanesTelemetry tele = new shanesTelemetry();
+        tele.allTele(); // Update common telemetry
+        telemetry.addData("25", "State: " + state);
 
     }
 
-    void allTele() {
-        motorTele();;
-        servoTele();
-        sensorTele();
-    }
-    void motorTele() {
-        telemetry.addData("fl", leftDrivePower);
-        telemetry.addData("fr",rightDrivePower);
-        telemetry.addData("bl", backLeftPower);
-        telemetry.addData("br", backRightPower);
-        telemetry.addData("sweeper",sweeperPower);
-    }
-    void servoTele() {
-        telemetry.addData("rightBeacon", rightBeaconPosition);
-        telemetry.addData("leftBeacon", leftBeaconPosition);
-    }
-    void sensorTele() {
-        telemetry.addData("touch",touch.isPressed());
-        telemetry.addData("touch double",touch.getValue());
-        telemetry.addData("light1",light1.getLightDetected());
-        telemetry.addData("light2",light2.getLightDetected());
-        telemetry.addData("color1 red",color1.red());
-        telemetry.addData("color1 blue",color1.blue());
-        telemetry.addData("color2 red",color2.red());
-        telemetry.addData("color2 blue",color2.blue());
-        telemetry.addData("gyro heading",gyro.getHeading());
-        //telemetry.addData("gyro rotate",gyro.getRotationFraction());
-        //telemetry.addData("gyro x",gyro.rawX());
-        //telemetry.addData("gyro y",gyro.rawY());
-        //telemetry.addData("gyro z",gyro.rawZ());
-        telemetry.addData("range",range.getDistance(DistanceUnit.INCH));
-        telemetry.addData("","");
 
 
-    }
 }
+
