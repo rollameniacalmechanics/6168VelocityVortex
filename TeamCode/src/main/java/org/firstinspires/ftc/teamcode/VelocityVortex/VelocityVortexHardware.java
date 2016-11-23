@@ -1,20 +1,20 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
-import android.hardware.Sensor;
+        import android.hardware.Sensor;
 
-import com.qualcomm.ftccommon.DbgLog;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
-import com.qualcomm.robotcore.hardware.LightSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
+        import com.qualcomm.ftccommon.DbgLog;
+        import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+        import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+        import com.qualcomm.robotcore.hardware.ColorSensor;
+        import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.hardware.DcMotorSimple;
+        import com.qualcomm.robotcore.hardware.GyroSensor;
+        import com.qualcomm.robotcore.hardware.HardwareDevice;
+        import com.qualcomm.robotcore.hardware.LightSensor;
+        import com.qualcomm.robotcore.hardware.Servo;
+        import com.qualcomm.robotcore.hardware.TouchSensor;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRRangeSensor;
+        import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRRangeSensor;
 
 /**
  * Created by spmce on 11/3/2016.
@@ -34,6 +34,8 @@ public class VelocityVortexHardware extends OpMode {
     protected DcMotor mBL; // Back Left Drive Motor
     protected DcMotor mBR; // Back Right Drive Motor
     protected DcMotor mSweeper; // Sweeper motor
+    protected DcMotor mLauncher; // launcher motor
+
     // Servos
     protected Servo sLeftBeacon;
     protected Servo sRightBeacon;
@@ -53,6 +55,7 @@ public class VelocityVortexHardware extends OpMode {
     private double initBackLeftPower = 0;
     private double initBackRightPower = 0;
     private double initSweeperPower = 0;
+    private double initlauncherPower = 0;
     // Servos - Initial Positions
     protected double initLeftBeacon = 0.72;
     protected double initRightBeacon = 0.15;
@@ -64,6 +67,7 @@ public class VelocityVortexHardware extends OpMode {
     protected double backLeftPower = 0;
     protected double backRightPower = 0;
     protected double sweeperPower = 0;
+    protected double launcherPower = 0;
     // Servos - Loop Positions
     protected double leftBeaconPosition = 0.72;
     protected double rightBeaconPosition = 0.15;
@@ -108,6 +112,7 @@ public class VelocityVortexHardware extends OpMode {
         mBR = hardwareMap.dcMotor.get("br");
         mBR.setDirection(DcMotorSimple.Direction.REVERSE);
         mSweeper = hardwareMap.dcMotor.get("swpr");
+        mLauncher = hardwareMap.dcMotor.get("Launcher");
         sLeftBeacon = hardwareMap.servo.get("sLeftButt");
         sRightBeacon = hardwareMap.servo.get("sRightButt");
         sLeftBeacon.setPosition(initLeftBeacon);
