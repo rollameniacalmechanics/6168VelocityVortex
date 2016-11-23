@@ -143,6 +143,8 @@ public class AutoBlue extends shanesTelemetry {
         tele.allTele(); // Update common telemetry
         telemetry.addData("25", "State: " + state);
 
+        telemetry.addData("money=)=(=P",motorWarningMessage);
+
     }
 
 
