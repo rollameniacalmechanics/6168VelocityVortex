@@ -170,7 +170,7 @@ public class OmniWheelDrive extends DriveTrain{
                 F[2] = F[0];
                 F[3] = F[1];
             }
-        } else if (angle == Math.PI) {
+        } else if (angle == Math.PI) { //180 degrees
             double num = Math.sqrt(2)/2;
             F[0] = -num;
             F[1] = num;
@@ -226,10 +226,10 @@ public class OmniWheelDrive extends DriveTrain{
      * @return
      */
     public double[] turn (double[] F, double rx) {
-        F[0] = F[0] + rx;
-        F[1] = F[1] - rx;
-        F[2] = F[2] - rx;
-        F[3] = F[3] + rx;
+        F[0] = F[0] + rx;   // front left
+        F[1] = F[1] - rx;   // front right
+        F[2] = F[2] - rx;   // back right
+        F[3] = F[3] + rx;   // back left
         for (int i = 0; i < 4; i++) {
             int k = i + 2;
             if (k >= 4)
