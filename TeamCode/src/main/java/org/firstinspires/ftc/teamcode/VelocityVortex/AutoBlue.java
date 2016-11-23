@@ -83,24 +83,32 @@ public class AutoBlue extends shanesTelemetry {
                 break;
 
             // Wait...
-            /*case 2:
+            case 2:          // reset drive encoders
                 if (haveDriveEncodersReset())
                 {
                     state++;
                 }
                 break;
             // Turn until the encoders exceed the specified values.
-            case 3:
-                runUsingDriveEncoders();
-                setDrivePower(0.2f, -0.2f, 0.2f, -0.2f);
-                if (haveDriveEncodersReached(550, 550))
-                {
-                    resetDriveEncoders();
-                    setDrivePower(0.0f, 0.0f, 0.0f, 0.0f);
+            case 3:                 //follows white line until robot reaches distance from beacon
+                drive.drive(0,0.15,true);
+                boolean part1 = false;
+                boolean part2= false;
+                if (od.getLightDetected() > 0.5) {
+                    mFL.setPower(0);
+                    mFR.setPower(0);
+                    part1 = true;
+                }
+                if (light2.getLightDetected() > .35) {
+                    mBL.setPower(0);
+                    mBR.setPower(0);
+                    part2 = true;
+                }
+                if (part1 && part2) {
                     state++;
                 }
                 break;
-            case 4:
+            /*case 4:
                 if (haveDriveEncodersReset ())
                 {
                     state++;

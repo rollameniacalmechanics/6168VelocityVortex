@@ -11,6 +11,7 @@ package org.firstinspires.ftc.teamcode.VelocityVortex;
         import com.qualcomm.robotcore.hardware.GyroSensor;
         import com.qualcomm.robotcore.hardware.HardwareDevice;
         import com.qualcomm.robotcore.hardware.LightSensor;
+        import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
         import com.qualcomm.robotcore.hardware.Servo;
         import com.qualcomm.robotcore.hardware.TouchSensor;
 
@@ -47,7 +48,7 @@ public class VelocityVortexHardware extends OpMode {
     protected LightSensor light2;
     protected GyroSensor gyro;
     protected ModernRoboticsI2cRangeSensor range;
-    //------------initial positions------------
+    protected OpticalDistanceSensor od;   //------------initial positions------------
     // ADD INITIAL POWER AND POSITIONS VARIABLES HERE:
     // DcMotors - Initial Power
     private double initLeftDrivePower = 0;
@@ -62,20 +63,12 @@ public class VelocityVortexHardware extends OpMode {
     //------------loop positions------------
     // ADD LOOP POWER AND POSITION VARIABLES HERE:
     // DcMotors - Loop Power
-<<<<<<< HEAD
     protected double leftDrivePower = 0;
     protected double rightDrivePower = 0;
     protected double backLeftPower = 0;
     protected double backRightPower = 0;
     protected double sweeperPower = 0;
     protected double launcherPower = 0;
-=======
-    protected double leftDrivePower;
-    protected double rightDrivePower;
-    protected double backLeftPower;
-    protected double backRightPower;
-    protected double sweeperPower;
->>>>>>> origin/master
     // Servos - Loop Positions
     protected double leftBeaconPosition;
     protected double rightBeaconPosition;
@@ -138,6 +131,8 @@ public class VelocityVortexHardware extends OpMode {
         light2.enableLed(true);
         gyro = hardwareMap.gyroSensor.get("gyro");
         gyro.calibrate();
+        od = hardwareMap.opticalDistanceSensor.get("od");
+        od.enableLed(true);
         //range = hardwareMap.get("range");
         range = hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"range");
         mFL.setPower(0);

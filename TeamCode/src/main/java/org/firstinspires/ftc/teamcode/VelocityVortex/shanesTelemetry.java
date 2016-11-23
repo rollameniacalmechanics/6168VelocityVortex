@@ -14,6 +14,7 @@ public class shanesTelemetry extends VelocityVortexHardware{
         motorTele();;
         servoTele();
         sensorTele();
+        //encoderTele();
     }
     void motorTele() {
         telemetry.addData("fl", leftDrivePower);
@@ -41,7 +42,13 @@ public class shanesTelemetry extends VelocityVortexHardware{
         //telemetry.addData("gyro y",gyro.rawY());
         //telemetry.addData("gyro z",gyro.rawZ());
         telemetry.addData("range", range.getDistance(DistanceUnit.INCH));
+        telemetry.addData("optical distance", od.getLightDetected());
         telemetry.addData("", "");
-
+    }
+    void encoderTele() {
+        telemetry.addData("", "");
+        telemetry.addData("", "");
+        telemetry.addData("", "");
+        telemetry.addData("", "");
     }
 }
