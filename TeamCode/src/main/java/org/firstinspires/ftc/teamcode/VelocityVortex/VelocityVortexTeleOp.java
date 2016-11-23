@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.VelocityVortex;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 /**
  * Created by spmce on 11/3/2016.
  */
@@ -40,16 +42,21 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         sweeperPower = -gamepad1.left_trigger + gamepad1.right_trigger;
         mSweeper.setPower(sweeperPower);
         if (gamepad1.a)
-            sLeftBeacon.setPosition(.97);
+            sLeftBeacon.setPosition(.96);
         else
             sLeftBeacon.setPosition(initLeftBeacon);
         if (gamepad1.b)
+
             sRightBeacon.setPosition(0);
         else
             sRightBeacon.setPosition(initRightBeacon);
         //tele.loopTele();
         //telemetry.addData("Touch",touch.isPressed());
-        telemetry.addData("Color 1 blue",color1.blue());
-        telemetry.addData("Color 1 red",color1.red());
+        //telemetry.addData("Color 1 blue",color1.blue());
+        //telemetry.addData("Color 1 red",color1.red());
+        shanesTelemetry tele = new shanesTelemetry();
+        tele.motorTele();
+        tele.servoTele();
+        tele.sensorTele();
     }
 }

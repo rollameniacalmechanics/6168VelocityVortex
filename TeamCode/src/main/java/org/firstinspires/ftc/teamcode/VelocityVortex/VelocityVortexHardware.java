@@ -57,20 +57,28 @@ public class VelocityVortexHardware extends OpMode {
     private double initSweeperPower = 0;
     private double initlauncherPower = 0;
     // Servos - Initial Positions
-    protected double initLeftBeacon = 0.72;
-    protected double initRightBeacon = 0.15;
+    protected double initLeftBeacon = 0.84;
+    protected double initRightBeacon = 0.12;
     //------------loop positions------------
     // ADD LOOP POWER AND POSITION VARIABLES HERE:
     // DcMotors - Loop Power
+<<<<<<< HEAD
     protected double leftDrivePower = 0;
     protected double rightDrivePower = 0;
     protected double backLeftPower = 0;
     protected double backRightPower = 0;
     protected double sweeperPower = 0;
     protected double launcherPower = 0;
+=======
+    protected double leftDrivePower;
+    protected double rightDrivePower;
+    protected double backLeftPower;
+    protected double backRightPower;
+    protected double sweeperPower;
+>>>>>>> origin/master
     // Servos - Loop Positions
-    protected double leftBeaconPosition = 0.72;
-    protected double rightBeaconPosition = 0.15;
+    protected double leftBeaconPosition;
+    protected double rightBeaconPosition;
     //------------Telemetry Warnings------------
     // Create message of warning if created
     protected String warningMessage = "";
@@ -90,7 +98,7 @@ public class VelocityVortexHardware extends OpMode {
         Warning message = new Warning();
         message.initWarnings(); //Provide telemetry data to a class user
         //Hardware Map
-        Map hardware = new Map();
+        //Map hardware = new Map();
         // ADD HARDWARE MAP HERE;
         // DcMotors - Map
         /*mFL = hardware.map(mFL,initLeftDrivePower,"fl");
@@ -120,10 +128,14 @@ public class VelocityVortexHardware extends OpMode {
         touch = hardwareMap.touchSensor.get("touch");
         color1 = hardwareMap.colorSensor.get("color1");
         color1.enableLed(false);
-        color2 = hardwareMap.colorSensor.get("color1");
+        telemetry.addData("Color1 I2c address" ,color1.getI2cAddress());
+        color2 = hardwareMap.colorSensor.get("color2");
         color2.enableLed(false);
+        telemetry.addData("Color2 I2c address" ,color2.getI2cAddress());
         light1 = hardwareMap.lightSensor.get("light1");
+        light1.enableLed(true);
         light2 = hardwareMap.lightSensor.get("light2");
+        light2.enableLed(true);
         gyro = hardwareMap.gyroSensor.get("gyro");
         gyro.calibrate();
         //range = hardwareMap.get("range");
@@ -131,7 +143,8 @@ public class VelocityVortexHardware extends OpMode {
         mFL.setPower(0);
         mFR.setPower(0);
         mBL.setPower(0);
-        mBL.setPower(0);        //tele.warningTele();
+        mBL.setPower(0);
+        //tele.warningTele();
     }
     //------------------------Loop------------------------
     /**
@@ -349,4 +362,236 @@ public class VelocityVortexHardware extends OpMode {
     public void setSensorWarningMessage(String sensorWarningMessage) {
         this.sensorWarningMessage = sensorWarningMessage;
     }
+
+    public void setDrivePower (double fl,double fr, double bl,double br) {
+        mFL.setPower(fl);
+        mFR.setPower(fr);
+        mBL.setPower(bl);
+        mBR.setPower(br);
+    }
+    //------------------------------------Autonomous Methods-------------------------------------
+    void allServosInitialPosition() {
+        if (sRightBeacon != null)
+            sRightBeacon.setPosition (initRightBeacon);
+        if (sLeftBeacon != null)
+            sLeftBeacon.setPosition(initLeftBeacon);
+    }
+    //------------ Set With Motor Wheel Encoders------------
+    public void runUsingLeftDriveEncoder() {
+        if (mFL != null)
+            mFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void runUsingRightDriveEncoder() {
+        if (mFR != null)
+            mFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void runUsingBackLeftEncoder() {
+        if (mBL != null)
+            mBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void runUsingBackRightEncoder() {
+        if (mBR != null)
+            mBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void runUsingSweeperEncoder () {
+        if (mSweeper != null)
+            mSweeper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void runUsingDriveEncoders () {
+        runUsingLeftDriveEncoder();
+        runUsingRightDriveEncoder();
+        runUsingBackLeftEncoder();
+        runUsingBackRightEncoder();
+    }
+    public void runUsingEncoders () {
+        runUsingLeftDriveEncoder();
+        runUsingRightDriveEncoder();
+        runUsingBackLeftEncoder();
+        runUsingBackRightEncoder();
+        runUsingSweeperEncoder();
+    }
+    //------------Set Without Motor Wheel Encoders------------
+    public void runWithoutLeftDriveEncoder () {
+        if (mFL != null) {
+            if (mFL.getMode () == DcMotor.RunMode.STOP_AND_RESET_ENCODER)
+                mFL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+    public void runWithoutRightDriveEncoder () {
+        if (mFR != null) {
+            if (mFR.getMode() == DcMotor.RunMode.STOP_AND_RESET_ENCODER)
+                mFR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+    public void runWithoutBackLeftEncoder () {
+        if (mBL != null) {
+            if (mBL.getMode() == DcMotor.RunMode.STOP_AND_RESET_ENCODER)
+                mBL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+    public void runWithoutBackRightEncoder () {
+        if (mBR != null) {
+            if (mBR.getMode() == DcMotor.RunMode.STOP_AND_RESET_ENCODER)
+                mBR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+    public void runWithoutSweeperEncoder () {
+        if (mSweeper != null) {
+            if (mSweeper.getMode () == DcMotor.RunMode.STOP_AND_RESET_ENCODER)
+                mSweeper.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+    }
+    public void runWithoutDriveEncoders () {
+        runWithoutLeftDriveEncoder();
+        runWithoutRightDriveEncoder();
+        runWithoutBackLeftEncoder();
+        runWithoutBackRightEncoder();
+    }
+    public void runWithoutMotorEncoders () {
+        runWithoutLeftDriveEncoder();
+        runWithoutRightDriveEncoder();
+        runWithoutBackLeftEncoder();
+        runWithoutBackRightEncoder();
+        runWithoutSweeperEncoder();
+    }
+    //------------Reset Motor Wheel Encoders------------
+    public void resetLeftDriveEncoder () {
+        if (mFL != null)
+            mFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    public void resetRightDriveEncoder () {
+        if (mFR != null)
+            mFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    public void resetBackLeftEncoder () {
+        if (mBL != null)
+            mBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    public void resetBackRightEncoder () {
+        if (mBR != null)
+            mBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    public void resetDriveEncoders () {
+        resetLeftDriveEncoder();
+        resetRightDriveEncoder();
+        resetBackLeftEncoder();
+        resetBackRightEncoder();
+    }
+    public void resetSweeperEncoder () {
+        if (mSweeper != null)
+            mSweeper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    //------------Get Motor Wheel Encoder Count------------
+    int getLeftEncoderCount () {
+        if (mFL != null)
+            return mFL.getCurrentPosition ();
+        return 0;
+    }
+    int getRightEncoderCount () {
+        if (mFR != null)
+            return mFR.getCurrentPosition ();
+        return 0;
+    }
+    int getBackLeftEncoderCount () {
+        if (mBL != null)
+            return mBL.getCurrentPosition ();
+        return 0;
+    }
+    int getBackRightEncoderCount () {
+        if (mBR != null)
+            return mBR.getCurrentPosition ();
+        return 0;
+    }
+    int getSweeperEncoderCount () {
+        if (mSweeper != null)
+            return mSweeper.getCurrentPosition ();
+        return 0;
+    }
+    //------------Indicate Motor Wheel Encoders Value------------
+    boolean hasLeftDriveEncoderReached (double count) {
+        if (mFL != null) {
+            // TODO Implement stall code using these variables.
+            if (Math.abs (mFL.getCurrentPosition ()) > count)
+                return true;
+        }
+        return false;
+    }
+    boolean hasRightDriveEncoderReached (double count) {
+        if (mFR != null) {
+            // TODO Implement stall code using these variables.
+            if (Math.abs (mFR.getCurrentPosition ()) > count)
+                return true;
+        }
+        return false;
+    }
+    boolean hasBackLeftEncoderReached (double count) {
+        if (mBL != null) {
+            // TODO Implement stall code using these variables.
+            if (Math.abs (mBL.getCurrentPosition ()) > count)
+                return true;
+        }
+        return false;
+    }
+    boolean hasBackRightEncoderReached (double count) {
+        if (mFR != null) {
+            // TODO Implement stall code using these variables.
+            if (Math.abs (mFR.getCurrentPosition ()) > count)
+                return true;
+        }
+        return false;
+    }
+    boolean haveDriveEncodersReached (double leftCount, double rightCount) {
+        return hasLeftDriveEncoderReached(leftCount)
+            && hasRightDriveEncoderReached(rightCount);}
+    boolean haveDriveEncodersReached (double leftCount, double rightCount,double backLeft, double backRight) {
+        return hasLeftDriveEncoderReached(leftCount)
+                && hasRightDriveEncoderReached(rightCount)
+                && hasBackLeftEncoderReached(backLeft)
+                && hasBackRightEncoderReached(backRight);}
+    boolean hasSweeperEncoderReached (double count) {
+        if (mSweeper != null) {
+            // TODO Implement stall code using these variables.
+            if (Math.abs (mSweeper.getCurrentPosition ()) > count)
+                return true;
+        }
+        return false;
+    }
+    //------------Indicate whether the motor wheel encoders have reached a value------------
+    boolean driveUsingEncoders (double leftPower, double rightPower,
+                                double backLeftPower, double backRightPower,
+                                double leftCount, double rightCount,
+                                double backLeftCount, double backRightCount) {
+        runUsingEncoders();
+        setDrivePower(leftPower, rightPower, backLeftPower, backRightPower);
+        if (haveDriveEncodersReached(leftCount, rightCount, backLeftCount, backRightCount)) {
+            resetDriveEncoders();
+            setDrivePower(0, 0, 0, 0);
+            return true;
+        }
+        return false;
+    }
+    boolean runSweeperUsingEncoder (double sweeperPower, double backSweeperPower, double sweeperCount) {
+        double sweep;
+        if (sweeperPower != 0)
+            sweep = sweeperPower;
+        else {
+            sweep = backSweeperPower;
+        }
+        runUsingEncoders();
+        setSweeperPower(sweep);
+        if (hasSweeperEncoderReached(sweeperCount)) {
+            resetSweeperEncoder();
+            setSweeperPower(0);
+            return true;
+        }
+        return false;
+    }
+    //------------Indicate If Motor Wheel Encoder Has Reset------------
+    boolean hasLeftDriveEncoderReset () {return getLeftEncoderCount() == 0;}
+    boolean hasRightDriveEncoderReset() {return getRightEncoderCount() == 0;}
+    boolean hasBackLeftEncoderReset () {return getBackLeftEncoderCount() == 0;}
+    boolean hasBackRightEncoderReset() {return getBackRightEncoderCount() == 0;}
+    boolean haveDriveEncodersReset   () {return hasLeftDriveEncoderReset() && hasRightDriveEncoderReset() &&
+                                                hasBackLeftEncoderReset() && hasBackRightEncoderReset();}
+    boolean hasSweeperEncoderReset   () {return (getSweeperEncoderCount() == 0);}
 }
