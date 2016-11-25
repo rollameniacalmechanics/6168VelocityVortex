@@ -10,6 +10,7 @@ package org.firstinspires.ftc.teamcode.VelocityVortex;
         import com.qualcomm.robotcore.hardware.DcMotorSimple;
         import com.qualcomm.robotcore.hardware.GyroSensor;
         import com.qualcomm.robotcore.hardware.HardwareDevice;
+        import com.qualcomm.robotcore.hardware.I2cAddr;
         import com.qualcomm.robotcore.hardware.LightSensor;
         import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
         import com.qualcomm.robotcore.hardware.Servo;
@@ -120,11 +121,11 @@ public class VelocityVortexHardware extends OpMode {
         sRightBeacon.setPosition(initRightBeacon);
         touch = hardwareMap.touchSensor.get("touch");
         color1 = hardwareMap.colorSensor.get("color1");
-        color1.enableLed(false);
-        telemetry.addData("Color1 I2c address" ,color1.getI2cAddress());
+        //color1.enableLed(false);
+        //telemetry.addData("Color1 I2c address" ,color1.getI2cAddress());
         color2 = hardwareMap.colorSensor.get("color2");
         color2.enableLed(false);
-        telemetry.addData("Color2 I2c address" ,color2.getI2cAddress());
+        //telemetry.addData("Color2 I2c address", color2.getI2cAddress());
         light1 = hardwareMap.lightSensor.get("light1");
         light1.enableLed(true);
         light2 = hardwareMap.lightSensor.get("light2");
@@ -141,6 +142,14 @@ public class VelocityVortexHardware extends OpMode {
         mBL.setPower(0);
         //tele.warningTele();
     }
+
+    @Override
+    public void start() {
+        color1.setI2cAddress(I2cAddr.create8bit(0x3c));
+        color1.enableLed(false);
+        color2.setI2cAddress(I2cAddr.create8bit(0x4c));
+    }
+
     //------------------------Loop------------------------
     /**
      * Loop

@@ -172,8 +172,8 @@ public class OmniWheelDrive extends DriveTrain{
             }
         } else if (angle == Math.PI) { //180 degrees
             double num = Math.sqrt(2)/2;
-            F[0] = -num;
-            F[1] = num;
+            F[0] = -power*num;
+            F[1] = power*num;
             F[2] = F[0];
             F[3] = F[1];
         } else {

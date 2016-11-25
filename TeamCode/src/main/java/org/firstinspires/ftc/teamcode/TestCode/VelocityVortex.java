@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.VelocityVortex.OmniWheelDrive;
  * Created by spmce on 10/9/2016.
  */
 
-@TeleOp(name = "Shane's TeleOp new" , group = "TeleOp")
+//@TeleOp(name = "Shane's TeleOp new" , group = "TeleOp")
 
 public class VelocityVortex extends OpMode {
 

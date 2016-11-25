@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 /**
  * Created by spmce on 11/20/2016.
  */
-@TeleOp (name = "changeI2cAddress", group = "TeleOp")
+//@TeleOp (name = "changeI2cAddress", group = "TeleOp")
 public class changeI2cAddress extends VelocityVortexHardware {
 
     @Override

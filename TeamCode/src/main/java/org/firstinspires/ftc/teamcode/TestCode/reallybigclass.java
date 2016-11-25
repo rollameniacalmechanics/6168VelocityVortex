@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 /**
  * Created by spmce on 10/30/2016.
  */
-@TeleOp(name = "Really Big Class TeleOp" , group = "TeleOp")
+//@TeleOp(name = "Really Big Class TeleOp" , group = "TeleOp")
 public class reallybigclass extends OpMode {
 
     DcMotor fl,fr,bl,br;

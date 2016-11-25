@@ -13,7 +13,7 @@ public class shanesTelemetry extends VelocityVortexHardware{
     void allTele() {
         motorTele();;
         servoTele();
-        sensorTele();
+       //sensorTele();
         //encoderTele();
     }
     void motorTele() {
@@ -28,7 +28,7 @@ public class shanesTelemetry extends VelocityVortexHardware{
         telemetry.addData("leftBeacon", leftBeaconPosition);
     }
     void sensorTele() {
-        telemetry.addData("touch", touch.isPressed());
+        //telemetry.addData("touch", touch.isPressed());
         telemetry.addData("touch double", touch.getValue());
         telemetry.addData("light1", light1.getLightDetected());
         telemetry.addData("light2", light2.getLightDetected());
@@ -41,7 +41,7 @@ public class shanesTelemetry extends VelocityVortexHardware{
         //telemetry.addData("gyro x",gyro.rawX());
         //telemetry.addData("gyro y",gyro.rawY());
         //telemetry.addData("gyro z",gyro.rawZ());
-        telemetry.addData("range", range.getDistance(DistanceUnit.INCH));
+        telemetry.addData("range", range.getDistance(DistanceUnit.MM));
         telemetry.addData("optical distance", od.getLightDetected());
         telemetry.addData("", "");
     }
