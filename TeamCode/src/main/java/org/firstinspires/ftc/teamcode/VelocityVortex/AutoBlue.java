@@ -11,8 +11,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  */
 @Autonomous(name = "Auto Blue" , group = "Autonomous")
 public class AutoBlue extends VelocityVortexHardware {
-    //blue
-
     /**
      * Construct the class.
      * The system calls this member when the class is instantiated.
@@ -23,16 +21,21 @@ public class AutoBlue extends VelocityVortexHardware {
     } // AutoBlue
 
     /**
-     * Perform any actions that are necessary when the OpMode is enabled.
-     * The system calls this member once when the OpMode is enabled.
+     * Init
      */
     public void init() {
         super.init();
     }
+
+    /**
+     * Perform any actions that are necessary when the OpMode is enabled.
+     * The system calls this member once when the OpMode is enabled.
+     */
     @Override
     public void start() {
         super.start();
-        //resetDriveEncoders();//motorLeftDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        //resetDriveEncoders();
+        //motorLeftDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         //motorRightDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
     }
 
@@ -57,10 +60,12 @@ public class AutoBlue extends VelocityVortexHardware {
         super.loop();
         OmniWheelDrive drive = new OmniWheelDrive();
         double[] power;
+        long wait;
         switch (state) {
             // Synchronize the state machine and hardware.
             case 0:
-                //resetDriveEncoders();//motorLeftDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                //resetDriveEncoders();
+                //motorLeftDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
                 //motorRightDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
                 state++;
                 break;
@@ -71,20 +76,8 @@ public class AutoBlue extends VelocityVortexHardware {
                 // work.  It doesn't need to be in subsequent states.
                 //runUsingDriveEncoders ();//motorLeftDrive.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
                 //motorRightDrive.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-                power = drive.drive(Math.PI / 4, 1, false);
+                powerDrive(drive.drive(Math.PI / 4, 1, false));
                 //setDrivePower(power[0], power[1], power[2], power[3]);
-                leftDrivePower  = power[0];
-                rightDrivePower = power[1];
-                backRightPower  = power[2];
-                backLeftPower   = power[3];
-                telemetry.addData("fl", leftDrivePower);
-                telemetry.addData("fr",rightDrivePower);
-                telemetry.addData("bl", backLeftPower);
-                telemetry.addData("br", backRightPower);
-                mFL.setPower(leftDrivePower);
-                mFR.setPower(rightDrivePower);
-                mBR.setPower(backRightPower);
-                mBL.setPower(backLeftPower);
                 // Have the motor shafts turned the required amount?
                 // If they haven't, then the op-mode remains in this state (i.e this
                 // block will be executed the next time this method is called).
@@ -92,14 +85,7 @@ public class AutoBlue extends VelocityVortexHardware {
                     // Reset the encoders.
                     //resetDriveEncoders();
                     // Stop the motors.
-                    leftDrivePower  = 0;
-                    rightDrivePower = 0;
-                    backRightPower  = 0;
-                    backLeftPower   = 0;
-                    mFL.setPower(leftDrivePower);
-                    mFR.setPower(rightDrivePower);
-                    mBR.setPower(backRightPower);
-                    mBL.setPower(backLeftPower);
+                    zeroDrive();
                     // Transition to the next state when this method is called again.
                     state++;
                 }
@@ -234,6 +220,31 @@ public class AutoBlue extends VelocityVortexHardware {
                 state++;
                 break;
             case 7:
+                power = drive.drive(.01, 1, false);
+                //setDrivePower(power[0], power[1], power[2], power[3]);
+                leftDrivePower  = power[0];
+                rightDrivePower = power[1];
+                backRightPower  = power[2];
+                backLeftPower   = power[3];
+                telemetry.addData("fl", leftDrivePower);
+                telemetry.addData("fr",rightDrivePower);
+                telemetry.addData("bl", backLeftPower);
+                telemetry.addData("br", backRightPower);
+                mFL.setPower(leftDrivePower);
+                mFR.setPower(rightDrivePower);
+                mBR.setPower(backRightPower);
+                mBL.setPower(backLeftPower);
+                wait = 200;
+                /*try {
+                    wait(wait);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
                 state++;
                 break;
             case 8:
@@ -397,6 +408,44 @@ public class AutoBlue extends VelocityVortexHardware {
                 sRightBeacon.setPosition(initRightBeacon);
                 state++;
                 break;
+            case 14:
+                power = drive.drive(47*Math.PI / 64, 1,true);
+                //setDrivePower(power[0], power[1], power[2], power[3]);
+                leftDrivePower  = power[0];
+                rightDrivePower = power[1];
+                backRightPower  = power[2];
+                backLeftPower   = power[3];
+                telemetry.addData("fl", leftDrivePower);
+                telemetry.addData("fr",rightDrivePower);
+                telemetry.addData("bl", backLeftPower);
+                telemetry.addData("br", backRightPower);
+                mFL.setPower(leftDrivePower);
+                mFR.setPower(rightDrivePower);
+                mBR.setPower(backRightPower);
+                mBL.setPower(backLeftPower);
+                wait = 2000;
+                /*try {
+                    wait(wait);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
+                try {
+                    Thread.sleep(2950);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+                state++;
+                break;
+            case 15:
+                leftDrivePower  = 0;
+                rightDrivePower = 0;
+                backRightPower  = 0;
+                backLeftPower   = 0;
+                mFL.setPower(leftDrivePower);
+                mFR.setPower(rightDrivePower);
+                mBR.setPower(backRightPower);
+                mBL.setPower(backLeftPower);
+                break;
             // Perform no action - stay in this case until the OpMode is stopped.
             // This method will still be called regardless of the state machine.
             default:
@@ -414,7 +463,7 @@ public class AutoBlue extends VelocityVortexHardware {
     }
     void motorTele() {
         telemetry.addData("fl", leftDrivePower);
-        telemetry.addData("fr",rightDrivePower);
+        telemetry.addData("fr", rightDrivePower);
         telemetry.addData("bl", backLeftPower);
         telemetry.addData("br", backRightPower);
         telemetry.addData("sweeper", sweeperPower);
@@ -442,7 +491,33 @@ public class AutoBlue extends VelocityVortexHardware {
         telemetry.addData("optical distance", od.getLightDetected());
         telemetry.addData("", "");
     }
-
-
+    private void powerDrive(double[] power) {
+        leftDrivePower  = power[0];
+        rightDrivePower = power[1];
+        backRightPower  = power[2];
+        backLeftPower   = power[3];
+        telemetry.addData("fl", leftDrivePower);
+        telemetry.addData("fr",rightDrivePower);
+        telemetry.addData("bl", backLeftPower);
+        telemetry.addData("br", backRightPower);
+        mFL.setPower(leftDrivePower);
+        mFR.setPower(rightDrivePower);
+        mBR.setPower(backRightPower);
+        mBL.setPower(backLeftPower);
+    }
+    private void zeroDrive() {
+        leftDrivePower  = 0;
+        rightDrivePower = 0;
+        backRightPower  = 0;
+        backLeftPower   = 0;
+        telemetry.addData("fl", leftDrivePower);
+        telemetry.addData("fr",rightDrivePower);
+        telemetry.addData("bl", backLeftPower);
+        telemetry.addData("br", backRightPower);
+        mFL.setPower(leftDrivePower);
+        mFR.setPower(rightDrivePower);
+        mBR.setPower(backRightPower);
+        mBL.setPower(backLeftPower);
+    }
 }
 
