@@ -1,16 +1,14 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
-
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * Created by spmce on 11/18/2016.
  */
-@Autonomous(name = "Auto Blue" , group = "Autonomous")
+@Autonomous(name = "Auto Blue" , group = "Autonomous") //Register
 public class AutoBlue extends VelocityVortexHardware {
+
     /**
      * Construct the class.
      * The system calls this member when the class is instantiated.
@@ -60,7 +58,6 @@ public class AutoBlue extends VelocityVortexHardware {
         super.loop();
         OmniWheelDrive drive = new OmniWheelDrive();
         double[] power;
-        long wait;
         switch (state) {
             // Synchronize the state machine and hardware.
             case 0:
@@ -69,13 +66,8 @@ public class AutoBlue extends VelocityVortexHardware {
                 //motorRightDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
                 state++;
                 break;
-            // Drive forward until the encoders exceed the specified values.
+            // Drive until 
             case 1:
-                // Tell the system that motor encoders will be used.  This call MUST
-                // be in this state and NOT the previous or the encoders will not
-                // work.  It doesn't need to be in subsequent states.
-                //runUsingDriveEncoders ();//motorLeftDrive.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-                //motorRightDrive.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
                 powerDrive(drive.drive(Math.PI / 4, 1, false));
                 //setDrivePower(power[0], power[1], power[2], power[3]);
                 // Have the motor shafts turned the required amount?
@@ -234,12 +226,6 @@ public class AutoBlue extends VelocityVortexHardware {
                 mFR.setPower(rightDrivePower);
                 mBR.setPower(backRightPower);
                 mBL.setPower(backLeftPower);
-                wait = 200;
-                /*try {
-                    wait(wait);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }*/
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException ex) {
@@ -423,12 +409,6 @@ public class AutoBlue extends VelocityVortexHardware {
                 mFR.setPower(rightDrivePower);
                 mBR.setPower(backRightPower);
                 mBL.setPower(backLeftPower);
-                wait = 2000;
-                /*try {
-                    wait(wait);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }*/
                 try {
                     Thread.sleep(2950);
                 } catch (InterruptedException ex) {
