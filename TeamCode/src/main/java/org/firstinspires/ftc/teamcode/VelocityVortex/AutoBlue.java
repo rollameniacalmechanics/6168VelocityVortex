@@ -60,11 +60,7 @@ public class AutoBlue extends VelocityVortexHardware {
         OmniWheelDrive drive = new OmniWheelDrive();
         double[] power;
         switch (state) {
-            // Synchronize the state machine and hardware.
             case 0: // nothing
-                //resetDriveEncoders();
-                //motorLeftDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-                //motorRightDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
                 state++;
                 break;
 <<<<<<< HEAD

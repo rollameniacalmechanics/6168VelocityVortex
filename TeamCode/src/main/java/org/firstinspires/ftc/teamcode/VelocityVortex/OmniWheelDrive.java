@@ -133,7 +133,7 @@ public class OmniWheelDrive extends DriveTrain{
                 F[2] = F[0];
                 F[3] = F[1];
             }
-        } else if (angle < Math.PI / 4 + 0.00000000000002) { //add small number becuase of rounding is off
+        } else if (angle < Math.PI / 4 + 0.00000000000002) { //add small number because rounding is off
             if (ifPositive) {
                 F[0] = power;
                 F[1] = 0;
