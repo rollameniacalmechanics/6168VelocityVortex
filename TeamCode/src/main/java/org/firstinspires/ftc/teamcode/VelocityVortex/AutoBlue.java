@@ -63,20 +63,11 @@ public class AutoBlue extends VelocityVortexHardware {
             case 0: // nothing
                 state++;
                 break;
-<<<<<<< HEAD
             // Drive until
-            case 1:
-                powerDrive(drive.drive(Math.PI / 4, 1, false));
-                //setDrivePower(power[0], power[1], power[2], power[3]);
-                // Have the motor shafts turned the required amount?
-                // If they haven't, then the op-mode remains in this state (i.e this
-                // block will be executed the next time this method is called).
-=======
             case 1: // drive until the light 1 hits the line
                 drPower = 1;
                 power = drive.drive(Math.PI / 4,drPower,false);
                 powerDrive(power);
->>>>>>> origin/master
                 if (light1.getLightDetected() > 0.35) {
                     zeroDrive();
                     state++;
