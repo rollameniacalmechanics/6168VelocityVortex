@@ -116,10 +116,12 @@ public class AutoBlue extends VelocityVortexHardware {
                 }
                 break;
             case 5: //presses the beacon button according to the color
-                if (color1.blue() > 3)
-                    sLeftBeacon.setPosition(.96);
-                else
-                    sRightBeacon.setPosition(0);
+                if (color1.blue() > 3 || color2.blue() >3) {
+                    if (color1.blue() > 3)
+                        sLeftBeacon.setPosition(.96);
+                    else
+                        sRightBeacon.setPosition(0);
+                }
                 // completes case if the colors are the same
                 if (color1.blue() > 3 && color2.blue() > 3)
                     state++;
