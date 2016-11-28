@@ -66,7 +66,7 @@ public class AutoBlue extends VelocityVortexHardware {
                 //motorRightDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
                 state++;
                 break;
-            // Drive until 
+            // Drive until
             case 1:
                 powerDrive(drive.drive(Math.PI / 4, 1, false));
                 //setDrivePower(power[0], power[1], power[2], power[3]);
