@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  * Created by spmce on 11/28/2016.
  */
 @Autonomous(name = "Velocity Vortex Auto Blue" , group = "Autonomous") //Register
-public class VelocityVortexAutoBlue extends VelocityVortexHardware{
+public class VelocityVortexAutoBlue extends VelocityVortexAutonomous {
 
     /**
      * constructor
@@ -24,23 +24,10 @@ public class VelocityVortexAutoBlue extends VelocityVortexHardware{
     }
 
     /**
-     * Perform any actions that are necessary when the OpMode is enabled.
-     * The system calls this member once when the OpMode is enabled.
-     */
-    @Override
-    public void start() {
-        super.start();
-        //resetDriveEncoders();
-        //motorLeftDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-        //motorRightDrive.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-    }
-
-    /**
      * Loop
      */
     //@Override
     public void loop() {
-        VelocityVortexAutonomous autonomous = new VelocityVortexAutonomous();
-        autonomous.autoLoop(true);
+        autoLoop(true);
     }
 }

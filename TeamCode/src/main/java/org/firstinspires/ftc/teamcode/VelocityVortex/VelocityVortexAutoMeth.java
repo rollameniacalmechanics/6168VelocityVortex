@@ -16,6 +16,11 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
     OmniWheelDrive drive = new OmniWheelDrive();
     private double[] power;
 
+    //@Override
+    public void init() {
+        super.init();
+    }
+
     protected void drivePow(double ang, double pow, boolean ifBlue) {
         double angle = ang;
         if (!ifBlue)

@@ -23,10 +23,15 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
         super.init();
     }
 
+    /**
+     * Run sensor telemetry in init loop
+     */
+    @Override
     public void init_loop() {
         shanesTelemetry tele = new shanesTelemetry();
         tele.sensorTele();
     }
+
     /**
      * Perform any actions that are necessary when the OpMode is enabled.
      * The system calls this member once when the OpMode is enabled.
@@ -42,9 +47,9 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
     private int state = 0;
 
     /**
-     * @param drIfBlue
+     * @param drIfBlue determines if blue or red autonomous
      */
-    public void autoLoop(boolean drIfBlue) {
+    protected void autoLoop(boolean drIfBlue) {
         double drPower;
         double drAngle;
         boolean changeState;
