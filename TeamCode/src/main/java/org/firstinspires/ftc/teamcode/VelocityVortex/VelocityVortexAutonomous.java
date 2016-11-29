@@ -23,6 +23,10 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
         super.init();
     }
 
+    public void init_loop() {
+        shanesTelemetry tele = new shanesTelemetry();
+        tele.sensorTele();
+    }
     /**
      * Perform any actions that are necessary when the OpMode is enabled.
      * The system calls this member once when the OpMode is enabled.
