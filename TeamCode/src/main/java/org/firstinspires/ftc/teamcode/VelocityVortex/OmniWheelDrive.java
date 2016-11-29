@@ -30,13 +30,35 @@ public class OmniWheelDrive extends DriveTrain{
      * @param power
      */
     OmniWheelDrive(double angle, double power) {
-        this.angle = angle;
+        if (angle < 0) {
+            this.angle = -angle;
+            ifPositive = false;
+        } else {
+            this.angle = angle;
+            ifPositive = true;
+        }
         this.power = power;
         //ref = 0;
-        ifPositive = true;
         x = 0;
     }
 
+    /**
+     * @param angle
+     * @param power
+     * @param x
+     */
+    OmniWheelDrive(double angle, double power, double x) {
+        if (angle < 0) {
+            this.angle = -angle;
+            ifPositive = false;
+        } else {
+            this.angle = angle;
+            ifPositive = true;
+        }
+        this.power = power;
+        //ref = 0;
+        this.x = x;
+    }
     /**
      * @param angle
      * @param power
@@ -69,6 +91,38 @@ public class OmniWheelDrive extends DriveTrain{
         super.run();
     }
 
+    /**
+     * @param angle
+     * @param power
+     */
+    public double[] drive(double angle, double power) {
+        if (angle < 0) {
+            this.angle = -angle;
+            ifPositive = false;
+        } else {
+            this.angle = angle;
+            ifPositive = true;
+        }
+        this.power = power;
+        return runDrive();
+    }
+    /**
+     * @param angle
+     * @param power
+     * @param x
+     */
+    public double[] drive(double angle, double power, double x) {
+        if (angle < 0) {
+            this.angle = -angle;
+            ifPositive = false;
+        } else {
+            this.angle = angle;
+            ifPositive = true;
+        }
+        this.power = power;
+        this.x = x;
+        return runDrive();
+    }
     /**
      * @param angle
      * @param power
