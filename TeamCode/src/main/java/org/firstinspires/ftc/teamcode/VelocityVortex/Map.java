@@ -29,8 +29,18 @@ public class Map extends  VelocityVortexHardware{
             motor = hardwareMap.dcMotor.get(motor.toString());
             motor.setPower(initPower);
         } catch (Exception opModeException) {
-            warning.setDriveWarningMessage(motor.toString());
+            warning.setDriveWarning(motor.toString());
             DbgLog.msg(opModeException.getLocalizedMessage());
+        }
+        return motor;
+    }
+    DcMotor map(DcMotor motor, double initPower, String s) {
+        try {
+            motor = hardwareMap.dcMotor.get(s);
+            motor.setPower(initPower);
+        } catch (Exception opModeException) {
+            warning.setDriveWarning(s);
+            DbgLog.msg("" + opModeException.getLocalizedMessage());
         }
         return motor;
     }
@@ -41,20 +51,44 @@ public class Map extends  VelocityVortexHardware{
                 motor.setDirection(DcMotorSimple.Direction.REVERSE);
             motor.setPower(initPower);
         } catch (Exception opModeException) {
-            warning.setDriveWarningMessage(motor.toString());
+            warning.setDriveWarning(motor.toString());
             DbgLog.msg(opModeException.getLocalizedMessage());
         }
         return motor;
     }
-    void map(Servo servo, double initPosition) {
+    DcMotor map(DcMotor motor, double initPower, String s, boolean reverse) {
+        try {
+            motor = hardwareMap.dcMotor.get(s);
+            if (reverse)
+                motor.setDirection(DcMotorSimple.Direction.REVERSE);
+            motor.setPower(initPower);
+        } catch (Exception opModeException) {
+            warning.setDriveWarning(s);
+            DbgLog.msg("" + opModeException.getLocalizedMessage());
+        }
+        return motor;
+    }
+    Servo map(Servo servo, double initPosition) {
         try {
             servo = hardwareMap.servo.get(servo.getDeviceName());
             servo.setPosition(initPosition);
         } catch (Exception opModeException) {
-            warning.setServoWarningMessage(servo.getDeviceName());
-            DbgLog.msg(opModeException.getLocalizedMessage());
+            //warning.setServoWarningMessage(servo.getDeviceName());
+            DbgLog.msg("" + opModeException.getLocalizedMessage());
             //servo = null;
         }
+        return servo;
+    }
+    Servo map(Servo servo, double initPosition,String s) {
+        try {
+            servo = hardwareMap.servo.get(s);
+            servo.setPosition(initPosition);
+        } catch (Exception opModeException) {
+            //warning.setServoWarningMessage(s);
+            DbgLog.msg("" + opModeException.getLocalizedMessage());
+            //servo = null;
+        }
+        return servo;
     }
     void map(CRServo servo, double initPosition) {
         try {

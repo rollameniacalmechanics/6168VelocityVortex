@@ -74,11 +74,11 @@ public class OmniWheelDrive extends DriveTrain{
      * @param power
      * @param ifPositive
      */
-    public void drive(double angle, double power, boolean ifPositive) {
+    public double[] drive(double angle, double power, boolean ifPositive) {
         this.ifPositive = ifPositive;
         this.angle = angle;
         this.power = power;
-        runDrive();
+        return runDrive();
     }
 
     /**
@@ -87,12 +87,12 @@ public class OmniWheelDrive extends DriveTrain{
      * @param ifPositive
      * @param x
      */
-    public void drive(double angle, double power, boolean ifPositive, double x) {
+    public double[] drive(double angle, double power, boolean ifPositive, double x) {
         this.ifPositive = ifPositive;
         this.angle = angle;
         this.power = power;
-        runDrive();
         this.x = x;
+        return runDrive();
     }
 
     /**
@@ -133,7 +133,7 @@ public class OmniWheelDrive extends DriveTrain{
                 F[2] = F[0];
                 F[3] = F[1];
             }
-        } else if (angle < Math.PI / 4 + 0.00000000000002) { //add small number becuase of rounding is off
+        } else if (angle < Math.PI / 4 + 0.00000000000002) { //add small number because rounding is off
             if (ifPositive) {
                 F[0] = power;
                 F[1] = 0;
@@ -170,10 +170,10 @@ public class OmniWheelDrive extends DriveTrain{
                 F[2] = F[0];
                 F[3] = F[1];
             }
-        } else if (angle == Math.PI) {
+        } else if (angle == Math.PI) { //180 degrees
             double num = Math.sqrt(2)/2;
-            F[0] = -num;
-            F[1] = num;
+            F[0] = -power*num;
+            F[1] = power*num;
             F[2] = F[0];
             F[3] = F[1];
         } else {
@@ -226,10 +226,10 @@ public class OmniWheelDrive extends DriveTrain{
      * @return
      */
     public double[] turn (double[] F, double rx) {
-        F[0] = F[0] + rx;
-        F[1] = F[1] - rx;
-        F[2] = F[2] - rx;
-        F[3] = F[3] + rx;
+        F[0] = F[0] + rx;   // front left
+        F[1] = F[1] - rx;   // front right
+        F[2] = F[2] - rx;   // back right
+        F[3] = F[3] + rx;   // back left
         for (int i = 0; i < 4; i++) {
             int k = i + 2;
             if (k >= 4)

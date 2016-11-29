@@ -22,15 +22,15 @@ public class Warning extends VelocityVortexHardware {
     //------------Init Warnings Method------------
     void initWarnings() {
         warningGenerated = false;
-        warningMessage = "Can't map: ";
+        super.setWarningMessage(warningMessage = "Can't map: ");
         motorWarningGenerated = false;
-        motorWarningMessage = "Motors: ; ";
+        super.setMotorWarningMessage(motorWarningMessage = "Motors: ; ");
         driveWarningGenerated = false;
-        driveWarningMessage = "DriveMotors: ";
+        super.setDriveWarningMessage(driveWarningMessage = "DriveMotors: ");
         servoWarningGenerated = false;
-        servoWarningMessage = "Servos: ; ";
+        super.setSensorWarningMessage(servoWarningMessage = "Servos: ; ");
         sensorWarningGenerated = false;
-        sensorWarningMessage = "Sensors: ; ";
+        super.setServoWarningMessage(sensorWarningMessage = "Sensors: ; ");
     }
     //------------Warnings------------
     boolean getWarningGenerated      () {return warningGenerated;}
@@ -39,44 +39,44 @@ public class Warning extends VelocityVortexHardware {
     boolean getServoWarningGenerated () {return servoWarningGenerated;}
     boolean getSensorWarningGenerated() {return sensorWarningGenerated;}
 
-    String getWarningMessage      () {return warningMessage;}
-    String getMotorWarningMessage () {return motorWarningMessage;}
-    String getDriveWarningMessage () {return driveWarningMessage;}
-    String getServoWarningMessage () {return servoWarningMessage;}
-    String getSensorWarningMessage() {return servoWarningMessage;}
+    //String getWarningMessage      () {return warningMessage;}
+    //String getMotorWarningMessage () {return motorWarningMessage;}
+    //String getDriveWarningMessage () {return driveWarningMessage;}
+    //String getServoWarningMessage () {return servoWarningMessage;}
+    //String getSensorWarningMessage() {return servoWarningMessage;}
 
-    void setWarningMessage (String opModeExceptionMessage) {
+    void setWarning (String opModeExceptionMessage) {
         if (warningGenerated)
-            warningMessage += ", ";
+            super.setWarningMessage(warningMessage += ", ");
         warningGenerated = true;
-        warningMessage += opModeExceptionMessage;
+        super.setWarningMessage(warningMessage += opModeExceptionMessage);
     }
-    void setMotorWarningMessage (String opModeExceptionMessage) {
+    void setMotorWarning (String opModeExceptionMessage) {
         if (motorWarningGenerated)
-            motorWarningMessage += ", ";
+            super.setMotorWarningMessage(motorWarningMessage += ", ");
         warningGenerated = true;
         motorWarningGenerated = true;
-        motorWarningMessage += opModeExceptionMessage;
+        super.setMotorWarningMessage(motorWarningMessage += opModeExceptionMessage);
     }
-    void setDriveWarningMessage (String opModeExceptionMessage) {
+    void setDriveWarning (String opModeExceptionMessage) {
         if (driveWarningGenerated)
-            driveWarningMessage += ", ";
+            super.setDriveWarningMessage(driveWarningMessage += ", ");
         warningGenerated = true;
         driveWarningGenerated = true;
-        driveWarningMessage += opModeExceptionMessage;
+        super.setDriveWarningMessage(driveWarningMessage += opModeExceptionMessage);
     }
-    void setServoWarningMessage (String opModeExceptionMessage) {
+    void setServoWarning (String opModeExceptionMessage) {
         if (servoWarningGenerated)
-            servoWarningMessage += ", ";
+            super.setServoWarningMessage(servoWarningMessage += ", ");
         warningGenerated = true;
         servoWarningGenerated = true;
-        servoWarningMessage += opModeExceptionMessage;
+        super.setServoWarningMessage(servoWarningMessage += opModeExceptionMessage);
     }
-    void setSensorWarningMessage (String opModeExceptionMessage) {
+    void setSensorWarning (String opModeExceptionMessage) {
         if (sensorWarningGenerated)
-            sensorWarningMessage += ", ";
+            super.setSensorWarningMessage(sensorWarningMessage += ", ");
         warningGenerated = true;
         sensorWarningGenerated = true;
-        sensorWarningMessage += opModeExceptionMessage;
+        super.setSensorWarningMessage(sensorWarningMessage += opModeExceptionMessage);
     }
 }
