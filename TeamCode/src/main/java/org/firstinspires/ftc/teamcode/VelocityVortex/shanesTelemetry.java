@@ -9,27 +9,26 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  */
 public class shanesTelemetry extends VelocityVortexHardware{
 
-
-    void allTele() {
+    public void allTele() {
         motorTele();;
         servoTele();
-       //sensorTele();
+        sensorTele();
         //encoderTele();
     }
-    void motorTele() {
+    public void motorTele() {
         telemetry.addData("fl", leftDrivePower);
         telemetry.addData("fr",rightDrivePower);
         telemetry.addData("bl", backLeftPower);
         telemetry.addData("br", backRightPower);
         telemetry.addData("sweeper",sweeperPower);
     }
-    void servoTele() {
+    public void servoTele() {
         telemetry.addData("rightBeacon", rightBeaconPosition);
         telemetry.addData("leftBeacon", leftBeaconPosition);
     }
-    void sensorTele() {
-        //telemetry.addData("touch", touch.isPressed());
-        telemetry.addData("touch double", touch.getValue());
+    public void sensorTele() {
+        telemetry.addData("touch", touch.isPressed());
+        //telemetry.addData("touch double", touch.getValue());
         telemetry.addData("light1", light1.getLightDetected());
         telemetry.addData("light2", light2.getLightDetected());
         telemetry.addData("color1 red", color1.red());
@@ -45,7 +44,7 @@ public class shanesTelemetry extends VelocityVortexHardware{
         telemetry.addData("optical distance", od.getLightDetected());
         telemetry.addData("", "");
     }
-    void encoderTele() {
+    public void encoderTele() {
         telemetry.addData("", "");
         telemetry.addData("", "");
         telemetry.addData("", "");

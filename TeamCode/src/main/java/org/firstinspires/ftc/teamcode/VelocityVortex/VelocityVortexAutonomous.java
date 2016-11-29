@@ -48,7 +48,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
         double drPower;
         double drAngle;
         boolean changeState;
-        double wallDistance = 100;
+        final double wallDistance = 100;
         switch (state) {
             case 0: // nothing - add reset encoders here
                 state++;
