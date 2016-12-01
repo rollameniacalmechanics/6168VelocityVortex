@@ -141,6 +141,13 @@ public class VelocityVortexHardware extends OpMode {
         mBL.setPower(0);
         mBL.setPower(0);
         //tele.warningTele();
+        telemetry.addData("gyro cal", gyro.isCalibrating());
+    }
+
+    @Override
+    public void init_loop() {
+        super.init_loop();
+        telemetry.addData("gyro cal", gyro.isCalibrating());
     }
 
     @Override

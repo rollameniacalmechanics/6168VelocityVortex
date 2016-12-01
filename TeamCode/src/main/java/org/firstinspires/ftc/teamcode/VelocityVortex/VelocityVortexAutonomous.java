@@ -30,7 +30,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
     public void init_loop() {
         //shanesTelemetry tele = new shanesTelemetry();
         //tele.sensorTele();
-        allTele();
+        //allTele();
     }
 
     /**
