@@ -15,6 +15,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
 
     OmniWheelDrive drive = new OmniWheelDrive();
     private double[] power;
+    protected int state = 0;
 
     //@Override
     public void init() {
@@ -147,5 +148,15 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             sRightBeacon.setPosition(0);
         // completes case if the colors are the same
         return color1.red() > 3 && color2.red() > 3;
+    }
+    protected void alignLin(double ang, boolean ifBlue) {
+        double angle = ang;
+        if (!ifBlue)
+            angle = redAngle(ang);
+        power = drive.drive(angle,minSpeed);
+        if (light2.getLightDetected() > light2value) {
+            zeroDrive();
+            state++;
+        }
     }
 }

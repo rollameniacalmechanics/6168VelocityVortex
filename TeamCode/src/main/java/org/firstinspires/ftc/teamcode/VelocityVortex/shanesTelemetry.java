@@ -27,8 +27,8 @@ public class shanesTelemetry extends VelocityVortexHardware{
         telemetry.addData("leftBeacon", leftBeaconPosition);
     }
     public void sensorTele() {
-        telemetry.addData("touch", touch.isPressed());
-        //telemetry.addData("touch double", touch.getValue());
+        //telemetry.addData("touch", touch.isPressed());
+        telemetry.addData("touch double", touch.getValue());
         telemetry.addData("light1", light1.getLightDetected());
         telemetry.addData("light2", light2.getLightDetected());
         telemetry.addData("color1 red", color1.red());
