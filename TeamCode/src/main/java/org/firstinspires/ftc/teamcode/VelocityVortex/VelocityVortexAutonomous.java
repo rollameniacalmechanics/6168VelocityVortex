@@ -1,12 +1,16 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
+import android.util.Log;
+
+import com.qualcomm.ftccommon.DbgLog;
+
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * Created by spmce on 11/14/2016.
  */
 public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
-
+    String messageForTel = null;
     /**
      * Construct the class.
      * The system calls this member when the class is instantiated.
@@ -55,46 +59,56 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
         double drAngle;
         boolean changeState;
         final double wallDistance = 100;
+
         switch (state) {
             case 0: // nothing - add reset encoders here
+                messageForTel = "State 0 reached.";
                 state++;
                 break;
             case 1: // drive until the light 1 hits the line
                 drAngle = -Math.PI/4;
                 drPower = maxSpeed;
+                messageForTel = "Finding line";
                 changeState = findLine(drAngle, drPower, drIfBlue);
-                if (changeState)
+                //DbgLog.msg("ChangeState is %s", changeState);
+                if (changeState) {
                     state++;
+                    messageForTel = "Line found. Incremented state.";
+                }
                 break;
             case 2: // moves towards the beacon until it is 100 mm away
                 drAngle = -Math.PI/2;
                 changeState = untilDistance(drAngle, wallDistance, drIfBlue);
-                if (changeState)
+                if (changeState) {
                     state++;
+                }
                 break;
             case 3: // aligns with the lion
                 drAngle = Math.PI;
                 //alignLin(drAngle, drIfBlue);
+                messageForTel = "Aligning to line";
                 changeState = alignLine(drAngle, drIfBlue);
                 if (changeState) {
                     state++;
-                    try {
+                    /*try {
                         Thread.sleep(10); // .01 seconds
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
-                    }
+                    }*/
                 }
                 break;
             case 4: // slowly moves to the button until button is pressed
                 drAngle = -Math.PI/2;
                 changeState = untilPressed(drAngle, drIfBlue);
-                if (changeState)
+                if (changeState) {
                     state++;
+                }
                 break;
             case 5: // presses the beacon button according to the color
                 changeState = pressBeacon(drIfBlue);
-                if (changeState)
+                if (changeState) {
                     state++;
+                }
                 break;
             case 6: // resets the beacon button pressers
                 resetBeacon();
@@ -102,7 +116,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 7: // moves to the other beacon without sensing anything
                 drAngle = 0.01;
-                drPower = topSpeed;
+                drPower = maxSpeed;
                 drivePow(drAngle, drPower, drIfBlue);
                 try {
                     Thread.sleep(200);//.2 seconds
@@ -115,14 +129,16 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 drAngle = 0.01;
                 drPower = topSpeed;
                 changeState = findLine(drAngle, drPower, drIfBlue);
-                if (changeState)
+                if (changeState) {
                     state++;
+                }
                 break;
             case 9: // moves towards the beacon until it is 100 mm away
                 drAngle = -Math.PI/2;
                 changeState = untilDistance(drAngle,wallDistance,drIfBlue);
-                if (changeState)
+                if (changeState) {
                     state++;
+                }
                 break;
             case 10: //follows white line until robot reaches distance from beacon
                 drAngle = Math.PI;
@@ -134,13 +150,15 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
             case 11: // slowly moves to the beacon
                 drAngle = -Math.PI/2;
                 changeState = untilPressed(drAngle, drIfBlue);
-                if (changeState)
+                if (changeState) {
                     state++;
+                }
                 break;
             case 12: // presses the beacon button according to color
                 changeState = pressBeacon(drIfBlue);
-                if (changeState)
+                if (changeState) {
                     state++;
+                }
                 break;
             case 13: // resets the beacon button pressers
                 resetBeacon();
@@ -166,6 +184,8 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
         //tele.allTele(); // Update common telemetry
         allTele();
         telemetry.addData("25", "State: " + state);
+        telemetry.addData("DbgMsg", messageForTel);
+        //DbgLog.msg("State: %d", state);
     }
     void allTele() {
         motorTele();

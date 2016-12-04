@@ -12,6 +12,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
     protected final static double minSpeed = .22;
     private final static double light1value = 0.35;
     private final static double light2value = 0.38;
+    private String messageForTel = null;
 
     OmniWheelDrive drive = new OmniWheelDrive();
     private double[] power;
@@ -58,6 +59,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         if (!ifBlue)
             angle = redAngle(ang);
         power = drive.drive(angle,minSpeed);
+        powerDrive(power);
         /*boolean part1 = false;
         boolean part2 = false;
         if (od.getLightDetected() > 0.5) {
