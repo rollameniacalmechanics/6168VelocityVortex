@@ -9,6 +9,9 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
 
     protected final static double topSpeed = Math.sqrt(2);
     protected final static double maxSpeed = 1;
+    protected final static double halfSpeed = 0.5;
+    protected final static double slowSpeed = 0.3;
+    protected final static double quarterSpeed = 0.25;
     protected final static double minSpeed = .22;
     private final static double light1value = 0.35;
     private final static double light2value = 0.38;
@@ -46,7 +49,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double angle = ang;
         if (!ifBlue)
             angle = redAngle(ang);
-        power = drive.drive(angle,minSpeed);
+        power = drive.drive(angle,quarterSpeed);
         powerDrive(power);
         if (range.getDistance(DistanceUnit.MM) <= mmDistance) {
             zeroDrive();
@@ -58,7 +61,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double angle = ang;
         if (!ifBlue)
             angle = redAngle(ang);
-        power = drive.drive(angle,minSpeed);
+        power = drive.drive(angle,quarterSpeed);
         powerDrive(power);
         /*boolean part1 = false;
         boolean part2 = false;
@@ -85,7 +88,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double angle = ang;
         if (!ifBlue)
             angle = redAngle(ang);
-        power = drive.drive(angle, minSpeed);
+        power = drive.drive(angle, slowSpeed);
         powerDrive(power);
         if (touch.isPressed()) {
             zeroDrive();
@@ -136,22 +139,22 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return Math.PI - angle;
     }
     private boolean blueBeacon() {
-        if (color1.blue() > 3)
+        if (color1.blue() > 1)
             sLeftBeacon.setPosition(.96);
         else
             sRightBeacon.setPosition(0);
         // completes case if the colors are the same
-        return color1.blue() > 3 && color2.blue() > 3;
+        return color1.blue() > 1 && color2.blue() > 1;
     }
     private boolean redBeacon() {
-        if (color1.red() > 3)
+        if (color1.red() > 1)
             sLeftBeacon.setPosition(.96);
         else
             sRightBeacon.setPosition(0);
         // completes case if the colors are the same
-        return color1.red() > 3 && color2.red() > 3;
+        return color1.red() > 1 && color2.red() > 1;
     }
-    protected void alignLin(double ang, boolean ifBlue) {
+    /*protected void alignLin(double ang, boolean ifBlue) {
         double angle = ang;
         if (!ifBlue)
             angle = redAngle(ang);
@@ -160,5 +163,5 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             zeroDrive();
             state++;
         }
-    }
+    }*/
 }

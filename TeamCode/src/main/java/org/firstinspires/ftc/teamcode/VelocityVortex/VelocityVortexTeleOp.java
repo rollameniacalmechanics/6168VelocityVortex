@@ -55,6 +55,12 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         //telemetry.addData("Color 1 blue",color1.blue());
         //telemetry.addData("Color 1 red",color1.red());
         //shanesTelemetry tele = new shanesTelemetry();
+        launcherPower = -gamepad2.left_trigger + gamepad2.right_trigger;
+        if (gamepad1.left_bumper)
+            launcherPower -= 1;
+        if (gamepad1.right_bumper)
+            launcherPower += 1;
+        mLauncher.setPower(launcherPower);
         motorTele();
         servoTele();
         sensorTele();

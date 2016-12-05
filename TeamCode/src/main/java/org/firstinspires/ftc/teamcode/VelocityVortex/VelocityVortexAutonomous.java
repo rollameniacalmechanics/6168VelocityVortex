@@ -34,7 +34,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
     public void init_loop() {
         //shanesTelemetry tele = new shanesTelemetry();
         //tele.sensorTele();
-        //allTele();
+        allTele();
     }
 
     /**
@@ -115,18 +115,18 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 state++;
                 break;
             case 7: // moves to the other beacon without sensing anything
-                drAngle = 0.01;
+                drAngle = 0.6;
                 drPower = maxSpeed;
                 drivePow(drAngle, drPower, drIfBlue);
                 try {
-                    Thread.sleep(200);//.2 seconds
+                    Thread.sleep(500);//.2 seconds
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
                 state++;
                 break;
             case 8: // continues program until the next beacon
-                drAngle = 0.01;
+                drAngle = 0.6;
                 drPower = topSpeed;
                 changeState = findLine(drAngle, drPower, drIfBlue);
                 if (changeState) {
@@ -142,10 +142,10 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 10: //follows white line until robot reaches distance from beacon
                 drAngle = Math.PI;
-                alignLin(drAngle, drIfBlue);
-                //changeState = alignLine(drAngle, drIfBlue);
-                //if (changeState)
-                    //state++;
+                //alignLin(drAngle, drIfBlue);
+                changeState = alignLine(drAngle, drIfBlue);
+                if (changeState)
+                    state++;
                 break;
             case 11: // slowly moves to the beacon
                 drAngle = -Math.PI/2;

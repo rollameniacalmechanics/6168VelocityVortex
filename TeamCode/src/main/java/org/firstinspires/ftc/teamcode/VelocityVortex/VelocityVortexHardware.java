@@ -59,8 +59,8 @@ public class VelocityVortexHardware extends OpMode {
     private double initSweeperPower = 0;
     private double initlauncherPower = 0;
     // Servos - Initial Positions
-    protected double initLeftBeacon = 0.84;
-    protected double initRightBeacon = 0.12;
+    protected double initLeftBeacon = 0.81;
+    protected double initRightBeacon = 0.15;
     //------------loop positions------------
     // ADD LOOP POWER AND POSITION VARIABLES HERE:
     // DcMotors - Loop Power
@@ -152,7 +152,7 @@ public class VelocityVortexHardware extends OpMode {
 
     @Override
     public void start() {
-        color1.setI2cAddress(I2cAddr.create8bit(0x3c));
+        color1.setI2cAddress(I2cAddr.create8bit(0x5c));
         color1.enableLed(false);
         color2.setI2cAddress(I2cAddr.create8bit(0x4c));
     }
