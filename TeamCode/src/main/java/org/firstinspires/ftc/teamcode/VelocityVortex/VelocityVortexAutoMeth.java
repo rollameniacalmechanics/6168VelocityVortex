@@ -13,9 +13,10 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
     protected final static double slowSpeed = 0.3;
     protected final static double quarterSpeed = 0.25;
     protected final static double minSpeed = .22;
-    private final static double light1value = 0.35;
-    private final static double light2value = 0.38;
+    private final static double light1value = 0.38;
+    private final static double light2value = 0.39;
     private String messageForTel = null;
+    protected int count;
 
     OmniWheelDrive drive = new OmniWheelDrive();
     private double[] power;
@@ -97,8 +98,21 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return false;
     }
     protected boolean pressBeacon(boolean ifBlue) {
-        if(ifBlue)
+        if (color2.blue() == 255) {
+            if (ifBlue) {
+                return color1BlueBeacon();
+            } else {
+                return color1RedBeacon();
+            }
+        } else if (color1.blue() == 255) {
+            if (ifBlue) {
+                return color2BlueBeacon();
+            } else {
+                return color2RedBeacon();
+            }
+        } else if (ifBlue) {
             return blueBeacon();
+        }
         return redBeacon();
     }
     protected void resetBeacon() {
@@ -139,20 +153,52 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return Math.PI - angle;
     }
     private boolean blueBeacon() {
-        if (color1.blue() > 1)
+        if (color1.blue() > 2)
             sLeftBeacon.setPosition(.96);
-        else
+        else if (color1.red() > 2)
             sRightBeacon.setPosition(0);
         // completes case if the colors are the same
-        return color1.blue() > 1 && color2.blue() > 1;
+        return color1.blue() > 2 && color2.blue() > 2;
     }
     private boolean redBeacon() {
-        if (color1.red() > 1)
+        if (color1.red() > 2)
             sLeftBeacon.setPosition(.96);
-        else
+        else if (color1.blue() > 2)
             sRightBeacon.setPosition(0);
         // completes case if the colors are the same
-        return color1.red() > 1 && color2.red() > 1;
+        return color1.red() > 2 && color2.red() > 2;
+    }
+    private boolean color1BlueBeacon() {
+        if (color1.blue() > 2)
+            sLeftBeacon.setPosition(.96);
+        else if (color1.red() > 2)
+            sRightBeacon.setPosition(0);
+        count++;
+        return count > 50;
+    }
+    private boolean color1RedBeacon() {
+        if (color1.red() > 2)
+            sLeftBeacon.setPosition(.96);
+        else if (color1.blue() > 2)
+            sRightBeacon.setPosition(0);
+        count++;
+        return count > 50;
+    }
+    private boolean color2BlueBeacon() {
+        if (color2.blue() > 2)
+            sLeftBeacon.setPosition(.96);
+        else if (color2.red() > 2)
+            sRightBeacon.setPosition(0);
+        count++;
+        return count > 50;
+    }
+    private boolean color2RedBeacon() {
+        if (color2.red() > 2)
+            sLeftBeacon.setPosition(.96);
+        else if (color2.blue() > 2)
+            sRightBeacon.setPosition(0);
+        count++;
+        return count > 50;
     }
     /*protected void alignLin(double ang, boolean ifBlue) {
         double angle = ang;
