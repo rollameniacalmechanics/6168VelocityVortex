@@ -11,6 +11,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  */
 public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
     String messageForTel = null;
+    private int timeCounter; // runs about 20 times a second
+    //private int timeCounter2;
     /**
      * Construct the class.
      * The system calls this member when the class is instantiated.
@@ -114,64 +116,112 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 resetBeacon();
                 count = 0;
                 state++;
+                timeCounter = 0;
                 break;
-            case 7: // moves to the other beacon without sensing anything
+            case 7: // moves forward to align for launcher shot
                 drAngle = Math.PI/2;
-                drPower = maxSpeed;
+                //drPower = maxSpeed;
+                drPower = topSpeed;
                 drivePow(drAngle, drPower, drIfBlue);
                 try {
-                    Thread.sleep(800);//.2 seconds
+                    Thread.sleep(500);//.8 seconds
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
-                state++;
+                //if (timeCounter >= 15) {
+                    state++;
+                //}
+                timeCounter++;
                 break;
             case 8:
+                timeCounter = 0;
                 zeroDrive();
                 state++;
                 break;
             case 9:
                 mLauncher.setPower(1);
                 try {
-                    Thread.sleep(1200); // 2.95 seconds
+                    Thread.sleep(1200); // 1.2 seconds
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
-                mLauncher.setPower(0);
-                state++;
+                //if (timeCounter >= 23) {
+                    state++;
+                //}
+                timeCounter++;
+                break;
             case 10:
+                mLauncher.setPower(0);
+                timeCounter = 0;
+                state++;
+                break;
+            case 11:
                 mSweeper.setPower(.5);
                 try {
-                    Thread.sleep(1700); // 2.95 seconds
+                    Thread.sleep(1700); // 1.7 seconds
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
+                //if (timeCounter >= 33)
+                    state++;
+                //timeCounter++;
+                break;
+            case 12:
+                timeCounter = 0;
                 mSweeper.setPower(0);
-            case 11:
+                state++;
+                break;
+            case 13:
                 mLauncher.setPower(1);
                 try {
-                    Thread.sleep(300); // 2.95 seconds
+                    Thread.sleep(300); // .3 seconds
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
+                //if (timeCounter >= 5) {
+                    state++;
+                //}
+                timeCounter++;
+                break;
+            case 14:
+                timeCounter = 0;
+                state++;
+                break;
+            case 15:
                 mLauncher.setPower(0);
                 try {
                     Thread.sleep(700); // 2.95 seconds
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
+                //if (timeCounter >= 13) {
+                    state++;
+                //}
+                timeCounter++;
+                break;
+            case 16:
+                timeCounter = 0;
                 state++;
-            case 12:
+                break;
+            case 17:
                 mLauncher.setPower(1);
                 try {
                     Thread.sleep(1200); // 2.95 seconds
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
+                //if (timeCounter >= 23) {
+                    state++;
+                //}
+                timeCounter++;
+                break;
+            case 18:
                 mLauncher.setPower(0);
-                state = 17;
-            case 17: // moves to the other beacon without sensing anything
-                drAngle = 0;
+                timeCounter = 0;
+                state = 26;
+                break;
+            case 26: // moves to the other beacon without sensing anything
+                drAngle = -.1;
                 drPower = maxSpeed;
                 drivePow(drAngle, drPower, drIfBlue);
                 try {
@@ -179,9 +229,16 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
+                //if (timeCounter >= 13) {
+                    state++;
+                //}
+                timeCounter++;
+                break;
+            case 27:
+                timeCounter = 0;
                 state++;
                 break;
-            case 18: // continues program until the next beacon
+            case 28: // continues program until the next beacon
                 drAngle = 0;
                 drPower = topSpeed;
                 changeState = findLine(drAngle, drPower, drIfBlue);
@@ -189,38 +246,38 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                     state++;
                 }
                 break;
-            case 19: // moves towards the beacon until it is 100 mm away
+            case 29: // moves towards the beacon until it is 100 mm away
                 drAngle = -Math.PI/2;
                 changeState = untilDistance(drAngle,wallDistance,drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 20: //follows white line until robot reaches distance from beacon
+            case 30: //follows white line until robot reaches distance from beacon
                 drAngle = Math.PI;
                 //alignLin(drAngle, drIfBlue);
                 changeState = alignLine(drAngle, drIfBlue);
                 if (changeState)
                     state++;
                 break;
-            case 21: // slowly moves to the beacon
+            case 31: // slowly moves to the beacon
                 drAngle = -Math.PI/2;
                 changeState = untilPressed(drAngle, drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 22: // presses the beacon button according to color
+            case 32: // presses the beacon button according to color
                 changeState = pressBeacon(drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 23: // resets the beacon button pressers
+            case 33: // resets the beacon button pressers
                 resetBeacon();
                 state++;
                 break;
-            case 24: // moves to hit the ball
+            case 34: // moves to hit the ball
                 drAngle = 47*Math.PI/64;
                 drPower = 1;
                 drivePow(drAngle, drPower, drIfBlue);
@@ -231,11 +288,11 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 }
                 state++;
                 break;
-            case 25: // parks the robot
-                zeroDrive();
+            case 35: // parks the robot
+                //zeroDrive();
                 state++;
                 break;
-            case 26:
+            case 36:
                 /*mLauncher.setPower(1);
                 try {
                     Thread.sleep(2000); // 2.95 seconds
@@ -244,7 +301,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 }*/
                 state++;
                 break;
-            case 27:
+            case 37:
                 drAngle = 47*Math.PI/64;
                 drPower = 1;
                 drivePow(drAngle, drPower, drIfBlue);
@@ -255,7 +312,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 }
                 state++;
                 break;
-            case 29:
+            case 38:
                 zeroDrive();
                 break;
             default:
@@ -267,6 +324,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
         allTele();
         telemetry.addData("25", "State: " + state);
         telemetry.addData("DbgMsg", messageForTel);
+        telemetry.addData("timeCounter", timeCounter);
         //DbgLog.msg("State: %d", state);
     }
     void allTele() {

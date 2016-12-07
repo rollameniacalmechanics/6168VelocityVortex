@@ -10,11 +10,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @TeleOp (name = "Velocity Vortex TeleOp" , group = "TeleOp")
 public class VelocityVortexTeleOp extends VelocityVortexHardware {
 
+    private int pad1Config;
+
     VelocityVortexTelemetry tele = new VelocityVortexTelemetry();
     //@Override
     public void init() {
         super.init();
         //tele.initTele();
+        mFL.setPower(leftDrivePower);
+        mFR.setPower(rightDrivePower);
+        mBR.setPower(backRightPower);
+        mBL.setPower(backLeftPower);
     }
     /*public void init_loop() {
         //super.init_loop();
@@ -23,9 +29,38 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
     //@Override
     public void loop() {
         super.loop();
+        if (gamepad1.start) {
+            pad1Config = 0;
+        }
+        if (gamepad1.x) {
+            pad1Config++;
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+            if (pad1Config == 2) {
+                pad1Config = 0;
+            }
+        }
+        if (gamepad1.y) {
+            pad1Config--;
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+            if (pad1Config == -1) {
+                pad1Config = 1;
+            }
+        }
         OmniWheelDrive omniWheels = new OmniWheelDrive();
-        double[] wheels;
-        wheels = omniWheels.drive(gamepad1);
+        double[] wheels = new double[4];
+        if (pad1Config == 0) {
+            wheels = omniWheels.drive(gamepad1);
+        } else if (pad1Config == 1) {
+            wheels = omniWheels.drive(gamepad1,gyro);
+        }
         // Set Drive Train Power
         leftDrivePower  = wheels[0];
         rightDrivePower = wheels[1];
@@ -40,6 +75,7 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         //double right = gamepad1.right_trigger;
         //sweeperPower = sweeper.sweep(left,right);
         sweeperPower = -gamepad1.left_trigger + gamepad1.right_trigger;
+        sweeperPower = -gamepad2.left_trigger + gamepad2.right_trigger;
         mSweeper.setPower(sweeperPower);
         if (gamepad1.a)
             sLeftBeacon.setPosition(.96);
@@ -55,17 +91,24 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         //telemetry.addData("Color 1 blue",color1.blue());
         //telemetry.addData("Color 1 red",color1.red());
         //shanesTelemetry tele = new shanesTelemetry();
-        launcherPower = -gamepad2.left_trigger + gamepad2.right_trigger;
-        if (gamepad1.left_bumper)
+        //launcherPower = -gamepad2.left_trigger + gamepad2.right_trigger;
+        launcherPower = 0;
+        /*if (gamepad1.left_bumper)
             launcherPower -= 1;
         if (gamepad1.right_bumper)
+            launcherPower += 1;*/
+        if (gamepad2.left_bumper)
+            launcherPower -= 1;
+        if (gamepad2.right_bumper)
             launcherPower += 1;
         mLauncher.setPower(launcherPower);
+        telemetry.addData("001101 pad1", pad1Config);
         motorTele();
         servoTele();
         sensorTele();
     }
     void allTele() {
+        telemetry.addData("001101", pad1Config);
         motorTele();;
         servoTele();
         //sensorTele();

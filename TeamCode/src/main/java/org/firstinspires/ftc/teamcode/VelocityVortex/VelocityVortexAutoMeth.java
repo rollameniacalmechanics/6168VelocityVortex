@@ -153,52 +153,52 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return Math.PI - angle;
     }
     private boolean blueBeacon() {
-        if (color1.blue() > 2)
+        if (color1.blue() > 1)
             sLeftBeacon.setPosition(.96);
-        else if (color1.red() > 2)
+        else if (color1.red() > 1)
             sRightBeacon.setPosition(0);
         // completes case if the colors are the same
-        return color1.blue() > 2 && color2.blue() > 2;
+        return color1.blue() > 1 && color2.blue() > 1;
     }
     private boolean redBeacon() {
-        if (color1.red() > 2)
+        if (color1.red() > 1)
             sLeftBeacon.setPosition(.96);
-        else if (color1.blue() > 2)
+        else if (color1.blue() > 1)
             sRightBeacon.setPosition(0);
         // completes case if the colors are the same
-        return color1.red() > 2 && color2.red() > 2;
+        return color1.red() > 1 && color2.red() > 1;
     }
     private boolean color1BlueBeacon() {
-        if (color1.blue() > 2)
+        if (color1.blue() > 1)
             sLeftBeacon.setPosition(.96);
-        else if (color1.red() > 2)
+        else if (color1.red() > 1)
             sRightBeacon.setPosition(0);
         count++;
-        return count > 50;
+        return count > 150;
     }
     private boolean color1RedBeacon() {
-        if (color1.red() > 2)
+        if (color1.red() > 1)
             sLeftBeacon.setPosition(.96);
-        else if (color1.blue() > 2)
+        else if (color1.blue() > 1)
             sRightBeacon.setPosition(0);
         count++;
-        return count > 50;
+        return count > 150;
     }
     private boolean color2BlueBeacon() {
-        if (color2.blue() > 2)
+        if (color2.red() > 1)
             sLeftBeacon.setPosition(.96);
-        else if (color2.red() > 2)
+        else if (color2.blue() > 1)
             sRightBeacon.setPosition(0);
         count++;
-        return count > 50;
+        return count > 150;
     }
     private boolean color2RedBeacon() {
-        if (color2.red() > 2)
+        if (color2.blue() > 1)
             sLeftBeacon.setPosition(.96);
-        else if (color2.blue() > 2)
+        else if (color2.red() > 1)
             sRightBeacon.setPosition(0);
         count++;
-        return count > 50;
+        return count > 150;
     }
     /*protected void alignLin(double ang, boolean ifBlue) {
         double angle = ang;

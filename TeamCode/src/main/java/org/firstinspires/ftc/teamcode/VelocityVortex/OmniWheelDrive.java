@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
  * Created by spmce on 11/2/2016.
@@ -160,6 +161,30 @@ public class OmniWheelDrive extends DriveTrain{
         power = pythag(lx, ly);
         angle = Math.acos(lx / power);
         ifPositive = isIfPositive(ly);
+        return runDrive();
+    }
+
+    public double[] drive(Gamepad pad, GyroSensor gyroSensor) {
+        double lx = pad.left_stick_x;
+        double ly = -pad.left_stick_y;
+        x = pad.right_stick_x;
+        power = pythag(lx, ly);
+        angle = Math.acos(lx / power);
+        if(!isIfPositive(ly)) {
+            angle = -angle;
+        }
+        double gyroAng = gyroSensor.getHeading();
+        gyroAng = Math.toRadians(gyroAng);
+        if (gyroAng > Math.PI) {
+            gyroAng -= 2*Math.PI;
+        }
+        angle = angle + gyroAng;
+        if (angle < 0) {
+            angle = -angle;
+            ifPositive = false;
+        } else {
+            ifPositive = true;
+        }
         return runDrive();
     }
 
