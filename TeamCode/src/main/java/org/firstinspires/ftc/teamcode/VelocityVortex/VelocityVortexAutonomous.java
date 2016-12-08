@@ -124,7 +124,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 drPower = topSpeed;
                 drivePow(drAngle, drPower, drIfBlue);
                 try {
-                    Thread.sleep(500);//.8 seconds
+                    Thread.sleep(400);//.8 seconds
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
@@ -221,8 +221,8 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 state = 26;
                 break;
             case 26: // moves to the other beacon without sensing anything
-                drAngle = -.1;
-                drPower = maxSpeed;
+                drAngle = 0.2;
+                drPower = topSpeed;
                 drivePow(drAngle, drPower, drIfBlue);
                 try {
                     Thread.sleep(700);//.2 seconds
@@ -239,7 +239,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 state++;
                 break;
             case 28: // continues program until the next beacon
-                drAngle = 0;
+                drAngle = 0.8;
                 drPower = topSpeed;
                 changeState = findLine(drAngle, drPower, drIfBlue);
                 if (changeState) {

@@ -21,6 +21,8 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         mFR.setPower(rightDrivePower);
         mBR.setPower(backRightPower);
         mBL.setPower(backLeftPower);
+        //gyro.calibrate();
+        pad1Config = 0;
     }
     /*public void init_loop() {
         //super.init_loop();
@@ -74,7 +76,7 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         //double left = gamepad1.left_trigger;
         //double right = gamepad1.right_trigger;
         //sweeperPower = sweeper.sweep(left,right);
-        sweeperPower = -gamepad1.left_trigger + gamepad1.right_trigger;
+        //sweeperPower = -gamepad1.left_trigger + gamepad1.right_trigger;
         sweeperPower = -gamepad2.left_trigger + gamepad2.right_trigger;
         mSweeper.setPower(sweeperPower);
         if (gamepad1.a)
