@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -11,6 +12,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class VelocityVortexTeleOp extends VelocityVortexHardware {
 
     private int pad1Config;
+    private boolean isPad1XPressed;
+    private boolean isPad1XReleased;
+    private boolean isPad1YPressed;
+    private boolean isPad1YReleased;
+    private double longestTime = 0;
 
     VelocityVortexTelemetry tele = new VelocityVortexTelemetry();
     //@Override
@@ -24,43 +30,23 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         //gyro.calibrate();
         pad1Config = 0;
     }
-    /*public void init_loop() {
-        //super.init_loop();
+    public void init_loop() {
+        super.init_loop();
+        checkConfig();
+        telemetry.addData("001101 pad1", pad1Config);
         //tele.initLoopTele();
-    }*/
+    }
     //@Override
     public void loop() {
         super.loop();
-        if (gamepad1.start) {
-            pad1Config = 0;
-        }
-        if (gamepad1.x) {
-            pad1Config++;
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
-            if (pad1Config == 2) {
-                pad1Config = 0;
-            }
-        }
-        if (gamepad1.y) {
-            pad1Config--;
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
-            }
-            if (pad1Config == -1) {
-                pad1Config = 1;
-            }
-        }
+        /*ElapsedTime time = new ElapsedTime();
+        time.startTime();*/
+        checkConfig();
         OmniWheelDrive omniWheels = new OmniWheelDrive();
         double[] wheels = new double[4];
-        if (pad1Config == 0) {
+        if (pad1Config == 0 || pad1Config == 3) {
             wheels = omniWheels.drive(gamepad1);
-        } else if (pad1Config == 1) {
+        } else if (pad1Config > 0) {
             wheels = omniWheels.drive(gamepad1,gyro);
         }
         // Set Drive Train Power
@@ -78,6 +64,9 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         //sweeperPower = sweeper.sweep(left,right);
         //sweeperPower = -gamepad1.left_trigger + gamepad1.right_trigger;
         sweeperPower = -gamepad2.left_trigger + gamepad2.right_trigger;
+        if (pad1Config >= 2) {
+            sweeperPower += -gamepad1.left_trigger + gamepad1.right_trigger;
+        }
         mSweeper.setPower(sweeperPower);
         if (gamepad1.a)
             sLeftBeacon.setPosition(.96);
@@ -95,10 +84,12 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         //shanesTelemetry tele = new shanesTelemetry();
         //launcherPower = -gamepad2.left_trigger + gamepad2.right_trigger;
         launcherPower = 0;
-        /*if (gamepad1.left_bumper)
-            launcherPower -= 1;
-        if (gamepad1.right_bumper)
-            launcherPower += 1;*/
+        if (pad1Config >= 2) {
+            if (gamepad1.left_bumper)
+                launcherPower -= 1;
+            if (gamepad1.right_bumper)
+                launcherPower += 1;
+        }
         if (gamepad2.left_bumper)
             launcherPower -= 1;
         if (gamepad2.right_bumper)
@@ -108,6 +99,49 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         motorTele();
         servoTele();
         sensorTele();
+        /*if (time.milliseconds() > longestTime) {
+            longestTime = time.milliseconds();
+        }
+        telemetry.addData("time",time.milliseconds());
+        telemetry.addData("time-longest", longestTime);
+        time.reset();*/
+    }
+    void checkConfig() {
+        if (gamepad1.start) {
+            pad1Config = 0;
+        }
+        if (gamepad1.x) {
+            isPad1XPressed = true;
+            isPad1XReleased = false;
+        }
+        if (isPad1XPressed) {
+            if (!gamepad1.x) {
+                isPad1XReleased = true;
+                isPad1XPressed = false;
+            }
+            if (isPad1XReleased) {
+                pad1Config++;
+            }
+            if (pad1Config == 4) {
+                pad1Config = 0;
+            }
+        }
+        if (gamepad1.y) {
+            isPad1YPressed = true;
+            isPad1YReleased = false;
+        }
+        if (isPad1YPressed) {
+            if (!gamepad1.y) {
+                isPad1YReleased = true;
+                isPad1YPressed = false;
+            }
+            if (isPad1YReleased) {
+                pad1Config--;
+            }
+            if (pad1Config == -1) {
+                pad1Config = 3;
+            }
+        }
     }
     void allTele() {
         telemetry.addData("001101", pad1Config);

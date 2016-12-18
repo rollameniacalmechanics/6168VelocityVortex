@@ -6,7 +6,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 /**
  * Created by spmce on 11/18/2016.
  */
-@Autonomous(name = "Auto Blue" , group = "Autonomous") //Register
+//@Autonomous(name = "Auto Blue" , group = "Autonomous") //Register
 public class AutoBlue extends VelocityVortexHardware {
 
     /**
