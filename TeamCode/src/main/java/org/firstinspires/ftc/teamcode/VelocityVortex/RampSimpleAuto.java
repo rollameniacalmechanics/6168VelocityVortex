@@ -1,14 +1,11 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
- * Created by spmce on 12/16/2016.
+ * Created by spmce on 2/4/2017.
  */
-//@Autonomous (name = "Simple Auto", group = "Autonomous")
-public class SimpleAuto extends VelocityVortexAutoMeth {
-
+public class RampSimpleAuto extends VelocityVortexAutoMeth{
     private int state = 0;
     //private AutoLaunch launch = new AutoLaunch();
     private boolean isFinished;
@@ -213,15 +210,9 @@ public class SimpleAuto extends VelocityVortexAutoMeth {
                 }
                 break;
             case 23:
-                driveForward(.5);
-                if (mFL.getCurrentPosition() > 5580) {
-                    state++;
-                }
-                break;
-            case 24:
-                drivePow(Math.PI,1,ifBlue);
+                drivePow(3*Math.PI/16,1,ifBlue);
                 try {
-                    Thread.sleep(800); // 1.2 seconds
+                    Thread.sleep(3150); // 1.2 seconds
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }

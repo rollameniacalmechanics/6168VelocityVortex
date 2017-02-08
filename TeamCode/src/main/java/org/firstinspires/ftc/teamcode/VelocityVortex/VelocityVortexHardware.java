@@ -1,23 +1,23 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
-        import android.hardware.Sensor;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
+import com.qualcomm.robotcore.hardware.I2cAddr;
+import com.qualcomm.robotcore.hardware.LightSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.hardware.TouchSensorMultiplexer;
 
-        import com.qualcomm.ftccommon.DbgLog;
-        import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
-        import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-        import com.qualcomm.robotcore.hardware.ColorSensor;
-        import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.hardware.DcMotorSimple;
-        import com.qualcomm.robotcore.hardware.GyroSensor;
-        import com.qualcomm.robotcore.hardware.HardwareDevice;
-        import com.qualcomm.robotcore.hardware.I2cAddr;
-        import com.qualcomm.robotcore.hardware.LightSensor;
-        import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
-        import com.qualcomm.robotcore.hardware.Servo;
-        import com.qualcomm.robotcore.hardware.TouchSensor;
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRRangeSensor;
 
-        import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRRangeSensor;
-
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 /**
  * Created by spmce on 11/3/2016.
  */
@@ -41,15 +41,21 @@ public class VelocityVortexHardware extends OpMode {
     // Servos
     protected Servo sLeftBeacon;
     protected Servo sRightBeacon;
+    protected Servo sLoaderStopper;
     // Sensors
     protected TouchSensor touch;
     protected ColorSensor color1;
     protected ColorSensor color2;
     protected LightSensor light1;
     protected LightSensor light2;
+    protected LightSensor light3;
+    protected LightSensor light4;
     protected GyroSensor gyro;
     protected ModernRoboticsI2cRangeSensor range;
-    protected OpticalDistanceSensor od;   //------------initial positions------------
+    protected OpticalDistanceSensor od;
+    protected TouchSensorMultiplexer multi;
+    protected SensorManager sm;
+    //------------initial positions------------
     // ADD INITIAL POWER AND POSITIONS VARIABLES HERE:
     // DcMotors - Initial Power
     private double initLeftDrivePower = 0;
@@ -61,6 +67,7 @@ public class VelocityVortexHardware extends OpMode {
     // Servos - Initial Positions
     protected double initLeftBeacon = 0.81;
     protected double initRightBeacon = 0.15;
+    protected double initLoaderStopper = 0;
     //------------loop positions------------
     // ADD LOOP POWER AND POSITION VARIABLES HERE:
     // DcMotors - Loop Power
@@ -73,6 +80,7 @@ public class VelocityVortexHardware extends OpMode {
     // Servos - Loop Positions
     protected double leftBeaconPosition;
     protected double rightBeaconPosition;
+    protected double loaderStopperPosition;
     //------------Telemetry Warnings------------
     // Create message of warning if created
     protected String warningMessage = "";
@@ -117,8 +125,10 @@ public class VelocityVortexHardware extends OpMode {
         mLauncher = hardwareMap.dcMotor.get("Launcher");
         sLeftBeacon = hardwareMap.servo.get("sLeftButt");
         sRightBeacon = hardwareMap.servo.get("sRightButt");
+        sLoaderStopper = hardwareMap.servo.get("sls");
         sLeftBeacon.setPosition(initLeftBeacon);
         sRightBeacon.setPosition(initRightBeacon);
+        sLoaderStopper.setPosition(initLoaderStopper);
         touch = hardwareMap.touchSensor.get("touch");
         color1 = hardwareMap.colorSensor.get("color1");
         //color1.enableLed(false);
@@ -152,7 +162,7 @@ public class VelocityVortexHardware extends OpMode {
 
     @Override
     public void start() {
-        color1.setI2cAddress(I2cAddr.create8bit(0x5c));
+        color1.setI2cAddress(I2cAddr.create8bit(0x6c));
         color1.enableLed(false);
         color2.setI2cAddress(I2cAddr.create8bit(0x4c));
     }

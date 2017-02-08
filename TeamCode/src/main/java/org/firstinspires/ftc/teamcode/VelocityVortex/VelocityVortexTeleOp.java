@@ -77,6 +77,18 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
             sRightBeacon.setPosition(0);
         else
             sRightBeacon.setPosition(initRightBeacon);
+
+        if (gamepad2.a) {
+            sLoaderStopper.setPosition(.5);
+        }
+        if (gamepad2.b)
+            sLoaderStopper.setPosition(initLoaderStopper);
+
+        if (gamepad2.x)
+            sLoaderStopper.setPosition(.5);
+        else {
+            sLoaderStopper.setPosition(initLoaderStopper);
+        }
         //tele.loopTele();
         //telemetry.addData("Touch",touch.isPressed());
         //telemetry.addData("Color 1 blue",color1.blue());
@@ -160,6 +172,7 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
     void servoTele() {
         telemetry.addData("rightBeacon", rightBeaconPosition);
         telemetry.addData("leftBeacon", leftBeaconPosition);
+        telemetry.addData("loaderStopper", loaderStopperPosition);
     }
     void sensorTele() {
         //telemetry.addData("touch", touch.isPressed());

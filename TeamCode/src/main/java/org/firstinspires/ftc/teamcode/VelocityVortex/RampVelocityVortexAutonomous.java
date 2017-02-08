@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
-import android.util.Log;
-
-import com.qualcomm.ftccommon.DbgLog;
-
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * Created by spmce on 11/14/2016.
  */
-public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
+public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
     String messageForTel = null;
     private int timeCounter; // runs about 20 times a second
     double i = 0;
@@ -18,7 +14,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
      * Construct the class.
      * The system calls this member when the class is instantiated.
      */
-    public VelocityVortexAutonomous() {
+    public RampVelocityVortexAutonomous() {
         // Initialize base classes and class members.
         // All via self-construction.
     }
@@ -382,9 +378,9 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
             case 37:
                 drAngle = Math.PI/2;
                 drPower = 1;
-                int timeNum = 80;
+                int timeNum = 600;
                 if(drIfBlue) {
-                    timeNum = 500;
+                    timeNum = 600;
                 }
                 drivePow(drAngle, drPower, drIfBlue,.11);
                 try {
@@ -395,13 +391,13 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 state++;
                 break;
             case 38:
-                drAngle = 104*Math.PI/128;
+                drAngle = Math.PI;
                 if (!drIfBlue)
-                    drAngle = 96*Math.PI/128;
+                    drAngle = Math.PI;
                 drPower = 1;
                 drivePow(drAngle, drPower, drIfBlue, .07, true);
                 try {
-                    Thread.sleep(2600); // 2.95 seconds `````````````
+                    Thread.sleep(3900); // 2.95 seconds `````````````
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
@@ -413,10 +409,10 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                     }
                 }
                 countThingy = 0;
-                state++;
+                state = 40;
                 break;
             case 39:
-                drAngle = 121*Math.PI/128;
+                drAngle = Math.PI;
                 changeState = untilFarDistance(drAngle,1130,drIfBlue);
                 if (changeState) {
                     state++;
