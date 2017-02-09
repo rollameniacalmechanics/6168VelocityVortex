@@ -131,10 +131,10 @@ public class VelocityVortexHardware extends OpMode {
         sLoaderStopper.setPosition(initLoaderStopper);
         touch = hardwareMap.touchSensor.get("touch");
         color1 = hardwareMap.colorSensor.get("color1");
-        //color1.enableLed(false);
+        color1.enableLed(false);
         //telemetry.addData("Color1 I2c address" ,color1.getI2cAddress());
         color2 = hardwareMap.colorSensor.get("color2");
-        color2.enableLed(false);
+        //color2.enableLed(false);
         //telemetry.addData("Color2 I2c address", color2.getI2cAddress());
         light1 = hardwareMap.lightSensor.get("light1");
         light1.enableLed(true);
@@ -165,6 +165,7 @@ public class VelocityVortexHardware extends OpMode {
         color1.setI2cAddress(I2cAddr.create8bit(0x6c));
         color1.enableLed(false);
         color2.setI2cAddress(I2cAddr.create8bit(0x4c));
+        color2.enableLed(false);
     }
 
     //------------------------Loop------------------------

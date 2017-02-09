@@ -226,7 +226,7 @@ public class RampAuto extends VelocityVortexAutoMeth {
                 state++;
                 break;
             case 29:
-                drivePow(0.03,topSpeed,drIfBlue);
+                drivePow(0.03 ,topSpeed,drIfBlue);
                 try {
                     Thread.sleep(1550); // 2.95 seconds //I am commenting on your code to draw your attention to me... -Your secret admirer
                 } catch (InterruptedException ex) {

@@ -392,10 +392,13 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 38:
                 drAngle = Math.PI;
-                if (!drIfBlue)
+                double myTurn = 0;
+                if (!drIfBlue) {
                     drAngle = Math.PI;
+                    myTurn = .07;
+                }
                 drPower = 1;
-                drivePow(drAngle, drPower, drIfBlue, .07, true);
+                drivePow(drAngle, drPower, drIfBlue, myTurn, true);
                 try {
                     Thread.sleep(3900); // 2.95 seconds `````````````
                 } catch (InterruptedException ex) {
