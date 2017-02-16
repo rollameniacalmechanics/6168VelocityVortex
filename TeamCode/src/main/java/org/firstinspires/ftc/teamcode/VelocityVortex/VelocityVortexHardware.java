@@ -55,6 +55,7 @@ public class VelocityVortexHardware extends OpMode {
     protected OpticalDistanceSensor od;
     protected TouchSensorMultiplexer multi;
     protected SensorManager sm;
+
     //------------initial positions------------
     // ADD INITIAL POWER AND POSITIONS VARIABLES HERE:
     // DcMotors - Initial Power
@@ -68,6 +69,7 @@ public class VelocityVortexHardware extends OpMode {
     protected double initLeftBeacon = 0.81;
     protected double initRightBeacon = 0.15;
     protected double initLoaderStopper = 0;
+    protected double openLoaderStopper = 0.6;
     //------------loop positions------------
     // ADD LOOP POWER AND POSITION VARIABLES HERE:
     // DcMotors - Loop Power

@@ -317,7 +317,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
                 break;
             case 1:
                 mLauncher.setPower(0);
-                sLoaderStopper.setPosition(0.5);
+                sLoaderStopper.setPosition(openLoaderStopper);
                 state++;
                 break;
             case 2:

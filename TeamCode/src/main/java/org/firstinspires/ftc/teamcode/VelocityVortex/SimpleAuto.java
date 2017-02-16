@@ -203,7 +203,7 @@ public class SimpleAuto extends VelocityVortexAutoMeth {
                 break;
             case 21:
                 zeroDrive();
-                //sLoaderStopper.setPosition(0.5);
+                //sLoaderStopper.setPosition(openLoaderStopper);
                 state++;
                 break;
             case 22:

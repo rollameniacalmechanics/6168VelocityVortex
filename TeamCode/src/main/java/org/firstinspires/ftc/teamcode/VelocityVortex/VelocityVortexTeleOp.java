@@ -79,13 +79,13 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
             sRightBeacon.setPosition(initRightBeacon);
 
         if (gamepad2.a) {
-            sLoaderStopper.setPosition(.5);
+            sLoaderStopper.setPosition(openLoaderStopper);
         }
         if (gamepad2.b)
             sLoaderStopper.setPosition(initLoaderStopper);
 
-        if (gamepad2.x)
-            sLoaderStopper.setPosition(.5);
+        if (gamepad2.x || gamepad1.dpad_up)
+            sLoaderStopper.setPosition(openLoaderStopper);
         else {
             sLoaderStopper.setPosition(initLoaderStopper);
         }

@@ -65,6 +65,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
             case 0: // nothing - add reset encoders here
                 messageForTel = "State 0 reached.";
                 sLoaderStopper.setPosition(initLoaderStopper);
+                //sLoaderStopper.setPosition(.6);
                 state++;
                 break;
             case 1: // drive until the light 1 hits the line
@@ -174,7 +175,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 10:
                 mLauncher.setPower(0);
-                sLoaderStopper.setPosition(0.5);
+                sLoaderStopper.setPosition(openLoaderStopper);
                 timeCounter = 0;
                 state++;
                 break;

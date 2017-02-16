@@ -178,7 +178,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 10:
                 mLauncher.setPower(0);
-                sLoaderStopper.setPosition(0.5);
+                sLoaderStopper.setPosition(openLoaderStopper);
                 timeCounter = 0;
                 state++;
                 break;
