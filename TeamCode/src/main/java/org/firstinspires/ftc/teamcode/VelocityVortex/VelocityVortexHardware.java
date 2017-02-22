@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.I2cAddr;
@@ -13,6 +14,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.TouchSensorMultiplexer;
+import com.vuforia.ar.pl.SensorController;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRRangeSensor;
 
@@ -90,12 +92,17 @@ public class VelocityVortexHardware extends OpMode {
     protected String driveWarningMessage = "";
     protected String servoWarningMessage = "";
     protected String sensorWarningMessage= "";
+
+
+    DeviceInterfaceModule dim;
     //------------------------Init------------------------
     /**
      * Init
      */
     @Override
     public void init() {
+        dim = hardwareMap.deviceInterfaceModule.get("DIM");
+        dim.setLED(0,true);
         VelocityVortexTelemetry tele = new VelocityVortexTelemetry();
         tele.initTele();
         // Initialize Warnings Generated and Warning Messages
@@ -154,6 +161,7 @@ public class VelocityVortexHardware extends OpMode {
         mBL.setPower(0);
         //tele.warningTele();
         telemetry.addData("gyro cal", gyro.isCalibrating());
+        dim.setLED(1,true);
     }
 
     @Override
@@ -166,7 +174,7 @@ public class VelocityVortexHardware extends OpMode {
     public void start() {
         color1.setI2cAddress(I2cAddr.create8bit(0x6c));
         color1.enableLed(false);
-        color2.setI2cAddress(I2cAddr.create8bit(0x4c));
+        color2.setI2cAddress(I2cAddr.create8bit(0x3a));
         color2.enableLed(false);
     }
 
