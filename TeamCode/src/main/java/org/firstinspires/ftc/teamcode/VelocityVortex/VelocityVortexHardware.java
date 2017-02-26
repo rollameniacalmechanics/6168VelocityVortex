@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
+import com.qualcomm.hardware.hitechnic.HiTechnicNxtGyroSensor;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -14,6 +15,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.TouchSensorMultiplexer;
+import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 import com.vuforia.ar.pl.SensorController;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRRangeSensor;
@@ -39,7 +41,6 @@ public class VelocityVortexHardware extends OpMode {
     protected DcMotor mBR; // Back Right Drive Motor
     protected DcMotor mSweeper; // Sweeper motor
     protected DcMotor mLauncher; // launcher motor
-
     // Servos
     protected Servo sLeftBeacon;
     protected Servo sRightBeacon;
@@ -53,11 +54,15 @@ public class VelocityVortexHardware extends OpMode {
     protected LightSensor light3;
     protected LightSensor light4;
     protected GyroSensor gyro;
+    protected GyroSensor nxtGyro;
     protected ModernRoboticsI2cRangeSensor range;
-    protected OpticalDistanceSensor od;
-    protected TouchSensorMultiplexer multi;
-    protected SensorManager sm;
-
+    protected UltrasonicSensor sonar1;
+    protected UltrasonicSensor sonar2;
+    protected UltrasonicSensor sonar3;
+    //protected OpticalDistanceSensor od;
+    //protected TouchSensorMultiplexer multi;
+    //protected SensorManager sm;
+    DeviceInterfaceModule dim;
     //------------initial positions------------
     // ADD INITIAL POWER AND POSITIONS VARIABLES HERE:
     // DcMotors - Initial Power
@@ -92,9 +97,6 @@ public class VelocityVortexHardware extends OpMode {
     protected String driveWarningMessage = "";
     protected String servoWarningMessage = "";
     protected String sensorWarningMessage= "";
-
-
-    DeviceInterfaceModule dim;
     //------------------------Init------------------------
     /**
      * Init
@@ -108,22 +110,8 @@ public class VelocityVortexHardware extends OpMode {
         // Initialize Warnings Generated and Warning Messages
         Warning message = new Warning();
         message.initWarnings(); //Provide telemetry data to a class user
-        //Hardware Map
-        //Map hardware = new Map();
-        // ADD HARDWARE MAP HERE;
-        // DcMotors - Map
-        /*mFL = hardware.map(mFL,initLeftDrivePower,"fl");
-        mFR = hardware.map(mFR,initRightDrivePower,"fr",true); // "true" reverses motor direction
-        mBL = hardware.map(mBL,initBackLeftPower,"bl");
-        mBR = hardware.map(mBR,initBackRightPower,"br",true); // "true" reverses motor direction
-        mSweeper = hardware.map(mSweeper,initSweeperPower,"swpr");*/
-        // Servos - Map
-        //sLeftBeacon = hardware.map(sLeftBeacon,initLeftBeacon);
-        //sRightBeacon = hardware.map(sRightBeacon,initRightBeacon);
-        // Sensors - Map
-
-        //VelocityVortexMap hardware = new VelocityVortexMap();
-        //hardware.map();
+        //----------------------Map----------------------
+        //Motors
         mFL = hardwareMap.dcMotor.get("fl");
         mFR = hardwareMap.dcMotor.get("fr");
         mFR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -132,34 +120,40 @@ public class VelocityVortexHardware extends OpMode {
         mBR.setDirection(DcMotorSimple.Direction.REVERSE);
         mSweeper = hardwareMap.dcMotor.get("swpr");
         mLauncher = hardwareMap.dcMotor.get("Launcher");
+        //Servos
         sLeftBeacon = hardwareMap.servo.get("sLeftButt");
         sRightBeacon = hardwareMap.servo.get("sRightButt");
         sLoaderStopper = hardwareMap.servo.get("sls");
         sLeftBeacon.setPosition(initLeftBeacon);
         sRightBeacon.setPosition(initRightBeacon);
         sLoaderStopper.setPosition(initLoaderStopper);
+        //Sensors
         touch = hardwareMap.touchSensor.get("touch");
         color1 = hardwareMap.colorSensor.get("color1");
         color1.enableLed(false);
-        //telemetry.addData("Color1 I2c address" ,color1.getI2cAddress());
         color2 = hardwareMap.colorSensor.get("color2");
-        //color2.enableLed(false);
-        //telemetry.addData("Color2 I2c address", color2.getI2cAddress());
+        color2.enableLed(false);
         light1 = hardwareMap.lightSensor.get("light1");
         light1.enableLed(true);
         light2 = hardwareMap.lightSensor.get("light2");
         light2.enableLed(true);
+        light3 = hardwareMap.lightSensor.get("light3");
+        light3.enableLed(true);
+        light4 = hardwareMap.lightSensor.get("light4");
+        light4.enableLed(true);
         gyro = hardwareMap.gyroSensor.get("gyro");
         gyro.calibrate();
-        od = hardwareMap.opticalDistanceSensor.get("od");
-        od.enableLed(true);
-        //range = hardwareMap.get("range");
+        nxtGyro = hardwareMap.gyroSensor.get("nxtGyro");
         range = hardwareMap.get(ModernRoboticsI2cRangeSensor.class,"range");
+        sonar1 = hardwareMap.ultrasonicSensor.get("sonar1");
+        sonar2 = hardwareMap.ultrasonicSensor.get("sonar2");
+        sonar3 = hardwareMap.ultrasonicSensor.get("sonar3");
+        //od = hardwareMap.opticalDistanceSensor.get("od");
+        //od.enableLed(true);
         mFL.setPower(0);
         mFR.setPower(0);
         mBL.setPower(0);
         mBL.setPower(0);
-        //tele.warningTele();
         telemetry.addData("gyro cal", gyro.isCalibrating());
         dim.setLED(1,true);
     }

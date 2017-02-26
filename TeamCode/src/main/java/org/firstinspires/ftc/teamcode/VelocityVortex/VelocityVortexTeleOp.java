@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  * Created by spmce on 11/3/2016.
  */
@@ -168,6 +171,7 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
         telemetry.addData("bl", backLeftPower);
         telemetry.addData("br", backRightPower);
         telemetry.addData("sweeper",sweeperPower);
+        telemetry.addData("launcher",launcherPower);
     }
     void servoTele() {
         telemetry.addData("rightBeacon", rightBeaconPosition);
@@ -177,19 +181,25 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
     void sensorTele() {
         //telemetry.addData("touch", touch.isPressed());
         telemetry.addData("touch double", touch.getValue());
-        telemetry.addData("light1", light1.getLightDetected());
-        telemetry.addData("light2", light2.getLightDetected());
+        telemetry.addData("light1", format(light1.getLightDetected()));
+        telemetry.addData("light2", format(light2.getLightDetected()));
+        telemetry.addData("light3", format(light3.getLightDetected()));
+        telemetry.addData("light4", format(light4.getLightDetected()));
         telemetry.addData("color1 red", color1.red());
         telemetry.addData("color1 blue", color1.blue());
         telemetry.addData("color2 red", color2.red());
         telemetry.addData("color2 blue", color2.blue());
         telemetry.addData("gyro heading", gyro.getHeading());
-        //telemetry.addData("gyro rotate",gyro.getRotationFraction());
-        //telemetry.addData("gyro x",gyro.rawX());
-        //telemetry.addData("gyro y",gyro.rawY());
-        //telemetry.addData("gyro z",gyro.rawZ());
+        telemetry.addData("gyro rotate",nxtGyro.getRotationFraction());
         telemetry.addData("range", range.getDistance(DistanceUnit.MM));
-        telemetry.addData("optical distance", od.getLightDetected());
+        telemetry.addData("sonar1", sonar1.getUltrasonicLevel());
+        telemetry.addData("sonar2", sonar2.getUltrasonicLevel());
+        telemetry.addData("sonar3", sonar3.getUltrasonicLevel());
+        //telemetry.addData("optical distance", od.getLightDetected());
         telemetry.addData("", "");
+    }
+    double format (double dec) {
+        NumberFormat num = new DecimalFormat("#0.00");
+        return Double.parseDouble(num.format(dec));
     }
 }

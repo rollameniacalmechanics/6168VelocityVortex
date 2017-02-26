@@ -255,8 +255,8 @@ public class AutoBlue extends VelocityVortexHardware {
         //telemetry.addData("gyro y",gyro.rawY());
         //telemetry.addData("gyro z",gyro.rawZ());
         telemetry.addData("range", range.getDistance(DistanceUnit.MM));
-        telemetry.addData("optical distance", od.getLightDetected());
-        telemetry.addData("optical distance", od.getLightDetected());
+        //telemetry.addData("optical distance", od.getLightDetected());
+        //telemetry.addData("optical distance", od.getLightDetected());
         telemetry.addData("", "");
     }
     private void powerDrive(double[] power) {

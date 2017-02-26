@@ -96,7 +96,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 if (changeState) {
                     state++;
                 }
-                count = 0;
+                //count = 0;
                 break;
             case 3: // aligns with the lion
                 drAngle = Math.PI;
@@ -127,7 +127,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 6: // resets the beacon button pressers
                 resetBeacon();
-                count = 0;
+                //count = 0;
                 state++;
                 timeCounter = 0;
                 break;
@@ -321,7 +321,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 if (changeState) {
                     state++;
                 }
-                count = 0;
+                //count = 0;
                 break;
             case 30: //follows white line until robot reaches distance from beacon
                 drAngle = Math.PI + 0.18;
@@ -472,11 +472,11 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
         //telemetry.addData("gyro y",gyro.rawY());
         //telemetry.addData("gyro z",gyro.rawZ());
         telemetry.addData("range", range.getDistance(DistanceUnit.MM));
-        telemetry.addData("optical distance", od.getLightDetected());
-        telemetry.addData("optical distance", od.getLightDetected());
+        //telemetry.addData("optical distance", od.getLightDetected());
+        //telemetry.addData("optical distance", od.getLightDetected());
         telemetry.addData("", "");
 
         telemetry.addData("0 count thingy", countThingy);
-        telemetry.addData("0 count ", count);
+        //telemetry.addData("0 count ", count);
     }
 }

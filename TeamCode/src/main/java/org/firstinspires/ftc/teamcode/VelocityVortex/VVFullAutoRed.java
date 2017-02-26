@@ -3,15 +3,14 @@ package org.firstinspires.ftc.teamcode.VelocityVortex;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 /**
- * Created by spmce on 11/28/2016.
+ * Created by spmce on 2/25/2017.
  */
-@Autonomous(name = "Simple Auto Blue" , group = "OldAutonomous") //Register
-public class SimpleAutoBlue extends SimpleAuto {
-
+@Autonomous(name = "vvFullAutoRed", group = "Autonomous")
+public class VVFullAutoRed extends VVFullAuto {
     /**
      * constructor
      */
-    public SimpleAutoBlue() {
+    public VVFullAutoRed() {
         // constructor
     }
 
@@ -28,6 +27,6 @@ public class SimpleAutoBlue extends SimpleAuto {
      */
     //@Override
     public void loop() {
-        autoLoop(true);
+        autoLoop(false,true);
     }
 }

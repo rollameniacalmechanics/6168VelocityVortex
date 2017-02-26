@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 /**
  * Created by spmce on 11/28/2016.
  */
-@Autonomous(name = "Ramp Velocity Vortex Auto Red" , group = "Autonomous") //Register
+@Autonomous(name = "Ramp Velocity Vortex Auto Red" , group = "OldAutonomous") //Register
 public class RampVelocityVortexAutoRed extends RampVelocityVortexAutonomous {
 
     /**
