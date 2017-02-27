@@ -91,7 +91,7 @@ public class VVFullAuto extends VVAutoMeth {
                 if (changeState) {
                     state++;
                 }
-                beaconCount = 0;
+                //beaconCount = 0;
                 break;
             case 4: // presses the beacon button according to the color
                 changeState = pressBeacon(drIfBlue);
@@ -180,7 +180,7 @@ public class VVFullAuto extends VVAutoMeth {
                 if (changeState) {
                     state++;
                 }
-                beaconCount = 0;
+                //beaconCount = 0;
                 break;
             case 14: // presses the beacon button according to the color
                 changeState = pressBeacon(drIfBlue);
@@ -299,7 +299,7 @@ public class VVFullAuto extends VVAutoMeth {
         //allTele();
         telemetry.addData("25", "State: " + state);
         telemetry.addData("1vvRotate",robotRotate);
-        telemetry.addData("26",beaconCount);
+        //telemetry.addData("26",beaconCount);
         sensorTele();
         encoderTele();
     }

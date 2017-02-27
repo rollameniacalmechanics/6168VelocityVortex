@@ -37,7 +37,7 @@ public class VVAutoMeth extends VelocityVortexHardware {
     private double[] power;
     protected int state = 0;
     private int shooterState = 0;
-    private double robotRotate = 0;
+    protected double robotRotate = 0;
     private boolean overshoot = false;
     private double powAcc = 0;
 
