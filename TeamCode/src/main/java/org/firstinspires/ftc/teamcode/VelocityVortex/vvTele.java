@@ -11,7 +11,7 @@ import java.text.NumberFormat;
 /**
  * Created by spmce on 2/25/2017.
  */
-@TeleOp (name = "Tele", group = "TeleOp")
+@TeleOp (name = "Telemetry", group = "TeleOp")
 public class vvTele extends VelocityVortexHardware {
     @Override
     public void init() {

@@ -11,7 +11,10 @@ import java.text.NumberFormat;
  * Created by spmce on 2/24/2017.
  */
 
-public class VVFullAuto extends VelocityVortexAutoMeth {
+public class VVFullAuto extends VVAutoMeth {
+
+    private int initLTime = 550;
+    final double WALL_DISTANCE = 150; // in mm
 
     /**
      * Construct the class.
@@ -27,12 +30,6 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
      */
     public void init() {
         super.init();
-        mFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mSweeper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        mLauncher.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     /**
@@ -49,45 +46,64 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
     @Override
     public void start() {
         super.start();
-        mFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mSweeper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    private int initLTime = 550;
-    private double accel;
     /**
      * @param drIfBlue determines if blue or red autonomous
+     * @param ifRamp determines to finish on ramp or center vortex platform
      */
     protected void autoLoop(boolean drIfBlue, boolean ifRamp) {
         double drPower;
         double drAngle;
         boolean changeState;
         double distance;
-        final double wallDistance = 150; // in mm
         switch (state) {
             case 0: // drive until the outside light hits the line
                 drAngle = -Math.PI/4;
-                drPower = maxSpeed;
+                drPower = MAX_SPEED;
                 distance = distance(); // finds current distance from wall
-                if (distance <= 3*wallDistance) {
+                if (distance <= 3*WALL_DISTANCE) {
                     drAngle = -.03; // in radians - about -1.7 degrees
-                    drPower = topSpeed;
+                    drPower = TOP_SPEED;
                 }
                 changeState = vvFindLine(drAngle, drPower, drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 1: // presses beacons
-                changeState = vvBeacon(wallDistance,drIfBlue);
+            case 1: // moves towards the beacon until it is 150 mm away
+                drAngle = -Math.PI/2;
+                changeState = vvUntilDistance(drAngle, WALL_DISTANCE, drIfBlue);
                 if (changeState) {
                     state++;
                 }
-            case 2: // moves forward to align for launcher shot
+                break;
+            case 2: // aligns with the line
+                drAngle = Math.PI;
+                changeState = vvAlignLine(drAngle, drIfBlue);
+                if (changeState) {
+                    state++;
+                }
+                break;
+            case 3: // slowly moves to the button until button is pressed
+                drAngle = -Math.PI/2;
+                changeState = vvUntilPressed(drAngle, drIfBlue);
+                if (changeState) {
+                    state++;
+                }
+                beaconCount = 0;
+                break;
+            case 4: // presses the beacon button according to the color
+                changeState = pressBeacon(drIfBlue);
+                if (changeState) {
+                    state++;
+                }
+                break;
+            case 5: // resets the beacon button pressers
+                resetBeacon();
+                state++;
+                break;
+            case 6: // moves forward to align for launcher shot
                 long num;
                 //double turn;
                 if(drIfBlue) {
@@ -101,7 +117,7 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
                     gyroRotate(5);
                     //turn = .35;
                 }
-                drPower = topSpeed;
+                drPower = TOP_SPEED;
                 drivePow(drAngle, drPower, drIfBlue,robotRotate);
                 try {
                     Thread.sleep(num);
@@ -110,21 +126,21 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
                 }
                 state++;
                 break;
-            case 3: // stops the robot when ready to shoot balls
+            case 7: // stops the robot when ready to shoot balls
                 zeroDrive();
                 state++;
                 break;
-            case 4: // shoots the two balls
+            case 8: // shoots the two balls
                 changeState = vvShooter();
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 5: // continues for line with outside light sensor
+            case 9: // continues for line with outside light sensor
                 drAngle = -Math.PI/8;
-                drPower = topSpeed;
+                drPower = TOP_SPEED;
                 distance = distance(); // finds current distance from wall
-                if (distance <= 3*wallDistance) {
+                if (distance <= 3*WALL_DISTANCE) {
                     drAngle = -.03; // in radians - about -1.7 degrees
                 }
                 changeState = vvFindOutsideLine(drAngle, drPower, drIfBlue);
@@ -132,11 +148,11 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
                     state++;
                 }
                 break;
-            case 6: // continues for line with outside light sensor
+            case 10: // continues for line with outside light sensor
                 drAngle = -Math.PI/32;
-                drPower = topSpeed;
+                drPower = TOP_SPEED;
                 distance = distance(); // finds current distance from wall
-                if (distance <= 3*wallDistance) {
+                if (distance <= 3*WALL_DISTANCE) {
                     drAngle = -.03; // in radians - about -1.7 degrees
                 }
                 changeState = vvFindLine(drAngle, drPower, drIfBlue);
@@ -144,18 +160,46 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
                     state++;
                 }
                 break;
-            case 7: // presses beacons
-                changeState = vvBeacon(wallDistance,drIfBlue);
+            case 11: // moves towards the beacon until it is 150 mm away
+                drAngle = -Math.PI/2;
+                changeState = vvUntilDistance(drAngle, WALL_DISTANCE, drIfBlue);
                 if (changeState) {
                     state++;
                 }
-            case 8:
+                break;
+            case 12: // aligns with the line
+                drAngle = Math.PI;
+                changeState = vvAlignLine(drAngle, drIfBlue);
+                if (changeState) {
+                    state++;
+                }
+                break;
+            case 13: // slowly moves to the button until button is pressed
+                drAngle = -Math.PI/2;
+                changeState = vvUntilPressed(drAngle, drIfBlue);
+                if (changeState) {
+                    state++;
+                }
+                beaconCount = 0;
+                break;
+            case 14: // presses the beacon button according to the color
+                changeState = pressBeacon(drIfBlue);
+                if (changeState) {
+                    state++;
+                }
+                break;
+            case 15: // resets the beacon button pressers
+                resetBeacon();
+                state++;
+                break;
+            case 16:
                 if (ifRamp) {
-                    state = 13;
+                    state = 21;
                 } else {
                     state++;
                 }
-            case 9:
+                break;
+            case 17:
                 drAngle = Math.PI/2;
                 drPower = 1;
                 int timeNum = 80;
@@ -170,7 +214,7 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
                 }
                 state++;
                 break;
-            case 10:
+            case 18:
                 drAngle = 104*Math.PI/128;
                 if (!drIfBlue)
                     drAngle = 96*Math.PI/128;
@@ -190,17 +234,17 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
                 }
                 state++;
                 break;
-            case 11:
+            case 19:
                 drAngle = 121*Math.PI/128;
                 changeState = untilFarDistance(drAngle,1130,drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 12:
+            case 20:
                 zeroDrive();
                 break;
-            case 13:
+            case 21:
                 drAngle = Math.PI/2;
                 drPower = 1;
                 timeNum = 600;
@@ -215,7 +259,7 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
                 }
                 state++;
                 break;
-            case 14:
+            case 22:
                 drAngle = Math.PI;
                 double myTurn = 0;
                 if (!drIfBlue) {
@@ -238,14 +282,14 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
                 }
                 state = 40;
                 break;
-            case 15:
+            case 23:
                 drAngle = Math.PI;
                 changeState = untilFarDistance(drAngle,1130,drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 16:
+            case 24:
                 zeroDrive();
                 break;
             default:
@@ -255,18 +299,17 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
         //allTele();
         telemetry.addData("25", "State: " + state);
         telemetry.addData("1vvRotate",robotRotate);
-        telemetry.addData("1vvCount",numCount);
-        telemetry.addData("1vvClock",numClock);
-        telemetry.addData("1vvcClock",numCountClock);
-        endoderTele();
+        telemetry.addData("26",beaconCount);
+        sensorTele();
+        encoderTele();
     }
-    void allTele() {
+    private void allTele() {
         motorTele();
         servoTele();
         sensorTele();
-        endoderTele();
+        encoderTele();
     }
-    void motorTele() {
+    private void motorTele() {
         telemetry.addData("1 Motors", "  fl-" + format1(leftDrivePower) +
                                     "   fr-" + format1(rightDrivePower) +
                                     "   bl-" + format1(backLeftPower) +
@@ -279,14 +322,14 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
         //telemetry.addData("br", backRightPower);
         //telemetry.addData("sweeper", sweeperPower);
     }
-    void servoTele() {
+    private void servoTele() {
         telemetry.addData("2 Servos", " rBeacon-" + format(rightBeaconPosition) +
                                         "  lBeacon-" + format(leftBeaconPosition) +
                                         "  loaderStopper-" + format(loaderStopperPosition));
         //telemetry.addData("rightBeacon", rightBeaconPosition);
         //telemetry.addData("leftBeacon", leftBeaconPosition);
     }
-    void sensorTele() {
+    private void sensorTele() {
         telemetry.addData("3 Sensors", "");
         //telemetry.addData("touch", touch.isPressed());
         telemetry.addData("3.1 touch double", touch.getValue());
@@ -321,22 +364,22 @@ public class VVFullAuto extends VelocityVortexAutoMeth {
         //telemetry.addData("0 count ", count);
     }
 
-    void endoderTele() {
+    private void encoderTele() {
         telemetry.addData("fl encoder", mFL.getCurrentPosition());
         telemetry.addData("fr encoder", mFR.getCurrentPosition());
         telemetry.addData("bl encoder", mBL.getCurrentPosition());
         telemetry.addData("br encoder", mBR.getCurrentPosition());
     }
 
-    double format (double dec) {
+    private double format (double dec) {
         NumberFormat num = new DecimalFormat("#0.00");
         return Double.parseDouble(num.format(dec));
     }
-    double format1 (double dec) {
+    private double format1 (double dec) {
         NumberFormat num = new DecimalFormat("#0.00");
         return Double.parseDouble(num.format(dec));
     }
-    double format2 (double dec) {
+    private double format2 (double dec) {
         NumberFormat num = new DecimalFormat("#0000.00");
         return Double.parseDouble(num.format(dec));
     }

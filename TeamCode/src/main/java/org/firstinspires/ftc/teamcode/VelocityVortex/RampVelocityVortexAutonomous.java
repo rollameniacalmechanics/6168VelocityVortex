@@ -341,6 +341,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 if (changeState) {
                     state++;
                 }
+                beaconCount = 0;
                 break;
             case 32: // presses the beacon button according to color
                 changeState = pressBeacon(drIfBlue);
