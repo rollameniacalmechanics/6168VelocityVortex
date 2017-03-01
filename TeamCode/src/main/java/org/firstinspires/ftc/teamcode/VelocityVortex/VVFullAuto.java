@@ -33,7 +33,8 @@ public class VVFullAuto extends VVAutoMeth {
     }
 
     /**
-     * Run sensor telemetry in init loop
+     * Run sensor telemetry in init loop.
+     * 
      */
     @Override
     public void init_loop() {
@@ -80,7 +81,7 @@ public class VVFullAuto extends VVAutoMeth {
                 break;
             case 2: // aligns with the line
                 drAngle = Math.PI;
-                changeState = vvAlignLine(drAngle, drIfBlue);
+                changeState = vvAlignLine(drAngle, drIfBlue,160);
                 if (changeState) {
                     state++;
                 }
@@ -93,32 +94,38 @@ public class VVFullAuto extends VVAutoMeth {
                 }
                 //beaconCount = 0;
                 break;
-            case 4: // presses the beacon button according to the color
+            case 4:
+                resetDriveEncoders();
+                runDriveEncoders();
+                state++;
+                break;
+            case 5: // presses the beacon button according to the color
                 changeState = pressBeacon(drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 5: // resets the beacon button pressers
+            case 6: // resets the beacon button pressers
                 resetBeacon();
                 state++;
                 break;
-            case 6: // moves forward to align for launcher shot
+            case 7: // moves forward to align for launcher shot
                 long num;
-                //double turn;
+                double turn;
                 if(drIfBlue) {
                     num = (long) (initLTime * Math.sqrt(2));
                     drAngle = Math.PI/4;
                     gyroRotate();
                     //turn = .18;
+                    turn = robotRotate;
                 } else {
                     num = (long) (initLTime);
                     drAngle = Math.PI/2 + .11;
-                    gyroRotate(5);
-                    //turn = .35;
+                    //gyroRotate(12);
+                    turn = .35;
                 }
                 drPower = TOP_SPEED;
-                drivePow(drAngle, drPower, drIfBlue,robotRotate);
+                drivePow(drAngle, drPower, drIfBlue,turn);
                 try {
                     Thread.sleep(num);
                 } catch (InterruptedException ex) {
@@ -126,17 +133,17 @@ public class VVFullAuto extends VVAutoMeth {
                 }
                 state++;
                 break;
-            case 7: // stops the robot when ready to shoot balls
+            case 8: // stops the robot when ready to shoot balls
                 zeroDrive();
                 state++;
                 break;
-            case 8: // shoots the two balls
+            case 9: // shoots the two balls
                 changeState = vvShooter();
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 9: // continues for line with outside light sensor
+            case 10: // continues for line with outside light sensor
                 drAngle = -Math.PI/8;
                 drPower = TOP_SPEED;
                 distance = distance(); // finds current distance from wall
@@ -148,7 +155,7 @@ public class VVFullAuto extends VVAutoMeth {
                     state++;
                 }
                 break;
-            case 10: // continues for line with outside light sensor
+            case 11: // continues for line with outside light sensor
                 drAngle = -Math.PI/32;
                 drPower = TOP_SPEED;
                 distance = distance(); // finds current distance from wall
@@ -160,21 +167,21 @@ public class VVFullAuto extends VVAutoMeth {
                     state++;
                 }
                 break;
-            case 11: // moves towards the beacon until it is 150 mm away
+            case 12: // moves towards the beacon until it is 150 mm away
                 drAngle = -Math.PI/2;
                 changeState = vvUntilDistance(drAngle, WALL_DISTANCE, drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 12: // aligns with the line
+            case 13: // aligns with the line
                 drAngle = Math.PI;
-                changeState = vvAlignLine(drAngle, drIfBlue);
+                changeState = vvAlignLine(drAngle, drIfBlue,40);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 13: // slowly moves to the button until button is pressed
+            case 14: // slowly moves to the button until button is pressed
                 drAngle = -Math.PI/2;
                 changeState = vvUntilPressed(drAngle, drIfBlue);
                 if (changeState) {
@@ -182,24 +189,24 @@ public class VVFullAuto extends VVAutoMeth {
                 }
                 //beaconCount = 0;
                 break;
-            case 14: // presses the beacon button according to the color
+            case 15: // presses the beacon button according to the color
                 changeState = pressBeacon(drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 15: // resets the beacon button pressers
+            case 16: // resets the beacon button pressers
                 resetBeacon();
                 state++;
                 break;
-            case 16:
+            case 17:
                 if (ifRamp) {
                     state = 21;
                 } else {
                     state++;
                 }
                 break;
-            case 17:
+            case 18:
                 drAngle = Math.PI/2;
                 drPower = 1;
                 int timeNum = 80;
@@ -214,7 +221,7 @@ public class VVFullAuto extends VVAutoMeth {
                 }
                 state++;
                 break;
-            case 18:
+            case 19:
                 drAngle = 104*Math.PI/128;
                 if (!drIfBlue)
                     drAngle = 96*Math.PI/128;
@@ -234,17 +241,17 @@ public class VVFullAuto extends VVAutoMeth {
                 }
                 state++;
                 break;
-            case 19:
+            case 20:
                 drAngle = 121*Math.PI/128;
                 changeState = untilFarDistance(drAngle,1130,drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 20:
+            case 21:
                 zeroDrive();
                 break;
-            case 21:
+            case 22:
                 drAngle = Math.PI/2;
                 drPower = 1;
                 timeNum = 600;
@@ -259,7 +266,7 @@ public class VVFullAuto extends VVAutoMeth {
                 }
                 state++;
                 break;
-            case 22:
+            case 23:
                 drAngle = Math.PI;
                 double myTurn = 0;
                 if (!drIfBlue) {
@@ -282,14 +289,14 @@ public class VVFullAuto extends VVAutoMeth {
                 }
                 state = 40;
                 break;
-            case 23:
+            case 24:
                 drAngle = Math.PI;
                 changeState = untilFarDistance(drAngle,1130,drIfBlue);
                 if (changeState) {
                     state++;
                 }
                 break;
-            case 24:
+            case 25:
                 zeroDrive();
                 break;
             default:
@@ -299,9 +306,10 @@ public class VVFullAuto extends VVAutoMeth {
         //allTele();
         telemetry.addData("25", "State: " + state);
         telemetry.addData("1vvRotate",robotRotate);
+        telemetry.addData("26",overshoot);
         //telemetry.addData("26",beaconCount);
-        sensorTele();
-        encoderTele();
+       // sensorTele();
+        //encoderTele();
     }
     private void allTele() {
         motorTele();

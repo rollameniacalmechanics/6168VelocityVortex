@@ -46,7 +46,7 @@ public class VelocityVortexTelemetry extends VelocityVortexHardware{
         String game2 = gamepad2.toString();
     }
     public void warningTele() {
-        Warning warning = new Warning();
+        /*Warning warning = new Warning();
         if (warning.getWarningGenerated())
             setFirstMessage(warning.getWarningMessage());
         if (warning.getDriveWarningGenerated())
@@ -56,7 +56,7 @@ public class VelocityVortexTelemetry extends VelocityVortexHardware{
         if (warning.getServoWarningGenerated())
             setServoFirstMessage(warning.getServoWarningMessage());
         if (warning.getSensorWarningGenerated())
-            setSensorFirstMessage(warning.getSensorWarningMessage());
+            setSensorFirstMessage(warning.getSensorWarningMessage());*/
     }
     /**
      * Update the telemetry's first message with the specified message.

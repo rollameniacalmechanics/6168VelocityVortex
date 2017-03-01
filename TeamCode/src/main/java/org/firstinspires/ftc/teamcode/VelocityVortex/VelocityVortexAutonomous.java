@@ -144,7 +144,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 } else {
                     num = (long) (initLTime);
                     drAngle = Math.PI/2 + .11;
-                    turn = .35;
+                    turn = .32;
                 }
                 //drPower = maxSpeed;
                 drPower = topSpeed;
@@ -268,11 +268,11 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 state = 28;
                 break;
             case 26: // moves to the other beacon without sensing anything
-                drAngle = 0;
+                drAngle = -.38;
                 if(!drIfBlue)
-                    drAngle = -.04;
+                    drAngle = -.44;
                 drPower = topSpeed;
-                drivePow(drAngle, drPower, drIfBlue,-0.05,false);
+                drivePow(drAngle, drPower, drIfBlue,-0.19,false);
                 messageForTel = "before wait";
                 try {
                     Thread.sleep(600);//.2 seconds
@@ -293,11 +293,11 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 28: // continues program until the next beacon
                 if(drIfBlue) {
-                    drAngle = -.38;
+                    drAngle = -.44;
                 }
                 else {
                     //drAngle = -0.15;
-                    drAngle = -0.11;
+                    drAngle = -0.44;
                 }
                 drPower = i;
                 changeState = findLineR(drAngle, drPower, drIfBlue);
@@ -310,11 +310,11 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 messageForTel = "normal until line";
                 break;
             case 29: // moves towards the beacon until it is 100 mm away
-                drAngle = -Math.PI/2;
+                drAngle = -Math.PI/2 + .02;
                 double num1=0;
                 if(drIfBlue) {
                     drAngle += .24;
-                    num1 = 1.5;
+                    num1 = 1;
                 }
                 if(!drIfBlue) {
                     drAngle += .24;
@@ -327,7 +327,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 //count = 0;
                 break;
             case 30: //follows white line until robot reaches distance from beacon
-                drAngle = Math.PI + 0.18;
+                drAngle = Math.PI - 0.18;
                 //alignLin(drAngle, drIfBlue);
                 changeState = alignLine(drAngle, drIfBlue,.018);
                 if (changeState)

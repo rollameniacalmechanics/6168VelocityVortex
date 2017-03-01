@@ -13,8 +13,8 @@ public class VVAutoMeth extends VelocityVortexHardware {
     protected final static double MAX_SPEED = 1;
     protected final static double HIGH_SPEED = 0.75;
     protected final static double HALF_SPEED = 0.5;
-    protected final static double SLOW_SPEED = 0.4;
-    protected final static double QUARTER_SPEED = 0.35;
+    protected final static double SLOW_SPEED = 0.35;
+    protected final static double QUARTER_SPEED = 0.33;
     protected final static double MIN_SPEED = 0.31;
     protected final static double ZERO_SPEED = 0;
     
@@ -38,7 +38,7 @@ public class VVAutoMeth extends VelocityVortexHardware {
     protected int state = 0;
     private int shooterState = 0;
     protected double robotRotate = 0;
-    private boolean overshoot = false;
+    protected boolean overshoot = false;
     private double powAcc = 0;
 
     //@Override
@@ -48,25 +48,39 @@ public class VVAutoMeth extends VelocityVortexHardware {
     }
     //@Override
     public void start() {
-        super.init();
+        super.start();
         runEncoders();
     }
     protected void resetEncoders() {
+        resetDriveEncoders();
+        resetOtherEncoders();
+    }
+    protected void resetDriveEncoders() {
         mFL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mFR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mBL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mBR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    protected void resetOtherEncoders() {
         mSweeper.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         mLauncher.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
     protected void runEncoders() {
+        runDriveEncoders();
+        runOtherEncoders();
+    }
+    protected void runDriveEncoders() {
         mFL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         mFR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         mBL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         mBR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    protected void runOtherEncoders() {
         mSweeper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         mLauncher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
+
     protected void drivePow(double ang, double pow, boolean ifBlue) {
         dPow(ang, pow, ifBlue, 0, 0);
     }
@@ -115,19 +129,19 @@ public class VVAutoMeth extends VelocityVortexHardware {
                 gyroHeading = gyroHeading - 360;
             }
             if (gyroHeading > rotate + 1) {
-                robotRotate -= .00004;
+                robotRotate -= .0004;
             } else if (gyroHeading < rotate - 1) {
-                robotRotate += .00004;
+                robotRotate += .0004;
             }
             if (gyroRotate > .572) {
-                robotRotate -= .00006;
+                robotRotate -= .0006;
             } else if (gyroRotate < .552) {
-                robotRotate += .00006;
+                robotRotate += .0006;
             }
             if (gyroRotate > .582) {
-                robotRotate -= .00002;
+                robotRotate -= .0002;
             } else if (gyroRotate < .542) {
-                robotRotate += .00002;
+                robotRotate += .0002;
             }
         }
         /*if (gyro.getHeading() != 361) {
@@ -229,25 +243,10 @@ public class VVAutoMeth extends VelocityVortexHardware {
         }
         return false;
     }
-    protected boolean vvAlignLine(double ang, boolean ifBlue, int degreeTurn) {
-        return aLine(ang, ifBlue, degreeTurn);
+    protected boolean vvAlignLine(double ang, boolean ifBlue, double cmMinSonarVal) {
+        return vvALine(ang, ifBlue, cmMinSonarVal);
     }
-    protected boolean vvAlignLine(double ang, boolean ifBlue) {
-        return vvALine(ang, ifBlue, 0);
-    }
-    protected boolean aLine(double ang, boolean ifBlue, double turn) {
-        double angle = ang;
-        if (!ifBlue)
-            angle = redAngle(ang);
-        power = drive.drive(angle,MIN_SPEED,turn);
-        powerDrive(power);
-        if (light2.getLightDetected() > LIGHT_2_VALUE) {
-            zeroDrive();
-            return true;
-        }
-        return false;
-    }
-    protected boolean vvALine(double ang, boolean ifBlue, int degreeTurn) {
+    protected boolean vvALine(double ang, boolean ifBlue, double minSonarVal) {
         double angle = ang;
         boolean ifb = ifBlue;
         if (overshoot)
@@ -259,9 +258,17 @@ public class VVAutoMeth extends VelocityVortexHardware {
             lightDetected = light2.getLightDetected();
             double val = LIGHT_4_VALUE;
             double lDet = light4.getLightDetected();
-            if (lDet > val && !overshoot) {
-                angle = -angle;
-                overshoot = true;
+            double sonarVal;
+            if (ifBlue) {
+                sonarVal = sonar1.getUltrasonicLevel();
+            } else {
+                sonarVal = sonar2.getUltrasonicLevel();
+            }
+            if (!overshoot) {
+                if (lDet > val || sonarVal < minSonarVal) {
+                    angle = redAngle(ang);
+                    overshoot = true;
+                }
             }
         } else {
             angle = redAngle(ang);
@@ -269,12 +276,20 @@ public class VVAutoMeth extends VelocityVortexHardware {
             lightDetected = light1.getLightDetected();
             double val = LIGHT_3_VALUE;
             double lDet = light3.getLightDetected();
-            if (lDet > val && !overshoot) {
-                angle = -angle;
-                overshoot = true;
+            double sonarVal;
+            if (ifBlue) {
+                sonarVal = sonar1.getUltrasonicLevel();
+            } else {
+                sonarVal = sonar2.getUltrasonicLevel();
+            }
+            if (!overshoot) {
+                if (lDet > val || sonarVal < minSonarVal) {
+                    angle = redAngle(ang);
+                    overshoot = true;
+                }
             }
         }
-        gyroRotate(degreeTurn);
+        gyroRotate();
         power = drive.drive(angle,MIN_SPEED,robotRotate);
         powerDrive(power);
         if (lightDetected > value) {
@@ -287,7 +302,7 @@ public class VVAutoMeth extends VelocityVortexHardware {
         return vvuPressed(pow,ang,ifBlue);
     }
     protected boolean vvUntilPressed(double ang, boolean ifBlue) {
-        return vvuPressed(SLOW_SPEED,ang,ifBlue);
+        return vvuPressed(MIN_SPEED,ang,ifBlue);
     }
     protected boolean vvuPressed(double pow, double ang, boolean ifBlue) {
         double angle = ang;

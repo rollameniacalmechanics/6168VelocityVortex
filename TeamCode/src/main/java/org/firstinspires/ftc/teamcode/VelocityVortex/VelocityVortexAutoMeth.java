@@ -86,7 +86,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double rotate = 0;
         if (!ifBlue) {
             angle = redAngle(ang);
-            rotate = 0.03;
+            rotate = 0.00;
         }
         power = drive.drive(angle,pow,rotate);
         powerDrive(power);
