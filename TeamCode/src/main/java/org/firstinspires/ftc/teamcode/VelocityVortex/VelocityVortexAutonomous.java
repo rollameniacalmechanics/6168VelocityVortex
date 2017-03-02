@@ -73,7 +73,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 1: // drive until the light 1 hits the line
                 drAngle = -Math.PI/4;
-                drPower = maxSpeed;
+                drPower = MAX_SPEED;
                 if (range.getDistance(DistanceUnit.MM) <= 3*wallDistance) {
                     drAngle = -.03;
                     /*if (countThingy > 800) {
@@ -146,8 +146,8 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                     drAngle = Math.PI/2 + .11;
                     turn = .32;
                 }
-                //drPower = maxSpeed;
-                drPower = topSpeed;
+                //drPower = MAX_SPEED;
+                drPower = TOP_SPEED;
                 drivePow(drAngle, drPower, drIfBlue,turn,false);
                 try {
                     Thread.sleep(num);//.8 seconds
@@ -249,8 +249,8 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 19: // moves forward to align for launcher shot
                 drAngle = Math.PI/2;
-                //drPower = maxSpeed;
-                drPower = topSpeed;
+                //drPower = MAX_SPEED;
+                drPower = TOP_SPEED;
                 drivePow(drAngle, drPower, drIfBlue);
                 try {
                     Thread.sleep(1100-initLTime);//.8 seconds
@@ -270,8 +270,8 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
             case 26: // moves to the other beacon without sensing anything
                 drAngle = -.38;
                 if(!drIfBlue)
-                    drAngle = -.44;
-                drPower = topSpeed;
+                    drAngle = -.52;
+                drPower = TOP_SPEED;
                 drivePow(drAngle, drPower, drIfBlue,-0.19,false);
                 messageForTel = "before wait";
                 try {
@@ -297,7 +297,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 }
                 else {
                     //drAngle = -0.15;
-                    drAngle = -0.44;
+                    drAngle = -0.58;
                 }
                 drPower = i;
                 changeState = findLineR(drAngle, drPower, drIfBlue);
@@ -305,8 +305,8 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                     state++;
                 }
                 i = i + .01;
-                if (i > maxSpeed)
-                    i = maxSpeed;
+                if (i > MAX_SPEED)
+                    i = MAX_SPEED;
                 messageForTel = "normal until line";
                 break;
             case 29: // moves towards the beacon until it is 100 mm away
@@ -340,7 +340,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 drAngle = -Math.PI/2;
                 if(drIfBlue)
                     drAngle += .2;
-                changeState = untilPressed(slowSpeed+acc,drAngle, drIfBlue);
+                changeState = untilPressed(SLOW_SPEED+acc,drAngle, drIfBlue);
                 if (changeState) {
                     state++;
                 }
@@ -383,7 +383,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
             case 37:
                 drAngle = Math.PI/2;
                 drPower = 1;
-                int timeNum = 80;
+                int timeNum = 500;
                 if(drIfBlue) {
                     timeNum = 500;
                 }
@@ -398,7 +398,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
             case 38:
                 drAngle = 104*Math.PI/128;
                 if (!drIfBlue)
-                    drAngle = 96*Math.PI/128;
+                    drAngle = 97*Math.PI/128;
                 drPower = 1;
                 drivePow(drAngle, drPower, drIfBlue, .07, true);
                 try {
@@ -406,13 +406,13 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
-                if (!drIfBlue) {
+                /*if (!drIfBlue) {
                     try {
                         Thread.sleep(200); // 2.95 seconds `````````````
                     } catch (InterruptedException ex) {
                         Thread.currentThread().interrupt();
                     }
-                }
+                }*/
                 countThingy = 0;
                 state++;
                 break;
@@ -436,7 +436,7 @@ public class VelocityVortexAutonomous extends VelocityVortexAutoMeth {
         }
         //shanesTelemetry tele = new shanesTelemetry();
         //tele.allTele(); // Update common telemetry
-        allTele();
+        //allTele();
         telemetry.addData("25", "State: " + state);
         telemetry.addData("DbgMsg", messageForTel);
         telemetry.addData("timeCounter", timeCounter);

@@ -111,9 +111,9 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
             launcherPower += 1;
         mLauncher.setPower(launcherPower);
         telemetry.addData("001101 pad1", pad1Config);
-        motorTele();
-        servoTele();
-        sensorTele();
+        //motorTele();
+        //servoTele();
+        //sensorTele();
         /*if (time.milliseconds() > longestTime) {
             longestTime = time.milliseconds();
         }
@@ -160,8 +160,8 @@ public class VelocityVortexTeleOp extends VelocityVortexHardware {
     }
     void allTele() {
         telemetry.addData("001101", pad1Config);
-        motorTele();;
-        servoTele();
+        //motorTele();;
+        //servoTele();
         //sensorTele();
         //encoderTele();
     }

@@ -70,7 +70,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 1: // drive until the light 1 hits the line
                 drAngle = -Math.PI/4;
-                drPower = maxSpeed;
+                drPower = MAX_SPEED;
                 if (range.getDistance(DistanceUnit.MM) <= 3*wallDistance) {
                     drAngle = -.03;
                     /*if (countThingy > 800) {
@@ -143,8 +143,8 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                     drAngle = Math.PI/2 + .11;
                     turn = .35;
                 }
-                //drPower = maxSpeed;
-                drPower = topSpeed;
+                //drPower = MAX_SPEED;
+                drPower = TOP_SPEED;
                 drivePow(drAngle, drPower, drIfBlue,turn,false);
                 try {
                     Thread.sleep(num);//.8 seconds
@@ -246,8 +246,8 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 19: // moves forward to align for launcher shot
                 drAngle = Math.PI/2;
-                //drPower = maxSpeed;
-                drPower = topSpeed;
+                //drPower = MAX_SPEED;
+                drPower = TOP_SPEED;
                 drivePow(drAngle, drPower, drIfBlue);
                 try {
                     Thread.sleep(1100-initLTime);//.8 seconds
@@ -268,7 +268,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 drAngle = 0;
                 if(!drIfBlue)
                     drAngle = -.04;
-                drPower = topSpeed;
+                drPower = TOP_SPEED;
                 drivePow(drAngle, drPower, drIfBlue,-0.05,false);
                 messageForTel = "before wait";
                 try {
@@ -302,8 +302,8 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                     state++;
                 }
                 i = i + .01;
-                if (i > maxSpeed)
-                    i = maxSpeed;
+                if (i > MAX_SPEED)
+                    i = MAX_SPEED;
                 messageForTel = "normal until line";
                 break;
             case 29: // moves towards the beacon until it is 100 mm away
@@ -337,7 +337,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 drAngle = -Math.PI/2;
                 if(drIfBlue)
                     drAngle += .2;
-                changeState = untilPressed(slowSpeed+acc,drAngle, drIfBlue);
+                changeState = untilPressed(SLOW_SPEED+acc,drAngle, drIfBlue);
                 if (changeState) {
                     state++;
                 }

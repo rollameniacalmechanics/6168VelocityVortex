@@ -148,7 +148,7 @@ public class RampAuto extends VelocityVortexAutoMeth {
                 break;
             case 17: // moves forward to align for launcher shot
                 drAngle = Math.PI/2;
-                drPower = topSpeed;
+                drPower = TOP_SPEED;
                 drivePow(drAngle, drPower, drIfBlue);
                 try {
                     Thread.sleep(550);//.8 seconds
@@ -226,7 +226,7 @@ public class RampAuto extends VelocityVortexAutoMeth {
                 state++;
                 break;
             case 29:
-                drivePow(0.03 ,topSpeed,drIfBlue);
+                drivePow(0.03 ,TOP_SPEED,drIfBlue);
                 try {
                     Thread.sleep(1550); // 2.95 seconds //I am commenting on your code to draw your attention to me... -Your secret admirer
                 } catch (InterruptedException ex) {

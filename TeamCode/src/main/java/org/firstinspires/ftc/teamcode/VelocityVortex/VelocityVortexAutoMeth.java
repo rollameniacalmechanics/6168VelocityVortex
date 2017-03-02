@@ -7,26 +7,26 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  */
 public class VelocityVortexAutoMeth extends VelocityVortexHardware {
 
-    protected final static double topSpeed = Math.sqrt(2);
-    protected final static double maxSpeed = 1;
-    protected final static double highSpeed = 0.75;
-    protected final static double halfSpeed = 0.5;
-    protected final static double slowSpeed = 0.4;
-    protected final static double quarterSpeed = 0.35;
-    protected final static double minSpeed = 0.31;
-    protected final static double zeroSpeed = 0;
-    
-    private final static double light1value = 0.35;
-    private final static double light2value = 0.39;
-    private final static double light3value = 0.39;
-    private final static double light4value = 0.38;
+    protected final static double TOP_SPEED = Math.sqrt(2);
+    protected final static double MAX_SPEED = 1;
+    protected final static double HIGH_SPEED = 0.75;
+    protected final static double HALF_SPEED = 0.5;
+    protected final static double SLOW_SPEED = 0.4;
+    protected final static double QUARTER_SPEED = 0.35;
+    protected final static double MIN_SPEED = 0.31;
+    protected final static double ZERO_SPEED = 0;
 
-    private final static int notWorking = 255; // value when color sensor does not work
-    private final static int beaconValue = 1; // min value to sense beacon
-    private final static double pressLeftBeacon = 0.96;
-    private final static double pressRightBeacon = 0;
-    
-    protected final static double minWallDistance = 5; // TODO find distance when touching wall
+    private final static double LIGHT_1_VALUE = 0.35;
+    private final static double LIGHT_2_VALUE = 0.39;
+    private final static double LIGHT_3_VALUE = 0.39;
+    private final static double LIGHT_4_VALUE = 0.38;
+
+    private final static int COLOR_NOT_WORKING = 255; // value when color sensor does not work
+    private final static int MIN_BEACON_VALUE = 1; // min value to sense beacon
+    private final static double PRESS_LEFT_BEACON = 0.96;
+    private final static double PRESS_RIGHT_BEACON = 0;
+
+    private final static double MIN_WALL_DISTANCE = 15;
     
     private String messageForTel = null;
     protected int beaconCount;
@@ -78,19 +78,19 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double angle = ang;
         /*double value;
         if (ifBlue) {
-            value = light1value;
+            value = LIGHT_1_VALUE;
         } else {
             angle = redAngle(ang);
-            value = light2value;
+            value = LIGHT_2_VALUE;
         }*/
         double rotate = 0;
         if (!ifBlue) {
             angle = redAngle(ang);
-            rotate = 0.00;
+            rotate = -0.025;
         }
         power = drive.drive(angle,pow,rotate);
         powerDrive(power);
-        if (light1.getLightDetected() > light1value) {
+        if (light1.getLightDetected() > LIGHT_1_VALUE) {
             zeroDrive();
             return true;
         }
@@ -100,10 +100,10 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double angle = ang;
         /*double value;
         if (ifBlue) {
-            value = light1value;
+            value = LIGHT_1_VALUE;
         } else {
             angle = redAngle(ang);
-            value = light2value;
+            value = LIGHT_2_VALUE;
         }*/
         double rotate = 0;
         if (!ifBlue) {
@@ -112,7 +112,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         }
         power = drive.drive(angle,pow,rotate);
         powerDrive(power);
-        if (light1.getLightDetected() > light1value) {
+        if (light1.getLightDetected() > LIGHT_1_VALUE) {
             zeroDrive();
             return true;
         }
@@ -125,6 +125,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             distance = sonar3.getUltrasonicLevel()*10; //changes cm to mm
         }
         telemetry.addData("distance",distance);
+        //rangeDistance = range.getDistance(DistanceUnit.MM);
         return distance;
     }
     protected void gyroRotate(int rotateDegrees) {
@@ -162,11 +163,11 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double lightDetected;
         double value;
         if (ifBlue) {
-            value = light2value;
+            value = LIGHT_2_VALUE;
             lightDetected = light2.getLightDetected();
         } else {
             angle = redAngle(ang);
-            value = light1value;
+            value = LIGHT_1_VALUE;
             lightDetected = light1.getLightDetected();
         }
         gyroRotate();
@@ -183,11 +184,11 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double lightDetected;
         double value;
         if (ifBlue) {
-            value = light4value;
+            value = LIGHT_4_VALUE;
             lightDetected = light4.getLightDetected();
         } else {
             angle = redAngle(ang);
-            value = light3value;
+            value = LIGHT_3_VALUE;
             lightDetected = light3.getLightDetected();
         }
         gyroRotate();
@@ -205,7 +206,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             angle = redAngle(ang);
         }
         gyroRotate();
-        power = drive.drive(angle,slowSpeed,robotRotate);
+        power = drive.drive(angle,SLOW_SPEED,robotRotate);
         powerDrive(power);
         double distance = distance();
         if (distance <= mmDistance) {
@@ -223,7 +224,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             angle += .3;
             turn = .012;
         }
-        power = drive.drive(angle,slowSpeed,turn);
+        power = drive.drive(angle,SLOW_SPEED,turn);
         powerDrive(power);
         if (range.getDistance(DistanceUnit.MM) <= mmDistance) {
             zeroDrive();
@@ -240,7 +241,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             angle += .3;
             turn = .012;
         }
-        power = drive.drive(angle,slowSpeed,turn);
+        power = drive.drive(angle,SLOW_SPEED,turn);
         powerDrive(power);
         if (range.getDistance(DistanceUnit.MM) >= mmDistance) {
             zeroDrive();
@@ -266,7 +267,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             angle = redAngle(ang);
         //if (count > 50 && count < 100)
             //angle = -angle;
-        power = drive.drive(angle,minSpeed,turn);
+        power = drive.drive(angle,MIN_SPEED,turn);
         powerDrive(power);
         /*boolean part1 = false;
         boolean part2 = false;
@@ -275,7 +276,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             mFR.setPower(0);
             part1 = true;
         }
-        if (light2.getLightDetected() > light2value) {
+        if (light2.getLightDetected() > LIGHT_2_VALUE) {
             mBL.setPower(0);
             mBR.setPower(0);
             part2 = true;
@@ -283,7 +284,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         if (part1 && part2) {
             return true;
         }*/
-        if (light2.getLightDetected() > light2value) {
+        if (light2.getLightDetected() > LIGHT_2_VALUE) {
             zeroDrive();
             return true;
         }
@@ -297,9 +298,9 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double value;
         double lightDetected;
         if (ifb) {
-            value = light2value;
+            value = LIGHT_2_VALUE;
             lightDetected = light2.getLightDetected();
-            double val = light4value;
+            double val = LIGHT_4_VALUE;
             double lDet = light4.getLightDetected();
             if (lDet > val && !overshoot) {
                 angle = -angle;
@@ -307,9 +308,9 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             }
         } else {
             angle = redAngle(ang);
-            value = light1value;
+            value = LIGHT_1_VALUE;
             lightDetected = light1.getLightDetected();
-            double val = light3value;
+            double val = LIGHT_3_VALUE;
             double lDet = light3.getLightDetected();
             if (lDet > val && !overshoot) {
                 angle = -angle;
@@ -317,7 +318,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             }
         }
         gyroRotate(degreeTurn);
-        power = drive.drive(angle,minSpeed,robotRotate);
+        power = drive.drive(angle,MIN_SPEED,robotRotate);
         powerDrive(power);
         if (lightDetected > value) {
             zeroDrive();
@@ -332,10 +333,10 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return vvuPressed(pow,ang,ifBlue);
     }
     protected boolean untilPressed(double ang, boolean ifBlue) {
-        return uPressed(slowSpeed,ang,ifBlue);
+        return uPressed(SLOW_SPEED,ang,ifBlue);
     }
     protected boolean vvUntilPressed(double ang, boolean ifBlue) {
-        return vvuPressed(slowSpeed,ang,ifBlue);
+        return vvuPressed(SLOW_SPEED,ang,ifBlue);
     }
     protected boolean uPressed(double pow, double ang, boolean ifBlue) {
         double angle = ang;
@@ -355,9 +356,9 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
             angle = redAngle(ang);
         }
         double mPow = pow + powAcc;
-        if (mPow > maxSpeed) {
-            mPow = maxSpeed;
-            if (distance() < minWallDistance) {
+        if (mPow > MAX_SPEED) {
+            mPow = MAX_SPEED;
+            if (distance() < MIN_WALL_DISTANCE) {
                 zeroDrive();
                 powAcc = 0;
                 return true;
@@ -375,16 +376,16 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return false;
     }
     protected boolean pressBeacon(boolean ifBlue) {
-        if (color1.blue() == notWorking && color2.blue() == notWorking) {
+        if (color1.blue() == COLOR_NOT_WORKING && color2.blue() == COLOR_NOT_WORKING) {
             beaconCount++;
             return beaconCount > maxBeaconCount;
-        } else if (color2.blue() == notWorking) {
+        } else if (color2.blue() == COLOR_NOT_WORKING) {
             if (ifBlue) {
                 return color1BlueBeacon();
             } else {
                 return color1RedBeacon();
             }
-        } else if (color1.blue() == notWorking) {
+        } else if (color1.blue() == COLOR_NOT_WORKING) {
             if (ifBlue) {
                 return color2BlueBeacon();
             } else {
@@ -425,12 +426,12 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return Math.PI - angle;
     }
     private boolean blueBeacon() {
-        if (color1.blue() > beaconValue)
-            sLeftBeacon.setPosition(pressLeftBeacon);
-        else if (color1.red() > beaconValue)
-            sRightBeacon.setPosition(pressRightBeacon);
+        if (color1.blue() > MIN_BEACON_VALUE)
+            sLeftBeacon.setPosition(PRESS_LEFT_BEACON);
+        else if (color1.red() > MIN_BEACON_VALUE)
+            sRightBeacon.setPosition(PRESS_RIGHT_BEACON);
         boolean ifTrue = false;
-        if (color1.blue() > beaconValue && color2.blue() > beaconValue)
+        if (color1.blue() > MIN_BEACON_VALUE && color2.blue() > MIN_BEACON_VALUE)
             ifTrue = true;
         beaconCount++;
         if (beaconCount > maxBeaconCount)
@@ -439,12 +440,12 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return ifTrue;
     }
     private boolean redBeacon() {
-        if (color1.red() > beaconValue)
-            sLeftBeacon.setPosition(pressLeftBeacon);
-        else if (color1.blue() > beaconValue)
-            sRightBeacon.setPosition(pressRightBeacon);
+        if (color1.red() > MIN_BEACON_VALUE)
+            sLeftBeacon.setPosition(PRESS_LEFT_BEACON);
+        else if (color1.blue() > MIN_BEACON_VALUE)
+            sRightBeacon.setPosition(PRESS_RIGHT_BEACON);
         boolean ifTrue = false;
-        if (color1.red() > beaconValue && color2.red() > beaconValue)
+        if (color1.red() > MIN_BEACON_VALUE && color2.red() > MIN_BEACON_VALUE)
             ifTrue = true;
         beaconCount++;
         if (beaconCount > maxBeaconCount)
@@ -453,34 +454,34 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return ifTrue;
     }
     private boolean color1BlueBeacon() {
-        if (color1.blue() > beaconValue)
-            sLeftBeacon.setPosition(pressLeftBeacon);
-        else if (color1.red() > beaconValue)
-            sRightBeacon.setPosition(pressRightBeacon);
+        if (color1.blue() > MIN_BEACON_VALUE)
+            sLeftBeacon.setPosition(PRESS_LEFT_BEACON);
+        else if (color1.red() > MIN_BEACON_VALUE)
+            sRightBeacon.setPosition(PRESS_RIGHT_BEACON);
         beaconCount++;
         return beaconCount > maxBeaconCount;
     }
     private boolean color1RedBeacon() {
-        if (color1.red() > beaconValue)
-            sLeftBeacon.setPosition(pressLeftBeacon);
-        else if (color1.blue() > beaconValue)
-            sRightBeacon.setPosition(pressRightBeacon);
+        if (color1.red() > MIN_BEACON_VALUE)
+            sLeftBeacon.setPosition(PRESS_LEFT_BEACON);
+        else if (color1.blue() > MIN_BEACON_VALUE)
+            sRightBeacon.setPosition(PRESS_RIGHT_BEACON);
         beaconCount++;
         return beaconCount > maxBeaconCount;
     }
     private boolean color2BlueBeacon() {
-        if (color2.red() > beaconValue)
-            sLeftBeacon.setPosition(pressLeftBeacon);
-        else if (color2.blue() > beaconValue)
-            sRightBeacon.setPosition(pressRightBeacon);
+        if (color2.red() > MIN_BEACON_VALUE)
+            sLeftBeacon.setPosition(PRESS_LEFT_BEACON);
+        else if (color2.blue() > MIN_BEACON_VALUE)
+            sRightBeacon.setPosition(PRESS_RIGHT_BEACON);
         beaconCount++;
         return beaconCount > maxBeaconCount;
     }
     private boolean color2RedBeacon() {
-        if (color2.blue() > beaconValue)
-            sLeftBeacon.setPosition(pressLeftBeacon);
-        else if (color2.red() > beaconValue)
-            sRightBeacon.setPosition(pressRightBeacon);
+        if (color2.blue() > MIN_BEACON_VALUE)
+            sLeftBeacon.setPosition(PRESS_LEFT_BEACON);
+        else if (color2.red() > MIN_BEACON_VALUE)
+            sRightBeacon.setPosition(PRESS_RIGHT_BEACON);
         beaconCount++;
         return beaconCount > maxBeaconCount;
     }
