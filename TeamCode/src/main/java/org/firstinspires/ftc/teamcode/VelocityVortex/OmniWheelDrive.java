@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 public class OmniWheelDrive extends DriveTrain{
 
     private double angle; //cosine angle zero to PI (it is still zero to PI when y is positive)
-    //private double ref;   //reference angle
     private double power; //power of robot form -1 to 1
     private boolean ifPositive; //determines if y is positive or negative used for calculating angles
     private double x;     //right stick x
@@ -19,7 +18,6 @@ public class OmniWheelDrive extends DriveTrain{
      */
     public OmniWheelDrive() {
         angle = 0;
-        //ref = 0;
         power = 0;
         ifPositive = true;
         x = 0;
@@ -39,7 +37,6 @@ public class OmniWheelDrive extends DriveTrain{
             ifPositive = true;
         }
         this.power = power;
-        //ref = 0;
         x = 0;
     }
 
@@ -57,7 +54,6 @@ public class OmniWheelDrive extends DriveTrain{
             ifPositive = true;
         }
         this.power = power;
-        //ref = 0;
         this.x = x;
     }
     /**
@@ -68,7 +64,6 @@ public class OmniWheelDrive extends DriveTrain{
     OmniWheelDrive(double angle, double power, boolean ifPositive) {
         this.angle = angle;
         this.power = power;
-        //ref = 0;
         this.ifPositive = ifPositive;
         x = 0;
     }
@@ -82,7 +77,6 @@ public class OmniWheelDrive extends DriveTrain{
     OmniWheelDrive(double angle, double power, boolean ifPositive, double x) {
         this.angle = angle;
         this.power = power;
-        //ref = 0;
         this.ifPositive = ifPositive;
         this.x = x;
     }
@@ -256,7 +250,6 @@ public class OmniWheelDrive extends DriveTrain{
             F[2] = F[0];
             F[3] = F[1];
         } else {
-            //ref = angle - 3 * Math.PI / 4;
             ref = 5 * Math.PI / 4 - angle;
             if (ifPositive) {
                 F[0] = -power * Math.cos(ref);
