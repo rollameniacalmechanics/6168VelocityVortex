@@ -216,8 +216,12 @@ public class StateVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 break;
             case 20:
                 zeroDrive();
-                state = 28;
+                telemetry.addData("HI","state 20");
+                state++;
                 break;
+            case 21:
+                state = 28;
+                telemetry.addData("HI","Im trying my best");
             case 26: // moves to the other beacon without sensing anything
                 drAngle = -.38;
                 if(!drIfBlue)
@@ -314,7 +318,7 @@ public class StateVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 } else {
                     state++;
                 }
-                state++;
+                //state++;
                 break;
             case 37:
                 drAngle = Math.PI/2;

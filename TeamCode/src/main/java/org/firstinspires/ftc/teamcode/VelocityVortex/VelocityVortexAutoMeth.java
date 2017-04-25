@@ -16,7 +16,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
     protected final static double MIN_SPEED = 0.31;
     protected final static double ZERO_SPEED = 0;
 
-    private final static double LIGHT_1_VALUE = 0.35;
+    private final static double LIGHT_1_VALUE = 0.34;
     private final static double LIGHT_2_VALUE = 0.39;
     private final static double LIGHT_3_VALUE = 0.39;
     private final static double LIGHT_4_VALUE = 0.38;
@@ -30,7 +30,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
     
     private String messageForTel = null;
     protected int beaconCount;
-    protected int maxBeaconCount = 280;
+    protected int maxBeaconCount = 310;
     protected int numCount = 0;
     protected  int numClock = 0;
     protected  int numCountClock = 0;
@@ -220,6 +220,7 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         double turn = 0;
         if (!ifBlue) {
             angle = redAngle(ang);
+            turn = -.012;
         } else {
             angle += .3;
             turn = .012;
@@ -250,18 +251,21 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         return false;
     }
     protected boolean alignLine(double ang, boolean ifBlue, double turn) {
-        return aLine(ang, ifBlue, turn);
+        return aLine(ang, ifBlue, turn,false);
+    }
+    protected boolean alignLine2(double ang, boolean ifBlue, double turn) {
+        return aLine(ang, ifBlue, turn,true);
     }
     protected boolean vvAlignLine(double ang, boolean ifBlue, int degreeTurn) {
-        return aLine(ang, ifBlue, degreeTurn);
+        return aLine(ang, ifBlue, degreeTurn,false);
     }
     protected boolean alignLine(double ang, boolean ifBlue) {
-        return aLine(ang, ifBlue, 0);
+        return aLine(ang, ifBlue, 0, false);
     }
     protected boolean vvAlignLine(double ang, boolean ifBlue) {
         return vvALine(ang, ifBlue, 0);
     }
-    protected boolean aLine(double ang, boolean ifBlue, double turn) {
+    protected boolean aLine(double ang, boolean ifBlue, double turn, boolean ifLight1) {
         double angle = ang;
         if (!ifBlue)
             angle = redAngle(ang);
@@ -284,9 +288,16 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         if (part1 && part2) {
             return true;
         }*/
-        if (light2.getLightDetected() > LIGHT_2_VALUE) {
-            zeroDrive();
-            return true;
+        if (!ifLight1) {
+            if (light2.getLightDetected() > LIGHT_2_VALUE) {
+                zeroDrive();
+                return true;
+            }
+        } else {
+            if (light1.getLightDetected() > LIGHT_1_VALUE) {
+                zeroDrive();
+                return true;
+            }
         }
         return false;
     }
@@ -326,23 +337,26 @@ public class VelocityVortexAutoMeth extends VelocityVortexHardware {
         }
         return false;
     }
+    protected boolean untilPressed(double pow, double ang, boolean ifBlue, double turn) {
+        return uPressed(pow,ang,ifBlue,turn);
+    }
     protected boolean untilPressed(double pow, double ang, boolean ifBlue) {
-        return uPressed(pow,ang,ifBlue);
+        return uPressed(pow,ang,ifBlue,0);
     }
     protected boolean vvUntilPressed(double pow, double ang, boolean ifBlue) {
         return vvuPressed(pow,ang,ifBlue);
     }
     protected boolean untilPressed(double ang, boolean ifBlue) {
-        return uPressed(SLOW_SPEED,ang,ifBlue);
+        return uPressed(SLOW_SPEED,ang,ifBlue,0);
     }
     protected boolean vvUntilPressed(double ang, boolean ifBlue) {
         return vvuPressed(SLOW_SPEED,ang,ifBlue);
     }
-    protected boolean uPressed(double pow, double ang, boolean ifBlue) {
+    protected boolean uPressed(double pow, double ang, boolean ifBlue, double turn) {
         double angle = ang;
         if (!ifBlue)
             angle = redAngle(ang);
-        power = drive.drive(angle, pow);
+        power = drive.drive(angle,pow,turn);
         powerDrive(power);
         if (touch.isPressed()) {
             zeroDrive();

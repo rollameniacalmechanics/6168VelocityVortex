@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 /**
  * Created by spmce on 2/25/2017.
  */
-@Autonomous(name = "StateFullAutoRed", group = "StateAutonomous")
+//@Autonomous(name = "StateFullAutoRed", group = "StateAutonomous")
 public class StateVelocityVortexAutoRed extends VVFullAuto {
     /**
      * constructor

@@ -73,8 +73,8 @@ public class VelocityVortexHardware extends OpMode {
     private double initSweeperPower = 0;
     private double initlauncherPower = 0;
     // Servos - Initial Positions
-    protected double initLeftBeacon = 0.81;
-    protected double initRightBeacon = 0.15;
+    protected double initLeftBeacon = 0.79;
+    protected double initRightBeacon = 0.19;
     protected double initLoaderStopper = 0;
     protected double openLoaderStopper = 0.6;
     //------------loop positions------------

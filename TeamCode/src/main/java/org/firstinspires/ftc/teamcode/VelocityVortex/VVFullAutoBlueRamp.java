@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 /**
  * Created by spmce on 2/25/2017.
  */
-@Autonomous(name = "vvFullAutoBlueRamp", group = "Autonomous")
+//@Autonomous(name = "vvFullAutoBlueRamp", group = "Autonomous")
 public class VVFullAutoBlueRamp extends VVFullAuto {
     /**
      * constructor

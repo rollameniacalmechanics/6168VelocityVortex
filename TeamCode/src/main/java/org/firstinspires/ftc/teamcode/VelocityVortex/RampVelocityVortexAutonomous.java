@@ -294,7 +294,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 }
                 else {
                     //drAngle = -0.15;
-                    drAngle = -0.11;
+                    drAngle = -0.44;
                 }
                 drPower = i;
                 changeState = findLineR(drAngle, drPower, drIfBlue);
@@ -315,7 +315,7 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 }
                 if(!drIfBlue) {
                     drAngle += .24;
-                    num1 = .75;
+                    num1 = 1;
                 }
                 changeState = untilDistance(drAngle,wallDistance/num1,drIfBlue);
                 if (changeState) {
@@ -402,16 +402,16 @@ public class RampVelocityVortexAutonomous extends VelocityVortexAutoMeth {
                 drPower = 1;
                 drivePow(drAngle, drPower, drIfBlue, myTurn, true);
                 try {
-                    Thread.sleep(3900); // 2.95 seconds `````````````
+                    Thread.sleep(3600); // 2.95 seconds `````````````
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
-                if (!drIfBlue) {
-                    try {
-                        Thread.sleep(200); // 2.95 seconds `````````````
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
+                drAngle = -7*Math.PI/8;
+                drivePow(drAngle, drPower, drIfBlue);
+                try {
+                    Thread.sleep(200); // 2.95 seconds `````````````
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
                 }
                 countThingy = 0;
                 state = 40;
