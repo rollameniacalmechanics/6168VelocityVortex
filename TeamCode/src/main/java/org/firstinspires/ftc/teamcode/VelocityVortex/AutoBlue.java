@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**

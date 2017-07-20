@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+
 /**
  * Created by spmce on 11/20/2016.
  */

@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * Created by Ryan on 11/20/2016.
  */
-public class shanesTelemetry extends VelocityVortexHardware{
+public class shanesTelemetry extends VelocityVortexHardware {
 
     public void allTele() {
         motorTele();;

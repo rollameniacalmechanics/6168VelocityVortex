@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.VelocityVortex;
 /**
  * Created by spmce on 11/3/2016.
  */
-public class VelocityVortexTelemetry extends VelocityVortexHardware{
+public class VelocityVortexTelemetry extends VelocityVortexHardware {
     /**
      * Init
      */

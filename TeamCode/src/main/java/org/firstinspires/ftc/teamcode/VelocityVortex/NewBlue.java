@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
 /**
  * Created by spmce on 12/10/2016.
  */

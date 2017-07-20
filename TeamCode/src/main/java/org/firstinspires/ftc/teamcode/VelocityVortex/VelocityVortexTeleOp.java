@@ -1,14 +1,11 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * Created by spmce on 11/3/2016.
  */
-@TeleOp (name = "Velocity Vortex TeleOp" , group = "TeleOp")
+//@TeleOp (name = "Velocity Vortex TeleOp" , group = "TeleOp")
 public class VelocityVortexTeleOp extends VelocityVortexHardware {
 
     private int pad1Config;

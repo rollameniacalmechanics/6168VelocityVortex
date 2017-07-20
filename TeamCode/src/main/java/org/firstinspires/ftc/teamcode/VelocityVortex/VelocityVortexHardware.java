@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.VelocityVortex;
 
+import android.hardware.SensorManager;
+
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -7,19 +9,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.TouchSensorMultiplexer;
-import com.vuforia.ar.pl.SensorController;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRRangeSensor;
-
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 /**
  * Created by spmce on 11/3/2016.
  */
@@ -105,7 +101,7 @@ public class VelocityVortexHardware extends OpMode {
         dim.setLED(0,true);
         VelocityVortexTelemetry tele = new VelocityVortexTelemetry();
         tele.initTele();
-        // Initialize Warnings Generated and Warning Messages
+        // Initialize Warnings Generated and ,Warning Messages
         Warning message = new Warning();
         message.initWarnings(); //Provide telemetry data to a class user
         //Hardware Map
@@ -187,89 +183,6 @@ public class VelocityVortexHardware extends OpMode {
 
     }
 
-    public DcMotor getmBL() {
-        return mBL;
-    }
-
-    public DcMotor getmBR() {
-        return mBR;
-    }
-
-    public DcMotor getmFL() {
-        return mFL;
-    }
-
-    public DcMotor getmFR() {
-        return mFR;
-    }
-
-    public DcMotor getmSweeper() {
-        return mSweeper;
-    }
-
-    public double getBackLeftPower() {
-        return backLeftPower;
-    }
-
-    public double getBackRightPower() {
-        return backRightPower;
-    }
-
-    public double getInitBackLeftPower() {
-        return initBackLeftPower;
-    }
-
-    public double getInitBackRightPower() {
-        return initBackRightPower;
-    }
-
-    public double getInitLeftBeacon() {
-        return initLeftBeacon;
-    }
-
-    public double getInitLeftDrivePower() {
-        return initLeftDrivePower;
-    }
-
-    public double getInitRightBeacon() {
-        return initRightBeacon;
-    }
-
-    public double getInitRightDrivePower() {
-        return initRightDrivePower;
-    }
-
-    public double getInitSweeperPower() {
-        return initSweeperPower;
-    }
-
-    public double getLeftBeaconPosition() {
-        return leftBeaconPosition;
-    }
-
-    public double getLeftDrivePower() {
-        return leftDrivePower;
-    }
-
-    public double getRightBeaconPosition() {
-        return rightBeaconPosition;
-    }
-
-    public double getRightDrivePower() {
-        return rightDrivePower;
-    }
-
-    public double getSweeperPower() {
-        return sweeperPower;
-    }
-
-    public Servo getsLeftBeacon() {
-        return sLeftBeacon;
-    }
-
-    public Servo getsRightBeacon() {
-        return sRightBeacon;
-    }
 
     public String getDriveWarningMessage() {
         return driveWarningMessage;
@@ -385,6 +298,10 @@ public class VelocityVortexHardware extends OpMode {
 
     public void setDriveWarningMessage(String driveWarningMessage) {
         this.driveWarningMessage = driveWarningMessage;
+    }
+
+    public DcMotor getmBL() {
+        return mBL;
     }
 
     public void setServoWarningMessage(String servoWarningMessage) {

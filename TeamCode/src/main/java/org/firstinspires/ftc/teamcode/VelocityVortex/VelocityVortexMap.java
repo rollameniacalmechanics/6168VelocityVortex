@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 /**
  * Created by spmce on 11/6/2016.
  */
-public class VelocityVortexMap extends VelocityVortexHardware{
+public class VelocityVortexMap extends VelocityVortexHardware {
     public void map() {
         // Hardware Map
         // ADD HARDWARE MAP HERE;
