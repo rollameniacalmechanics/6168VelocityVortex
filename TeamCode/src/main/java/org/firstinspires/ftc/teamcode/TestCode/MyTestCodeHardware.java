@@ -1,14 +1,25 @@
+<<<<<<< HEAD
 package org.firstinspires.ftc.teamcode.TestCode;
+=======
+package org.firstinspires.ftc.teamcode.Shane;
+>>>>>>> origin/master
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 /**
+<<<<<<< HEAD
  * Created by team on 7/18/2017. During FTC JAVA and robotics software workshop
  */
 public class MyTestCodeHardware extends OpMode {
     // after typing extends OpMode remember to implement methods with Alt-Enter
+=======
+ * Created by lsatt on 7/18/2017.
+ */
+
+public class MyTestCodeHardware extends OpMode {
+>>>>>>> origin/master
 
     DcMotor rightMotor;
     DcMotor leftMotor;
@@ -31,15 +42,22 @@ public class MyTestCodeHardware extends OpMode {
     }
 
     private void hardwareInit() {
+<<<<<<< HEAD
 
         rightMotor = hardwareMap.dcMotor.get("rm");
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         leftMotor = hardwareMap.dcMotor.get("lm");
 
+=======
+        rightMotor = hardwareMap.dcMotor.get("rm");
+        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftMotor = hardwareMap.dcMotor.get("lm");
+>>>>>>> origin/master
         liftMotor = hardwareMap.dcMotor.get("lift");
         liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         armMotor = hardwareMap.dcMotor.get("arm");
     }
+<<<<<<< HEAD
 
 }       // end myTestCodeHardware
 
@@ -83,3 +101,6 @@ public class MyTestCodeHardware extends OpMode {
 
     }
 */
+=======
+}
+>>>>>>> origin/master

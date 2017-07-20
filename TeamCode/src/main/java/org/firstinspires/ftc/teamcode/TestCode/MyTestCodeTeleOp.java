@@ -1,14 +1,27 @@
+<<<<<<< HEAD
 package org.firstinspires.ftc.teamcode.TestCode;
+=======
+package org.firstinspires.ftc.teamcode.Shane;
+>>>>>>> origin/master
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
+<<<<<<< HEAD
  * Created by team on 7/19/2017.
  */
 
 @TeleOp(name = "Jill",group = "TeleOp" )
 public class MyTestCodeTeleOp extends MyTestCodeTelemetry {
 
+=======
+ * Created by lsatt on 7/19/2017.
+ */
+@TeleOp(name = "Shane's TeleOp", group = "TeleOp")
+public class MyTestCodeTeleOp extends MyTestCodeTelemetry {
+
+    private int padCofig = 0;
+>>>>>>> origin/master
 
     @Override
     public void init() {
@@ -19,6 +32,7 @@ public class MyTestCodeTeleOp extends MyTestCodeTelemetry {
     public void loop() {
         super.loop();
         padControls();
+<<<<<<< HEAD
         setMotorPower();
         super.myTelemetry();
 
@@ -74,4 +88,50 @@ public class MyTestCodeTeleOp extends MyTestCodeTelemetry {
         liftMotor.setPower(armPower);
     }
 
+=======
+        setMotorPow();
+        configTele();
+        super.myTelemetry();
+    }
+
+    private void padControls() {
+        if (gamepad1.a) {
+            padCofig = 0;
+        }
+        if (gamepad1.b) {
+
+            padCofig = 1;
+        }
+        double drivePower[] = new double[2];
+        if (padCofig == 0) {
+            TankDrive tank = new TankDrive();
+            drivePower = tank.drive(gamepad1);
+        }
+        if (padCofig == 1) {
+            TurnDrive turn = new TurnDrive();
+            drivePower = turn.drive(gamepad1);
+        }
+        rightPower = drivePower[0];
+        leftPower = drivePower[1];
+        liftPower = gamepad1.right_trigger - gamepad1.left_trigger;
+        if (gamepad1.left_bumper) {
+            armPower = 1;
+        } else if (gamepad1.right_bumper) {
+            armPower = -1;
+        } else {
+            armPower = 0;
+        }
+    }
+
+    private void setMotorPow() {
+        rightMotor.setPower(rightPower);
+        leftMotor.setPower(leftPower);
+        liftMotor.setPower(liftPower);
+        armMotor.setPower(armPower);
+    }
+
+    private void configTele() {
+        telemetry.addData("gamepad Configuration", padCofig);
+    }
+>>>>>>> origin/master
 }
